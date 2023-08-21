@@ -944,7 +944,7 @@ public class PricingPages extends App {
 		// Displaying Warning Pop Up
 		App.displayPopUp("PRICING_023_Verify_Importing_Buy_Side_Price_In_Non Standard Pricing");
 
-		String logFile = "BuySideNonstandardPricingIntake1.xlsx";
+		String logFile = "/home/enterpi/Downloads/BRIMLOO ^0 TIGEROO.xlsx";
 		this.pricingPage("Non Standard Pricing");
 		driver.findElement(By.xpath("//*[@class = 'More-Options']")).click();
 		Thread.sleep(700);
@@ -991,6 +991,7 @@ public class PricingPages extends App {
 			Thread.sleep(800);
 			driver.findElement(By.xpath("//*[text() = 'Proceed']")).click();
 		}
+		Thread.sleep(2500);
 		String actText = driver.findElement(By.xpath("//*[@style = 'padding: unset;']")).getText();
 		String expText = "SPA Logs Not Available";
 		if (actText.equals(expText)) {
