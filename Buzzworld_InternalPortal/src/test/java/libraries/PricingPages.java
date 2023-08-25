@@ -918,7 +918,42 @@ public class PricingPages extends App {
 			}
 		}
 	}
-
+	public void verifyVendorisEmptyOrNot(String env, int count) throws Exception {
+		String tabName = ""; String cName = ""; String counts;
+		if (count==1) {
+			
+			tabName = "Pricing"; cName = "products"; 
+			counts =  {"7,112", "35,566", "12,308", "672", "45,644", "13,141", "2,434", "213", "3,366", "848,346", "18,216", "75", "2,978"};
+		} else {
+			tabName = "Discount Codes"; cName = "discount codes";
+		}
+		this.pricingPage(tabName);
+		App.spinner();
+		List<WebElement> vendorList = driver.findElement(By.xpath("//*[@class = 'left-menu']")).findElements(By.xpath("//*[contains(@class, 'user_email')]"));
+		for(int i = 0; i<vendorList.size(); i++) 
+		{
+			String pCount = "";
+			vendorList.get(i).click();
+			try {
+				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@class, 'edit-icon')]")));
+				Thread.sleep(2000);
+				pCount = driver.findElement(By.xpath("//*[contains(@id, 'row-count')]")).getText();
+			} catch (Exception e) {
+			}
+			String supCode = vendorList.get(i).getText();
+			if(pCount.equals(counts[i])) {
+				Object status[] = { "Verify "+supCode+" "+cName+" Count", "Actual products count "+pCount, "Expected products count " + counts[i],
+						"PricingPage", "Passed", java.time.LocalDateTime.now().toString(), env };
+				App.values1(status);
+			}else {
+				Object status[] = { "Verify "+supCode+" "+cName+" Count", "Actual products count "+pCount, "Expected products count " + counts[i],
+						"PricingPage", "Failed", java.time.LocalDateTime.now().toString(), env };
+				App.values1(status);
+			}
+			vendorList = driver.findElement(By.xpath("//*[@class = 'left-menu']")).findElements(By.xpath("//*[contains(@class, 'user_email')]"));
+		}
+	}
 	public void addButton(String btnName) {
 		List<WebElement> btns = driver.findElement(By.tagName("section")).findElements(By.tagName("button"));
 		for (int i = 0; i < btns.size(); i++) {

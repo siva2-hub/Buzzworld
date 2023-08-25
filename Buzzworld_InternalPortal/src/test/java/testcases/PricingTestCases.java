@@ -18,11 +18,13 @@ public class PricingTestCases extends App {
 		} else {
 			env = "QA Instance";
 		}
+		price.verifyVendorisEmptyOrNot(env, 1); 
 		//
-		price.addSPA(env);
+		price.verifyVendorisEmptyOrNot(env, 2); 
 		//
 		price.deletrSPALogs(env);
-		System.exit(0);
+		//
+		price.addSPA(env);
 		//
 		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
 		//
