@@ -919,14 +919,14 @@ public class PricingPages extends App {
 		}
 	}
 	public void verifyVendorisEmptyOrNot(String env, int count) throws Exception {
-		String tabName = ""; String cName = ""; String counts;
+		String tabName = ""; String cName = ""; 
 		if (count==1) {
 			
 			tabName = "Pricing"; cName = "products"; 
-			counts =  {"7,112", "35,566", "12,308", "672", "45,644", "13,141", "2,434", "213", "3,366", "848,346", "18,216", "75", "2,978"};
 		} else {
 			tabName = "Discount Codes"; cName = "discount codes";
 		}
+		String[] counts =  {"7,112", "35,566", "12,308", "672", "45,644", "13,141", "2,434", "213", "3,366", "848,346", "18,216", "75", "2,978"};
 		this.pricingPage(tabName);
 		App.spinner();
 		List<WebElement> vendorList = driver.findElement(By.xpath("//*[@class = 'left-menu']")).findElements(By.xpath("//*[contains(@class, 'user_email')]"));
