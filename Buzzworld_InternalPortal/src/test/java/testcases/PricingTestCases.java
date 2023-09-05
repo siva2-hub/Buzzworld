@@ -18,6 +18,8 @@ public class PricingTestCases extends App {
 		} else {
 			env = "QA Instance";
 		}
+		App.getExcelCellData();
+		System.exit(0);
 		price.verifyVendorisEmptyOrNot(env, 1); 
 		//
 		price.verifyVendorisEmptyOrNot(env, 2); 

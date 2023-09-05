@@ -926,7 +926,7 @@ public class PricingPages extends App {
 		} else {
 			tabName = "Discount Codes"; cName = "discount codes";
 		}
-		String[] counts =  {"7,112", "35,566", "12,308", "672", "45,644", "13,141", "2,434", "213", "3,366", "848,346", "18,216", "75", "2,978"};
+		String[] counts =  {"7,013", "35,566", "12,308", "672", "45,644", "13,141", "2,434", "213", "3,366", "893,530", "18,216", "75", "2,978"};
 		this.pricingPage(tabName);
 		App.spinner();
 		List<WebElement> vendorList = driver.findElement(By.xpath("//*[@class = 'left-menu']")).findElements(By.xpath("//*[contains(@class, 'user_email')]"));

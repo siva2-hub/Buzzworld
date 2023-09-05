@@ -1,5 +1,6 @@
 package commonUtils;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -27,11 +28,14 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -63,10 +67,10 @@ public class App {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
 		//options.addArguments("--headless");
-		driver = new ChromeDriver(options);
+		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		//Select Environment
-		urlOpen("qa");
+		urlOpen("dev");
 		driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/form/div[3]/button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-container']")));
 		Thread.sleep(1800);
@@ -90,8 +94,12 @@ public class App {
 			mail = "defaultuser@enterpi.com";
 			pwd = "Enter@4321";
 
+		} else {
+			url = "http://192.168.1.176:3000/pricing";
+			mail = "defaultuser@enterpi.com";
+			pwd = "Enter@4321";
 		}
-		
+
 		driver.get(url);
 		wait = new WebDriverWait(driver, Duration.ofSeconds(32));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
@@ -101,6 +109,8 @@ public class App {
 	}
 	public static void main(String args[]) throws  Exception 
 	{	
+		App.getExcelCellData();
+		System.exit(0);
 		String file = "tcfile.xlsx";
 		FileOutputStream fo = new FileOutputStream(file);
 		@SuppressWarnings("resource")
@@ -171,6 +181,46 @@ public class App {
 		fo.close();
 		//Send reports to email
 		App.mail("sivakrishna.d@enterpi.com", "Siva7661@", "sivakrishna.d@enterpi.com");
+	}
+	@SuppressWarnings("unlikely-arg-type")
+	public static void getExcelCellData() throws  Exception {
+		App.getGridData();
+		for(int j=0; j<1884; j++) {
+			List<WebElement> sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']")); int count =1;
+			for(int i=0; i<sCodes.size(); i++) {
+				
+				if(i==24) {
+					driver.findElement(By.xpath("//*[@class = 'ag-icon ag-icon-next']")).click();
+					App.spinner(); Thread.sleep(1600);
+				}
+				sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']"));
+				String file = "/home/enterpi/Documents/stock_codes.xlsx";
+				FileInputStream fi = new FileInputStream(file); 
+				FileOutputStream fo = new FileOutputStream(file);
+				@SuppressWarnings("resource")
+				XSSFWorkbook wb = new XSSFWorkbook();
+				XSSFSheet sheet =wb.createSheet("Sheet1");
+				Row row = sheet.createRow(count);
+				Cell cell = row.createCell(0);
+				cell.setCellValue(sCodes.get(i).getText());	
+				count++;
+				wb.write(fo);
+			}
+		}
+	}
+	public static void getGridData() throws InterruptedException 
+	{
+		App.spinner(); Thread.sleep(2000);
+		List<WebElement> sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']"));
+		System.out.println("total rows count in grid "+sCodes.size());
+		for(int i=0; i<sCodes.size(); i++) {
+			System.out.println(sCodes.get(i).getText());
+			if(i==24) {
+				driver.findElement(By.xpath("//*[@class = 'ag-icon ag-icon-next']")).click();
+				App.spinner(); Thread.sleep(1600);
+				sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']"));
+			}
+		}
 	}
 	public static void mail(final String sendorMail, final String sendorPwd, String receiverMail) {
 
@@ -292,7 +342,7 @@ public class App {
 		final JDialog dialog = jop.createDialog(null, "Executed Test Case is...");
 		// Set a 2 second timer
 		new Thread(new Runnable() {
-			
+
 			public void run() {
 				try {
 					Thread.sleep(2500);
