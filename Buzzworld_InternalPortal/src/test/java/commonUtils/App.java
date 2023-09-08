@@ -36,6 +36,8 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -70,7 +72,7 @@ public class App {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		//Select Environment
-		urlOpen("dev");
+		urlOpen("stage");
 		driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/form/div[3]/button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-container']")));
 		Thread.sleep(1800);
@@ -95,7 +97,7 @@ public class App {
 			pwd = "Enter@4321";
 
 		} else {
-			url = "http://192.168.1.176:3000/pricing";
+			url = "http://192.168.1.28:3000/pricing";
 			mail = "defaultuser@enterpi.com";
 			pwd = "Enter@4321";
 		}
@@ -182,31 +184,27 @@ public class App {
 		//Send reports to email
 		App.mail("sivakrishna.d@enterpi.com", "Siva7661@", "sivakrishna.d@enterpi.com");
 	}
-	@SuppressWarnings("unlikely-arg-type")
-	public static void getExcelCellData() throws  Exception {
-		App.getGridData();
-		for(int j=0; j<1884; j++) {
-			List<WebElement> sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']")); int count =1;
-			for(int i=0; i<sCodes.size(); i++) {
-				
-				if(i==24) {
-					driver.findElement(By.xpath("//*[@class = 'ag-icon ag-icon-next']")).click();
-					App.spinner(); Thread.sleep(1600);
-				}
-				sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']"));
-				String file = "/home/enterpi/Documents/stock_codes.xlsx";
-				FileInputStream fi = new FileInputStream(file); 
-				FileOutputStream fo = new FileOutputStream(file);
-				@SuppressWarnings("resource")
-				XSSFWorkbook wb = new XSSFWorkbook();
-				XSSFSheet sheet =wb.createSheet("Sheet1");
-				Row row = sheet.createRow(count);
-				Cell cell = row.createCell(0);
-				cell.setCellValue(sCodes.get(i).getText());	
-				count++;
-				wb.write(fo);
-			}
+
+	public static ArrayList<Object> getExcelCellData() throws  Exception {
+
+		String file = "/home/enterpi/Documents/vendors_count.xlsx";
+		FileInputStream fi = new FileInputStream(file);
+		Workbook wb = new XSSFWorkbook(fi);
+		Sheet ws = wb.getSheet("sheet1");
+		ArrayList<Object> list = new ArrayList<Object>();
+		int count =0;
+		for(int i=1;i<= ws.getLastRowNum(); i++) 
+		{
+			Row row = ws.getRow(i);
+			Cell pc = row.getCell(1); Cell vc = row.getCell(0); 
+			String pCount = pc.getStringCellValue(); 
+			String vendor = vc.getStringCellValue();
+			list.add(count, pCount); 
+			count++;
+			//System.out.println(vendor+" "+pCount);
 		}
+		System.out.println("count of list is "+list.size());
+		return list;
 	}
 	public static void getGridData() throws InterruptedException 
 	{
@@ -388,6 +386,26 @@ public class App {
 			Thread.sleep(1200);
 		} catch (Exception e) {
 		}
+	}
+	public static void selectDropdowns(String text) throws Exception
+	{
+		String dropDownText = driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).getText();
+		System.out.println("Drop Down Text is "+dropDownText);
+		if (!dropDownText.contains("No")) {
+			List<WebElement> drops = driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).findElements(By.tagName("div"));
+			System.out.println("count div tags are "+drops.size());
+			ArrayList<Object> branches = new ArrayList<Object>();
+			Thread.sleep(500);
+			for (int i = 0; i < drops.size(); i++) {
+				branches.add(i, drops.get(i));
+				System.out.println("values are "+drops.get(i).getText());
+				if(drops.get(i).getText().equalsIgnoreCase(text)) {
+					drops.get(i).click();
+					break;
+				}
+				drops = driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).findElements(By.tagName("div"));
+			}
+		} else {}
 	}
 	public static void values1(Object data[]) throws Exception {
 		String date = java.time.LocalDateTime.now().toString().replace("T", " ").substring(0, 19);

@@ -15,13 +15,15 @@ public class PricingTestCases extends App {
 		String env = "";
 		if (driver.getCurrentUrl().contains("staging")) {
 			env = "Stage Instance";
-		} else {
+		} else if(driver.getCurrentUrl().contains("web")) {
 			env = "QA Instance";
+		}else {
+			env = "Dev Instance";
 		}
-		App.getExcelCellData();
-		System.exit(0);
+		
 		price.verifyVendorisEmptyOrNot(env, 1); 
 		//
+		System.exit(0);
 		price.verifyVendorisEmptyOrNot(env, 2); 
 		//
 		price.deletrSPALogs(env);

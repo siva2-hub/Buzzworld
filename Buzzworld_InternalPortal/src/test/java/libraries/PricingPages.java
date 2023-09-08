@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.concurrent.ThreadSafe;
@@ -187,7 +188,7 @@ public class PricingPages extends App {
 		boolean res = false;
 		System.out.println("dc was added.......!");
 		driver.findElement(By.xpath("//*[@class='quote-search-width']"))
-				.findElement(By.xpath("//*[@placeholder='Search By Discount Code']")).sendKeys(dc);
+		.findElement(By.xpath("//*[@placeholder='Search By Discount Code']")).sendKeys(dc);
 		App.spinner();
 		Thread.sleep(1500);
 		String actStockCode = App.getGridData(0);
@@ -259,7 +260,7 @@ public class PricingPages extends App {
 		String pricingFile = "/home/enterpi/Downloads/apr2023PricingFile/Saginaw PriceList-Import-2023.csv";
 		this.pricingPage("Pricing");
 		driver.findElement(By.className("sideList-Search")).findElement(By.xpath("//*[@placeholder='Search']"))
-				.sendKeys("SAGI001");
+		.sendKeys("SAGI001");
 		Thread.sleep(3000);
 		WebElement supName1 = driver.findElement(By.className("left-menu"))
 				.findElement(By.xpath("//*[@class='active menu-item-single']"));
@@ -311,7 +312,7 @@ public class PricingPages extends App {
 			// End Date
 			act.sendKeys(Keys.ENTER).build().perform();
 			driver.findElements(By.xpath("//*[contains(@style, 'box-sizing: content-box;')]")).get(2)
-					.sendKeys(Keys.ENTER);
+			.sendKeys(Keys.ENTER);
 			for (int i = 0; i < 15; i++) {
 				act.sendKeys(Keys.ARROW_DOWN).build().perform();
 			}
@@ -692,26 +693,26 @@ public class PricingPages extends App {
 			String listPrice, String productClass, String env) throws Exception {
 		String tcName = "";
 		switch (count) {
-			case 1:
-				tcName = "PRICING_012_VerifyAddProduct_DuplicateStockCode";
-				break;
-			case 2:
-				tcName = "PRICING_013_VerifyAddProduct_EmptyStockCode";
-				break;
-			case 3:
-				tcName = "PRICING_014_VerifyAddProduct_EmptyDiscountCode";
-				break;
-			case 4:
-				tcName = "PRICING_015_VerifyAddProduct_EmptyListPrice";
-				break;
-			case 5:
-				tcName = "PRICING_016_VerifyAddProduct_InvalidListPrice";
-				break;
-			case 6:
-				tcName = "PRICING_017_VerifyAddProduct_EmptyProductClass";
-				break;
-			default:
-				break;
+		case 1:
+			tcName = "PRICING_012_VerifyAddProduct_DuplicateStockCode";
+			break;
+		case 2:
+			tcName = "PRICING_013_VerifyAddProduct_EmptyStockCode";
+			break;
+		case 3:
+			tcName = "PRICING_014_VerifyAddProduct_EmptyDiscountCode";
+			break;
+		case 4:
+			tcName = "PRICING_015_VerifyAddProduct_EmptyListPrice";
+			break;
+		case 5:
+			tcName = "PRICING_016_VerifyAddProduct_InvalidListPrice";
+			break;
+		case 6:
+			tcName = "PRICING_017_VerifyAddProduct_EmptyProductClass";
+			break;
+		default:
+			break;
 		}
 		// Warning Pop Up
 		App.displayPopUp(tcName);
@@ -856,7 +857,7 @@ public class PricingPages extends App {
 		this.clickButton("Update");
 		this.pricingPage("Pricing");
 		driver.findElement(By.className("sideList-Search")).findElement(By.xpath("//*[@placeholder='Search']"))
-				.sendKeys("BACO001");
+		.sendKeys("BACO001");
 		Thread.sleep(3000);
 		WebElement supName1 = driver.findElement(By.className("left-menu"))
 				.findElement(By.xpath("//*[@class='active menu-item-single']"));
@@ -921,12 +922,11 @@ public class PricingPages extends App {
 	public void verifyVendorisEmptyOrNot(String env, int count) throws Exception {
 		String tabName = ""; String cName = ""; 
 		if (count==1) {
-			
 			tabName = "Pricing"; cName = "products"; 
 		} else {
 			tabName = "Discount Codes"; cName = "discount codes";
 		}
-		String[] counts =  {"7,013", "35,566", "12,308", "672", "45,644", "13,141", "2,434", "213", "3,366", "893,530", "18,216", "75", "2,978"};
+		ArrayList<Object> counts =  App.getExcelCellData();
 		this.pricingPage(tabName);
 		App.spinner();
 		List<WebElement> vendorList = driver.findElement(By.xpath("//*[@class = 'left-menu']")).findElements(By.xpath("//*[contains(@class, 'user_email')]"));
@@ -934,20 +934,33 @@ public class PricingPages extends App {
 		{
 			String pCount = "";
 			vendorList.get(i).click();
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); 
+			App.spinner(); Thread.sleep(1600); 
+			driver.findElement(By.xpath("//*[contains(@class, 'select-branch-button')]")).click(); 
+			wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[@ref = 'lbRecordCount']"), "more"));
+			Thread.sleep(1600);
+			App.selectDropdowns("Default");
+			wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[@ref = 'lbRecordCount']"), "more"));
+			Thread.sleep(1600);
 			try {
-				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@class, 'edit-icon')]")));
-				Thread.sleep(2000);
-				pCount = driver.findElement(By.xpath("//*[contains(@id, 'row-count')]")).getText();
+				Thread.sleep(1600);
+				wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[@ref = 'lbRecordCount']"), "more"));
+				Thread.sleep(1600);
+				pCount = driver.findElement(By.xpath("//*[contains(@id, 'row-count')]")).getText().replace(",", "")+".0";
+				//				System.out.println("product count in grid is "+pCount);
+				//				System.out.println("product count in excel sheet is "+counts.get(i));
+				//				System.exit(0);
 			} catch (Exception e) {
 			}
 			String supCode = vendorList.get(i).getText();
-			if(pCount.equals(counts[i])) {
-				Object status[] = { "Verify "+supCode+" "+cName+" Count", "Actual products count "+pCount, "Expected products count " + counts[i],
+			if(pCount.equals(counts.get(i))) 
+			{
+				Object status[] = { "Verify "+supCode+" "+cName+" Count", "Actual products count "+pCount, "Expected products count " + counts.get(i),
 						"PricingPage", "Passed", java.time.LocalDateTime.now().toString(), env };
 				App.values1(status);
 			}else {
-				Object status[] = { "Verify "+supCode+" "+cName+" Count", "Actual products count "+pCount, "Expected products count " + counts[i],
+				Object status[] = { "Verify "+supCode+" "+cName+" Count", "Actual products count "+pCount, "Expected products count " + counts.get(i),
 						"PricingPage", "Failed", java.time.LocalDateTime.now().toString(), env };
 				App.values1(status);
 			}
