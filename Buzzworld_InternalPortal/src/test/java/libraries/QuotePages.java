@@ -21,46 +21,47 @@ public class QuotePages extends App
 	PricingPages price ;
 	public void createQuote() throws Exception 
 	{	rp = new RepairPages();	
-	driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-	try {
-		driver.findElement(By.xpath("//*[contains(@class,'Cross-svg close-icon-container')]")).isDisplayed();
-		driver.findElement(By.xpath("//*[contains(@class,'Cross-svg close-icon-container')]")).click();
-	} catch (Exception e) {
-		System.out.println(e.getMessage());
-	}
-	App.spinner();
-	try {
-		driver.findElement(By.xpath("//*[text() = 'OPEN12']")).isDisplayed();
-		driver.findElement(By.xpath("//*[text() = 'OPEN12']")).click();
-	} catch (Exception e) 
-	{
-		String custName = "Motion Industries - Grand Prairie";
-		driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
-		driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
+		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		try {
+			driver.findElement(By.xpath("//*[contains(@class,'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;')]")).isDisplayed();
+			driver.findElement(By.xpath("//*[contains(@class,'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;')]")).click();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace()[0]);
+		}
 		App.spinner();
-		Thread.sleep(1200);
-		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
-		App.spinner();Thread.sleep(1000);
-		driver.findElement(By.name("project_name")).sendKeys("Test");
-		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
-		Thread.sleep(2500);
-		this.selectDropDown("Parts Quote");
-		Thread.sleep(1500);
-		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("repair-items")));
-	}
+		try {
+			driver.findElement(By.xpath("//*[text() = 'OPEN123']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'OPEN123']")).click();
+		} catch (Exception e) 
+		{
+			String custName = "Motion Industries - Grand Prairie";
+			driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
+			driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
+			App.spinner();
+			Thread.sleep(1200);
+			driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
+			App.spinner();Thread.sleep(1000);
+			driver.findElement(By.name("project_name")).sendKeys("Test");
+			driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+			Thread.sleep(2500);
+			this.selectDropDown("Parts Quote");
+			Thread.sleep(1500);
+			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+			Thread.sleep(1600);
+		}
 	}
 	public void selectItemToQuote() throws Exception {
-
-		driver.findElement(By.id("repair-items")).findElement(By.className("button-icon-text")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		driver.findElement(By.xpath("//*[text() = 'Add Items']")).click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
 		driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).sendKeys("0165009LS");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = '0165009LS']")));
 		Thread.sleep(1800);
-		//		driver.findElements(By.xpath("//*[contains(@class,'item-selection-grid')]")).get(0).findElement(By.tagName("label")).click();
 		Actions act = new Actions(driver);
 		driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).click();
 		act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
@@ -255,12 +256,12 @@ public class QuotePages extends App
 		Thread.sleep(1200);
 		act.sendKeys(Keys.ENTER).build().perform();
 		//Update leadTime
-		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(2).click();
-		Thread.sleep(1200);
-		act.sendKeys("Week(s)").build().perform();
-		act.sendKeys(Keys.ENTER).build().perform();
-		driver.findElement(By.xpath("//*[@name='lead_time_value']")).sendKeys("3");
-		act.doubleClick(driver.findElements(By.xpath("//*[text()='Edit Quote Item']")).get(1)).build().perform();
+//		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(2).click();
+//		Thread.sleep(1200);
+//		act.sendKeys("Week(s)").build().perform();
+//		act.sendKeys(Keys.ENTER).build().perform();
+//		driver.findElement(By.xpath("//*[@name='lead_time_value']")).sendKeys("3");
+		act.doubleClick(driver.findElement(By.xpath("//*[text()='Save']"))).build().perform();
 		Thread.sleep(2500);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]")));
 		driver.findElement(By.xpath("//*[text() = 'Submit for Internal Approval']")).click();
@@ -322,7 +323,7 @@ public class QuotePages extends App
 		}
 		driver.findElement(By.xpath("//*[@placeholder='Quote ID / Company Name / Sales Person Name / Email']")).sendKeys(searchBy);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-viewport']")));
-		Thread.sleep(5000);
+		App.spinner(); Thread.sleep(1300);
 		String gridText = driver.findElement(By.xpath("//*[@class='ag-center-cols-viewport']")).getText();
 		System.out.println("data of grid is "+gridText);
 		Thread.sleep(2000);
@@ -334,10 +335,14 @@ public class QuotePages extends App
 			//			App.logout();
 		} else {
 			if (count==4) {
-				driver.findElement(By.xpath("//*[contains(@src, 'vendor_logo')]")).click();
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("repair-items")));
-				path = "/html/body/div/div/div[4]/div[1]/div/div[1]/div[1]/div[2]/div[6]/div/div/p";
-				actText = driver.findElement(By.xpath(path)).getText();
+				try {
+					driver.findElement(By.xpath("//*[contains(@src, 'vendor_logo')]")).click();
+				} catch (Exception e) {
+					System.out.println(e.getStackTrace()[0]);
+				}
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'avator')]")));
+				path = "//*[contains(@class, 'calc-width-33')]";
+				actText = driver.findElements(By.xpath(path)).get(6).getText();
 				String act2 = actText;
 				String act1 = searchBy;
 				actText = act1;
@@ -358,19 +363,21 @@ public class QuotePages extends App
 		}
 		if (count==4) {
 			driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
-			App.spinner();
+			App.spinner(); Thread.sleep(1500);
 			try {
-				driver.findElement(By.xpath("//*[@style = 'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;']")).isDisplayed();
+
 				driver.findElement(By.xpath("//*[@style = 'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;']")).click();
 				App.spinner();
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println(e);
+				e.printStackTrace();
 			}
 		} else {
 			try {
-				driver.findElement(By.className("Cross-svg")).click();
+				driver.findElement(By.xpath("//*[@style = 'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;']")).click();
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println(e);
+				e.printStackTrace();
 			}
 		}
 		return res;

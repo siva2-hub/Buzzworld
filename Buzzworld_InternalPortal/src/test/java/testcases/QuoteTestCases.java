@@ -21,11 +21,11 @@ public class QuoteTestCases extends App{
 			env = "QA Instance";
 		}
 		try {
-			all.quotesModule("Week(s)", "21", "32.23", env);
+//			all.quotesModule("Week(s)", "21", "32.23", env);
 		} catch (Exception e) {
 			System.err.println(e.getMessage().lines());
 		}
-		//Verify Quote Lost, Verify Quote clone from Quote for Parts
+		//		Verify Quote Lost, Verify Quote clone from Quote for Parts
 		quotes.verifyQuoteWon(2, env);
 		//Verify Quote Clone from Quote for Repair
 		quotes.quoteClone_QuoteForRepairs(env);

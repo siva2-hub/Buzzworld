@@ -415,12 +415,11 @@ public class App {
 			driver.findElement(By.xpath(path)).sendKeys(send_value);
 		}else if(type.equals("get_text")){
 			driver.findElement(By.xpath(path)).getText();
-		}else {
-			driver.findElement(By.xpath(path));
 		}
+		
 	}
-	
-	public static void values1(Object data[]) throws Exception {
+	publ
+public static void values1(Object data[]) throws Exception {
 		String date = java.time.LocalDateTime.now().toString().replace("T", " ").substring(0, 19);
 		Class.forName("com.mysql.jdbc.Driver");  
 		//String dbName = "demo"; String userName = "root"; String pwd = "siva7661@"; String host = "localhost";
