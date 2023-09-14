@@ -1120,16 +1120,27 @@ public class AllModules extends App
 		//Search with Quote id in quotes
 		App.click_xpath("//*[contains(@placeholder, 'Quote ID / Company Names')]", "send_keys", quote_number);
 		App.spinner(); Thread.sleep(1300);
-		String total_price_list = App.getGridData(8);
-		
+		String total_price_list_view = App.getGridData(8);
+		if (total_price_list_view.equals(total_price_det)) {
+			Object status[] = {"QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View", "In grid price "+total_price_list_view, 
+					"In detail view price "+total_price_det, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View", "In grid price "+total_price_list_view, 
+					"In detail view price "+total_price_det, "QuotesPage", "Failed", 
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
 		List<WebElement> stock_codes = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
-		ArrayList<String> line_order = new ArrayList<String>();
+		ArrayList<String> line_order_bef_clone = new ArrayList<String>();
 		System.out.println("Before Clone the Quote Items line order");
 		for(int i=0; i<stock_codes.size(); i++) {
-			line_order.add(stock_codes.get(i).findElement(By.tagName("h4")).getText());
-			System.out.println(line_order.get(i));
+			line_order_bef_clone.add(stock_codes.get(i).findElement(By.tagName("h4")).getText());
+			System.out.println(line_order_bef_clone.get(i));
 		}
-		String items_count = String.valueOf(stock_codes.size());
+		String items_count_bef_clone = String.valueOf(stock_codes.size());
+		System.out.println("before clone the quote items count is "+items_count_bef_clone);
 		//click on quote which in grid to redirects to detailed view
 		App.click_xpath("//*[@class ='ag-react-container']", "click", "");
 		App.spinner(); Thread.sleep(1300);
@@ -1140,6 +1151,53 @@ public class AllModules extends App
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '"+org_acc_number+"')]")));
 		driver.findElements(By.xpath("//*[text() ='Proceed']")).get(1).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Add Options')]")));
+		String aft_clone_quote_number = driver.findElement(By.className("id-num")).getText().replace("#", "");
+		String aft_clone_total_price_det = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText();
+		
+		App.click_xpath("//*[text() = 'Quotes']", "click", "");
+		App.spinner(); Thread.sleep(1300);
+		App.click_xpath("//*[contains(@placeholder, 'Quote ID / Company Names')]", "send_keys", aft_clone_quote_number);
+		App.spinner(); Thread.sleep(1300);
+		List<WebElement> aft_clone_stock_codes = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
+		ArrayList<String> aft_clone_line_order = new ArrayList<String>();
+		System.out.println("Before Clone the Quote Items line order");
+		for(int i=0; i<stock_codes.size(); i++) {
+			aft_clone_line_order.add(stock_codes.get(i).findElement(By.tagName("h4")).getText());
+			System.out.println(aft_clone_stock_codes.get(i));
+		}
+		String aft_clone_items_count_bef_clone = String.valueOf(aft_clone_stock_codes.size());
+		System.out.println("before clone the quote items count is "+aft_clone_items_count_bef_clone);
+		boolean res = false;
+		for(int c =0; c<aft_clone_stock_codes.size(); c++) 
+		{
+			if(aft_clone_line_order.get(c).equals(line_order_bef_clone.get(c))) {
+				res = true;
+			}else {
+				res = false;
+			}
+		}
+		if (res) {
+			Object status[] = {"QUOTES_028_Verify_Items_Line_Order_After_Clone", "", 
+					"", "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_028_Verify_Items_Line_Order_After_Clone", "", 
+					"", "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		
+		if (aft_clone_total_price_det.equals(total_price_det)) 
+		{
+			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After_Clone", "after clone grid price in det"+aft_clone_total_price_det, 
+					"after clone grid price in detIn detail view price "+total_price_det, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After_Clone", "after clone grid price in det"+aft_clone_total_price_det, 
+					"after clone grid price in detIn detail view price "+total_price_det, "QuotesPage", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
 	}
 	public void org_search(String org_name) throws Exception {
 		driver.findElements(By.xpath("//*[text()='Organizations']")).get(0).click();
