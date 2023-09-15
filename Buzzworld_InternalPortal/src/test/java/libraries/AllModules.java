@@ -1093,7 +1093,7 @@ public class AllModules extends App
 			
 		}
 	}
-	public void verify_total_price_grid_detail_view() throws Exception {
+	public void verify_total_price_grid_detail_view(String env) throws Exception {
 		//create Quote
 		quotes.createQuote();
 		App.click_xpath("//*[text() = 'Add Items']", "click", "");
