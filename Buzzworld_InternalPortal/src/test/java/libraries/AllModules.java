@@ -2,6 +2,8 @@ package libraries;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -736,57 +738,57 @@ public class AllModules extends App
 	}
 	public void quotesModule(String leadTime, String leadValue, String discount, String env) throws Exception
 	{
-//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-//		//Search Functionality
-//		try {
-//			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
-//			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		//Search with Quote Id
-//		//Warning Pop Up
-//		this.clearButtonTopSearch();
-//		App.displayPopUp("QUOTES_014_VerifySearchByQuoteId");
-//		quotes.verifyTopSearchInQuoteListView("2023053100074", 1, env);
-//		this.clearButtonTopSearch();
-//		//Search with Company Name
-//		//Warning Pop Up
-//		App.displayPopUp("QUOTES_015_VerifySearchByCompanyName");
-//		quotes.verifyTopSearchInQuoteListView("123 E Doty Corporation", 2, env);
-//		this.clearButtonTopSearch();
-//		//Search with Sales Person
-//		//Warning Pop Up
-//		App.displayPopUp("QUOTES_016_VerifySearchBySalesPersonName");
-//		quotes.verifyTopSearchInQuoteListView("Frontier", 3, env);
-//		this.clearButtonTopSearch();
-//		//Search with Email
-//		//Warning Pop Up
-//		App.displayPopUp("QUOTES_017_VerifySearchByEmail");
-//		quotes.verifyTopSearchInQuoteListView("pete.soto@motion-ind.com", 4, env);
-//		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
-//		App.spinner();
-//		this.clearButtonTopSearch(); App.spinner(); Thread.sleep(1200);
-//		//Filters In Quote List View
-//		//Warning Pop Up
-//		App.displayPopUp("QUOTES_018_VerifyFiltersInQuotesListView");
-//		quotes.verifyFiltersInQuoteListView("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
-//		//Filter's State Maintenance
-//		//Warning Pop Up
-//		App.displayPopUp("QUOTES_019_VerifyFiltersStateMaintanance");
-//		quotes.verifyFiltersStateMaintanance("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
-//		//Reset and Clear Buttons in Filter's Page
-//		//Warning Pop Up
-//		App.displayPopUp("QUOTES_020_VerifyResetandClearButtonInFiltersPage");
-//		quotes.verifyResetandClearButtonInFiltersPage("Zummo Meat Co Inc", 1, env);
+		//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		//		//Search Functionality
+		//		try {
+		//			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
+		//			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
+		//		} catch (Exception e) {
+		//			System.out.println(e.getMessage());
+		//		}
+		//		//Search with Quote Id
+		//		//Warning Pop Up
+		//		this.clearButtonTopSearch();
+		//		App.displayPopUp("QUOTES_014_VerifySearchByQuoteId");
+		//		quotes.verifyTopSearchInQuoteListView("2023053100074", 1, env);
+		//		this.clearButtonTopSearch();
+		//		//Search with Company Name
+		//		//Warning Pop Up
+		//		App.displayPopUp("QUOTES_015_VerifySearchByCompanyName");
+		//		quotes.verifyTopSearchInQuoteListView("123 E Doty Corporation", 2, env);
+		//		this.clearButtonTopSearch();
+		//		//Search with Sales Person
+		//		//Warning Pop Up
+		//		App.displayPopUp("QUOTES_016_VerifySearchBySalesPersonName");
+		//		quotes.verifyTopSearchInQuoteListView("Frontier", 3, env);
+		//		this.clearButtonTopSearch();
+		//		//Search with Email
+		//		//Warning Pop Up
+		//		App.displayPopUp("QUOTES_017_VerifySearchByEmail");
+		//		quotes.verifyTopSearchInQuoteListView("pete.soto@motion-ind.com", 4, env);
+		//		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
+		//		App.spinner();
+		//		this.clearButtonTopSearch(); App.spinner(); Thread.sleep(1200);
+		//		//Filters In Quote List View
+		//		//Warning Pop Up
+		//		App.displayPopUp("QUOTES_018_VerifyFiltersInQuotesListView");
+		//		quotes.verifyFiltersInQuoteListView("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
+		//		//Filter's State Maintenance
+		//		//Warning Pop Up
+		//		App.displayPopUp("QUOTES_019_VerifyFiltersStateMaintanance");
+		//		quotes.verifyFiltersStateMaintanance("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
+		//		//Reset and Clear Buttons in Filter's Page
+		//		//Warning Pop Up
+		//		App.displayPopUp("QUOTES_020_VerifyResetandClearButtonInFiltersPage");
+		//		quotes.verifyResetandClearButtonInFiltersPage("Zummo Meat Co Inc", 1, env);
 		//Create Quote
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_001_VerifyCreateQuote");
 		quotes.createQuote();
 		App.spinner(); Thread.sleep(1300);
-		
+
 		String org_acc_number = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(5).findElement(By.tagName("p")).getText();
-		
+
 		String actText = driver.findElement(By.xpath("//*[@class='quote-num-and-status']")).getText();
 		String expText = "OPEN";
 		if (actText.toLowerCase().contains(expText.toLowerCase())) 
@@ -820,27 +822,27 @@ public class AllModules extends App
 		String stockCode = driver.findElement(By.xpath("//*[@class=' width-25 flexed']")).findElement(By.tagName("h4")).getText();
 		//Check the  Quote Price and Suggested Price based on Customer Account Type
 		//Organization searching for Territory code
-//		this.org_search(org_acc_number); Thread.sleep(1200);
-//		String acc_number_org_grid = App.getGridData(1);
-//		App.horizentalScroll();
-//		String tertry_code_org_grid = App.getGridData(12);
-//		App.clickLabel("click_admin"); App.spinner(); Thread.sleep(1300);
-//		App.clickLabel("click_territory"); App.spinner(); 
-//		App.spinner() ; Thread.sleep(1200);
-//		driver.findElement(By.xpath("//*[@placeholder = 'Search By Territory']")).sendKeys(tertry_code_org_grid);
-//		App.spinner() ; Thread.sleep(1200);
-//		String branch_tertry_grid = App.getGridData(5);
-//		//		App.clickLabel("click_branch"); App.spinner(); Thread.sleep(1300);
-//		//		driver.findElement(By.xpath("")).sendKeys(branch_tertry_grid);
-//		//		App.spinner(); Thread.sleep(1300);
-//		price.pricingPage("Pricing");
-//		App.spinner(); Thread.sleep(1500);
-//		driver.findElement(By.xpath("//*[@placeholder = 'Search']")).sendKeys(ven_name_quote_del);
-//		App.spinner() ; Thread.sleep(1200);
-//		driver.findElement(By.xpath("//*[contains(@class, 'select-branch-button')]")).click(); 
-//		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[@ref = 'lbRecordCount']"), "more"));
-//		Thread.sleep(1600);
-//		App.selectDropdowns(branch_tertry_grid);
+		//		this.org_search(org_acc_number); Thread.sleep(1200);
+		//		String acc_number_org_grid = App.getGridData(1);
+		//		App.horizentalScroll();
+		//		String tertry_code_org_grid = App.getGridData(12);
+		//		App.clickLabel("click_admin"); App.spinner(); Thread.sleep(1300);
+		//		App.clickLabel("click_territory"); App.spinner(); 
+		//		App.spinner() ; Thread.sleep(1200);
+		//		driver.findElement(By.xpath("//*[@placeholder = 'Search By Territory']")).sendKeys(tertry_code_org_grid);
+		//		App.spinner() ; Thread.sleep(1200);
+		//		String branch_tertry_grid = App.getGridData(5);
+		//		//		App.clickLabel("click_branch"); App.spinner(); Thread.sleep(1300);
+		//		//		driver.findElement(By.xpath("")).sendKeys(branch_tertry_grid);
+		//		//		App.spinner(); Thread.sleep(1300);
+		//		price.pricingPage("Pricing");
+		//		App.spinner(); Thread.sleep(1500);
+		//		driver.findElement(By.xpath("//*[@placeholder = 'Search']")).sendKeys(ven_name_quote_del);
+		//		App.spinner() ; Thread.sleep(1200);
+		//		driver.findElement(By.xpath("//*[contains(@class, 'select-branch-button')]")).click(); 
+		//		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[@ref = 'lbRecordCount']"), "more"));
+		//		Thread.sleep(1600);
+		//		App.selectDropdowns(branch_tertry_grid);
 		//Print and Download
 		//		Warning Pop Up
 		App.displayPopUp("QUOTES_013_VerifyPrintFunctionality");
@@ -854,10 +856,10 @@ public class AllModules extends App
 		act.moveToElement(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
 		act.click(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
 		Thread.sleep(1600);
-//		driver.findElement(By.xpath("//*[@placeholder='Enter Gross Profit']")).click();
-//		act.sendKeys(Keys.TAB).build().perform();
-//		act.sendKeys(Keys.TAB).build().perform();
-//		act.sendKeys(leadTime).build().perform();
+		//		driver.findElement(By.xpath("//*[@placeholder='Enter Gross Profit']")).click();
+		//		act.sendKeys(Keys.TAB).build().perform();
+		//		act.sendKeys(Keys.TAB).build().perform();
+		//		act.sendKeys(leadTime).build().perform();
 		Thread.sleep(1500);
 		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(1).click();
 		Thread.sleep(1200);
@@ -1028,7 +1030,7 @@ public class AllModules extends App
 		App.displayPopUp("QUOTES_010_VerifyCreateSalesOrder_FromQuote");
 		driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
 		if (env.contains("QA")) {
-			
+
 			try {
 				App.spinner();
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("customer_po_number")));
@@ -1090,7 +1092,7 @@ public class AllModules extends App
 			Object status1[] = {"QUOTES_011_VerifyCreateJobFromQuote", "Not Executed", 
 					"", "Jobs Page", "Passed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status1);
-			
+
 		}
 	}
 	public void verify_total_price_grid_detail_view(String env) throws Exception {
@@ -1114,24 +1116,9 @@ public class AllModules extends App
 		Thread.sleep(1000);
 		String total_price_det = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText();
 		String quote_number = driver.findElement(By.className("id-num")).getText().replace("#", "");
-		//Click on Quotes module on header
-		App.click_xpath("//*[text() = 'Quotes']", "click", "");
-		App.spinner(); Thread.sleep(1300);
-		//Search with Quote id in quotes
-		App.click_xpath("//*[contains(@placeholder, 'Quote ID / Company Names')]", "send_keys", quote_number);
-		App.spinner(); Thread.sleep(1300);
-		String total_price_list_view = App.getGridData(8);
-		if (total_price_list_view.equals(total_price_det)) {
-			Object status[] = {"QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View", "In grid price "+total_price_list_view, 
-					"In detail view price "+total_price_det, "QuotesPage", "Passed",
-					java.time.LocalDateTime.now().toString(), env};
-			App.values1(status);
-		} else {
-			Object status[] = {"QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View", "In grid price "+total_price_list_view, 
-					"In detail view price "+total_price_det, "QuotesPage", "Failed", 
-					java.time.LocalDateTime.now().toString(), env};
-			App.values1(status);
-		}
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//*[text()='Internal Approvals']")));
+		Thread.sleep(2000);
 		List<WebElement> stock_codes = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
 		ArrayList<String> line_order_bef_clone = new ArrayList<String>();
 		System.out.println("Before Clone the Quote Items line order");
@@ -1141,6 +1128,28 @@ public class AllModules extends App
 		}
 		String items_count_bef_clone = String.valueOf(stock_codes.size());
 		System.out.println("before clone the quote items count is "+items_count_bef_clone);
+		//Click on Quotes module on header
+		App.click_xpath("//*[text() = 'Quotes']", "click", "");
+		App.spinner(); Thread.sleep(1300);
+		//clear the Top Search
+		App.clearTopSearch(); App.spinner(); Thread.sleep(1300);
+		//Search with Quote id in quotes
+		App.click_xpath("//*[contains(@placeholder, 'Quote ID / Company Name')]", "send_keys", quote_number);
+		App.spinner(); Thread.sleep(2300);
+		//read the Grand total in list view
+		String total_price_list_view = App.getGridData(8);
+		if (total_price_list_view.equals(total_price_det)) {
+			Object status[] = {"QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View_"+quote_number, "In grid price "+total_price_list_view, 
+					"In detail view price "+total_price_det, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View_"+quote_number, "In grid price "+total_price_list_view, 
+					"In detail view price "+total_price_det, "QuotesPage", "Failed", 
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+
 		//click on quote which in grid to redirects to detailed view
 		App.click_xpath("//*[@class ='ag-react-container']", "click", "");
 		App.spinner(); Thread.sleep(1300);
@@ -1148,25 +1157,46 @@ public class AllModules extends App
 		App.click_xpath("//*[text() = 'Search By Account ID or Company Name']", "click", "");
 		String org_acc_number = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(5).findElement(By.tagName("p")).getText();
 		act.sendKeys(org_acc_number).build().perform();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '"+org_acc_number+"')]")));
+		Thread.sleep(3000); act.sendKeys(Keys.ENTER).build().perform();
 		driver.findElements(By.xpath("//*[text() ='Proceed']")).get(1).click();
+		Thread.sleep(1500);
+		App.click_xpath("//*[text() ='Proceed']", "click", "");
+		App.spinner(); Thread.sleep(1400);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Add Options')]")));
 		String aft_clone_quote_number = driver.findElement(By.className("id-num")).getText().replace("#", "");
 		String aft_clone_total_price_det = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText();
-		
+		Thread.sleep(1300);
 		App.click_xpath("//*[text() = 'Quotes']", "click", "");
 		App.spinner(); Thread.sleep(1300);
-		App.click_xpath("//*[contains(@placeholder, 'Quote ID / Company Names')]", "send_keys", aft_clone_quote_number);
-		App.spinner(); Thread.sleep(1300);
+		App.clearTopSearch(); App.spinner(); Thread.sleep(1300);
+		//search with quote Id
+		App.click_xpath("//*[contains(@placeholder, 'Quote ID / Company Name')]", "send_keys", aft_clone_quote_number);
+		App.spinner(); Thread.sleep(2500);
+		String aft_clone_total_price_list = App.getGridData(8);
+		if (aft_clone_total_price_list.equals(aft_clone_total_price_det)) {
+			Object status[] = {"QUOTES_030_VerifyPrices_In_Grid_and_Detailed_View_After_Clone_"+aft_clone_quote_number, "In grid price "+aft_clone_total_price_list, 
+					"In detail view price "+aft_clone_total_price_det, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_030_VerifyPrices_In_Grid_and_Detailed_View_After_Clone_"+aft_clone_quote_number, "In grid price "+aft_clone_total_price_list, 
+					"In detail view price "+aft_clone_total_price_det, "QuotesPage", "Failed", 
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		Thread.sleep(1400);
+		App.click_xpath("//*[@class ='ag-react-container']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Add Options')]")));
 		List<WebElement> aft_clone_stock_codes = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
 		ArrayList<String> aft_clone_line_order = new ArrayList<String>();
-		System.out.println("Before Clone the Quote Items line order");
+		System.out.println("After Clone the Quote Items line order");
 		for(int i=0; i<stock_codes.size(); i++) {
-			aft_clone_line_order.add(stock_codes.get(i).findElement(By.tagName("h4")).getText());
-			System.out.println(aft_clone_stock_codes.get(i));
+			aft_clone_line_order.add(aft_clone_stock_codes.get(i).findElement(By.tagName("h4")).getText());
+			System.out.println(aft_clone_line_order.get(i));
+			//			aft_clone_stock_codes = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
 		}
 		String aft_clone_items_count_bef_clone = String.valueOf(aft_clone_stock_codes.size());
-		System.out.println("before clone the quote items count is "+aft_clone_items_count_bef_clone);
+		System.out.println("After clone the quote items count is "+aft_clone_items_count_bef_clone);
 		boolean res = false;
 		for(int c =0; c<aft_clone_stock_codes.size(); c++) 
 		{
@@ -1177,15 +1207,15 @@ public class AllModules extends App
 			}
 		}
 		if (res) {
-			Object status[] = {"QUOTES_028_Verify_Items_Line_Order_After_Clone", "", 
-					"", "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
+			Object status[] = {"QUOTES_028_Verify_Items_Line_Order_After_Clone", "after clone order is "+aft_clone_line_order, 
+					"before clone order is "+line_order_bef_clone, "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		} else {
-			Object status[] = {"QUOTES_028_Verify_Items_Line_Order_After_Clone", "", 
-					"", "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
+			Object status[] = {"QUOTES_028_Verify_Items_Line_Order_After_Clone", "after clone order is "+aft_clone_line_order, 
+					"before clone order is "+line_order_bef_clone, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
-		
+
 		if (aft_clone_total_price_det.equals(total_price_det)) 
 		{
 			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After_Clone", "after clone grid price in det"+aft_clone_total_price_det, 
@@ -1198,6 +1228,10 @@ public class AllModules extends App
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
+	}
+	public void verify_line_item_order_button() 
+	{
+
 	}
 	public void org_search(String org_name) throws Exception {
 		driver.findElements(By.xpath("//*[text()='Organizations']")).get(0).click();
@@ -1250,6 +1284,42 @@ public class AllModules extends App
 		}
 		Object[] vals = {serverMsg, createJob};
 		return vals;
+	}
+	public void check_change_item_line_order() throws Exception
+	{
+		//create Quote
+		quotes.createQuote();
+		App.click_xpath("//*[text() = 'Add Items']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
+		App.click_xpath("//*[@placeholder='Search By Part Number']", "send_keys", "1234");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '1234')]")));
+		Thread.sleep(1800);
+		Actions act = new Actions(driver);
+		App.click_xpath("//*[@placeholder='Search By Part Number']", "click", "");
+		act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+		act.sendKeys(Keys.SPACE).build().perform();
+		act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+		act.sendKeys(Keys.SPACE).build().perform();
+		act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+		act.sendKeys(Keys.SPACE).build().perform();
+		App.click_xpath("//*[text() = 'Add Selected 3 Items']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']"))); 
+		Thread.sleep(1000);
+		App.click_xpath("//*[contains(@src, 'repeat')]", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Part Number']")));
+//		List<WebElement> items_chng_order = driver.findElements(By.xpath("//*[contains(@style, 'cursor: pointer; border: none;')]"));
+//		ArrayList<String> array = new ArrayList<String>();
+//		System.out.println("items order before change order");
+//		for(int i=0; i<array.size(); i++) 
+//		{
+//			String sc = items_chng_order.get(i).findElements(By.tagName("h4")).get(i).getText();
+//			array.add(sc);
+//			System.out.println(array.get(i));
+//		}
+		WebElement source = driver.findElements(By.xpath("//*[@class = 'drop-items']")).get(2);
+		WebElement target = driver.findElements(By.xpath("//*[@class = 'drop-items']")).get(1);
+		act.dragAndDrop(source, target).build().perform();
+		Thread.sleep(2000);
 	}
 	public boolean verifyCreateJob(String tcName ,String salesOrderId, int count, String env) throws Exception
 	{

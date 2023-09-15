@@ -20,8 +20,12 @@ public class QuoteTestCases extends App{
 		} else {
 			env = "QA Instance";
 		}
+//		all.verify_total_price_grid_detail_view(env);
+		//Update the line item order in items grid
+		all.check_change_item_line_order();
+		System.exit(0);
 		try {
-//			all.quotesModule("Week(s)", "21", "32.23", env);
+			all.quotesModule("Week(s)", "21", "32.23", env);
 		} catch (Exception e) {
 			System.err.println(e.getMessage().lines());
 		}

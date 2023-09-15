@@ -2,56 +2,29 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-09-14T14:39:58 IST" name="Default suite" finished-at="2023-09-14T14:41:40 IST" duration-ms="102135">
+  <suite started-at="2023-09-15T20:26:19 IST" name="Default suite" finished-at="2023-09-15T20:27:01 IST" duration-ms="42078">
     <groups>
     </groups>
-    <test started-at="2023-09-14T14:39:58 IST" name="Default test" finished-at="2023-09-14T14:41:40 IST" duration-ms="102135">
+    <test started-at="2023-09-15T20:26:19 IST" name="Default test" finished-at="2023-09-15T20:27:01 IST" duration-ms="42078">
       <class name="testcases.QuoteTestCases">
-        <test-method is-config="true" signature="login()[pri:0, instance:testcases.QuoteTestCases@7161d8d1]" started-at="2023-09-14T14:39:58 IST" name="login" finished-at="2023-09-14T14:40:09 IST" duration-ms="11101" status="PASS">
+        <test-method is-config="true" signature="login()[pri:0, instance:testcases.QuoteTestCases@74e28667]" started-at="2023-09-15T20:26:19 IST" name="login" finished-at="2023-09-15T20:26:30 IST" duration-ms="11289" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- login -->
-        <test-method signature="testCase0()[pri:1, instance:testcases.QuoteTestCases@7161d8d1]" started-at="2023-09-14T14:40:09 IST" name="testCase0" finished-at="2023-09-14T14:41:39 IST" duration-ms="89850" status="FAIL">
-          <exception class="org.openqa.selenium.ElementClickInterceptedException">
+        <test-method signature="testCase0()[pri:1, instance:testcases.QuoteTestCases@74e28667]" started-at="2023-09-15T20:26:30 IST" name="testCase0" finished-at="2023-09-15T20:27:00 IST" duration-ms="29668" status="FAIL">
+          <exception class="java.lang.IndexOutOfBoundsException">
             <message>
-              <![CDATA[element click intercepted: Element <div class="menu-item-single">...</div> is not clickable at point (541, 30). Other element would receive the click: <div class="toast-backdrop"></div>
-  (Session info: chrome=106.0.5249.119)
-Build info: version: '4.8.0', revision: '267030adea'
-System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-83-generic', java.version: '17.0.5'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [1d3cff2df0c37fc0d69688a07ee10df0, clickElement {id=5d1567d9-101d-44e8-a01b-0ab14113ca5b}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.0PUGVB}, goog:chromeOptions: {debuggerAddress: localhost:46217}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:46217/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on LINUX (1d3cff2df0c37fc0d69688a07ee10df0)] -> xpath: /html/body/div[1]/div/div[1]/div/div[1]/div/div[4]]
-Session ID: 1d3cff2df0c37fc0d69688a07ee10df0]]>
+              <![CDATA[Index 2 out of bounds for length 0]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <div class="menu-item-single">...</div> is not clickable at point (541, 30). Other element would receive the click: <div class="toast-backdrop"></div>
-  (Session info: chrome=106.0.5249.119)
-Build info: version: '4.8.0', revision: '267030adea'
-System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-83-generic', java.version: '17.0.5'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [1d3cff2df0c37fc0d69688a07ee10df0, clickElement {id=5d1567d9-101d-44e8-a01b-0ab14113ca5b}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.0PUGVB}, goog:chromeOptions: {debuggerAddress: localhost:46217}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:46217/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on LINUX (1d3cff2df0c37fc0d69688a07ee10df0)] -> xpath: /html/body/div[1]/div/div[1]/div/div[1]/div/div[4]]
-Session ID: 1d3cff2df0c37fc0d69688a07ee10df0
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
-at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:257)
-at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:78)
-at libraries.RepairPages.repairPage(RepairPages.java:24)
-at libraries.RepairPages.createRMA(RepairPages.java:42)
-at libraries.QuotePages.quoteClone_QuoteForRepairs(QuotePages.java:848)
-at testcases.QuoteTestCases.testCase0(QuoteTestCases.java:31)
+              <![CDATA[java.lang.IndexOutOfBoundsException: Index 2 out of bounds for length 0
+at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+at java.base/java.util.Objects.checkIndex(Objects.java:359)
+at java.base/java.util.ArrayList.get(ArrayList.java:427)
+at libraries.AllModules.check_change_item_line_order(AllModules.java:1319)
+at testcases.QuoteTestCases.testCase0(QuoteTestCases.java:25)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -82,33 +55,33 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.ElementClickInterceptedException -->
+          </exception> <!-- java.lang.IndexOutOfBoundsException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCase0 -->
-        <test-method is-config="true" signature="logout()[pri:0, instance:testcases.QuoteTestCases@7161d8d1]" started-at="2023-09-14T14:41:39 IST" name="logout" finished-at="2023-09-14T14:41:40 IST" duration-ms="1096" status="FAIL">
+        <test-method is-config="true" signature="logout()[pri:0, instance:testcases.QuoteTestCases@74e28667]" started-at="2023-09-15T20:27:00 IST" name="logout" finished-at="2023-09-15T20:27:01 IST" duration-ms="1061" status="FAIL">
           <exception class="org.openqa.selenium.ElementClickInterceptedException">
             <message>
-              <![CDATA[element click intercepted: Element <span class="down-arrow">...</span> is not clickable at point (1888, 30). Other element would receive the click: <div class="toast-backdrop"></div>
+              <![CDATA[element click intercepted: Element <span class="down-arrow">...</span> is not clickable at point (1888, 30). Other element would receive the click: <div role="presentation" class="css-1yx20iw">...</div>
   (Session info: chrome=106.0.5249.119)
 Build info: version: '4.8.0', revision: '267030adea'
 System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-83-generic', java.version: '17.0.5'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [1d3cff2df0c37fc0d69688a07ee10df0, clickElement {id=796c6d9f-0aad-4164-a75c-990b01712946}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.0PUGVB}, goog:chromeOptions: {debuggerAddress: localhost:46217}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:46217/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on LINUX (1d3cff2df0c37fc0d69688a07ee10df0)] -> xpath: //*[@class='down-arrow']]
-Session ID: 1d3cff2df0c37fc0d69688a07ee10df0]]>
+Command: [0630b151a7e2cd67f8eaf78e4a5c2526, clickElement {id=3effbe6c-56d7-4117-b77c-816de2573b30}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.dLImSO}, goog:chromeOptions: {debuggerAddress: localhost:37333}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:37333/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on LINUX (0630b151a7e2cd67f8eaf78e4a5c2526)] -> xpath: //*[@class='down-arrow']]
+Session ID: 0630b151a7e2cd67f8eaf78e4a5c2526]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <span class="down-arrow">...</span> is not clickable at point (1888, 30). Other element would receive the click: <div class="toast-backdrop"></div>
+              <![CDATA[org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <span class="down-arrow">...</span> is not clickable at point (1888, 30). Other element would receive the click: <div role="presentation" class="css-1yx20iw">...</div>
   (Session info: chrome=106.0.5249.119)
 Build info: version: '4.8.0', revision: '267030adea'
 System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-83-generic', java.version: '17.0.5'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [1d3cff2df0c37fc0d69688a07ee10df0, clickElement {id=796c6d9f-0aad-4164-a75c-990b01712946}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.0PUGVB}, goog:chromeOptions: {debuggerAddress: localhost:46217}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:46217/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on LINUX (1d3cff2df0c37fc0d69688a07ee10df0)] -> xpath: //*[@class='down-arrow']]
-Session ID: 1d3cff2df0c37fc0d69688a07ee10df0
+Command: [0630b151a7e2cd67f8eaf78e4a5c2526, clickElement {id=3effbe6c-56d7-4117-b77c-816de2573b30}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.dLImSO}, goog:chromeOptions: {debuggerAddress: localhost:37333}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:37333/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on LINUX (0630b151a7e2cd67f8eaf78e4a5c2526)] -> xpath: //*[@class='down-arrow']]
+Session ID: 0630b151a7e2cd67f8eaf78e4a5c2526
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
