@@ -1229,10 +1229,6 @@ public class AllModules extends App
 			App.values1(status);
 		}
 	}
-	public void verify_line_item_order_button() 
-	{
-
-	}
 	public void org_search(String org_name) throws Exception {
 		driver.findElements(By.xpath("//*[text()='Organizations']")).get(0).click();
 		driver.findElements(By.xpath("//*[text()='Organizations']")).get(1).click();
@@ -1285,41 +1281,252 @@ public class AllModules extends App
 		Object[] vals = {serverMsg, createJob};
 		return vals;
 	}
-	public void check_change_item_line_order() throws Exception
+	public void select_items(int count) throws Exception
 	{
-		//create Quote
-		quotes.createQuote();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		Thread.sleep(1300);
+		Actions act = new Actions(driver);
 		App.click_xpath("//*[text() = 'Add Items']", "click", "");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
+		Thread.sleep(1300);
 		App.click_xpath("//*[@placeholder='Search By Part Number']", "send_keys", "1234");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '1234')]")));
 		Thread.sleep(1800);
-		Actions act = new Actions(driver);
 		App.click_xpath("//*[@placeholder='Search By Part Number']", "click", "");
-		act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		App.click_xpath("//*[text() = 'Add Selected 3 Items']", "click", "");
+		
+		switch (count) {
+		case 1:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 2:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 3:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 4:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 5:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 6:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 7:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 8:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 9:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		case 10:
+			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.SPACE).build().perform();
+			break;
+		}
+		App.click_xpath("//*[text() = 'Add Selected "+count+" Items']", "click", "");
+		App.spinner();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']")));
+		Thread.sleep(1300);
+	}
+	public void check_change_item_line_order() throws Exception
+	{
+		//create Quote
+		boolean create = quotes.createQuote();
+		Actions act = new Actions(driver);
+		if(create) 
+		{
+			this.select_items(3);
+		}else {}
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']"))); 
-		Thread.sleep(1000);
+		Thread.sleep(2000);
+		System.out.println("before changing the order, items order is ");
+		List<WebElement> bef_items_ord = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
+		ArrayList<String> bef_array = new ArrayList<String>();
+		for(int b=0; b<bef_items_ord.size(); b++) 
+		{
+			String sc = bef_items_ord.get(b).findElement(By.tagName("h4")).getText();
+			bef_array.add(sc);
+		}
 		App.click_xpath("//*[contains(@src, 'repeat')]", "click", "");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Part Number']")));
-//		List<WebElement> items_chng_order = driver.findElements(By.xpath("//*[contains(@style, 'cursor: pointer; border: none;')]"));
-//		ArrayList<String> array = new ArrayList<String>();
-//		System.out.println("items order before change order");
-//		for(int i=0; i<array.size(); i++) 
-//		{
-//			String sc = items_chng_order.get(i).findElements(By.tagName("h4")).get(i).getText();
-//			array.add(sc);
-//			System.out.println(array.get(i));
-//		}
-		WebElement source = driver.findElements(By.xpath("//*[@class = 'drop-items']")).get(2);
-		WebElement target = driver.findElements(By.xpath("//*[@class = 'drop-items']")).get(1);
-		act.dragAndDrop(source, target).build().perform();
+		Thread.sleep(1400);
+		List<WebElement> items_chng_order = driver.findElements(By.xpath("//*[@class = 'drop-item']"));
+		ArrayList<String> array1 = new ArrayList<String>();
+		//		System.out.println("items count in grid is "+items_chng_order.size());
+		System.out.println("items order before change order");
+		for(int i=0; i<items_chng_order.size(); i++) 
+		{
+			String sc = items_chng_order.get(i).findElements(By.tagName("h4")).get(1).getText();
+			if(sc.equals(bef_array.get(i))) 
+			{				
+				array1.add(sc);
+			}
+			System.out.println(1+i+" item is "+array1.get(i));
+		}
+		WebElement source = items_chng_order.get(1);
+		WebElement target = items_chng_order.get(2);
+		act.moveToElement(source).build().perform();
+		act.clickAndHold(source).build().perform();
+		Thread.sleep(1200);
+		act.moveToElement(target).build().perform();
+		act.release(source).build().perform();
 		Thread.sleep(2000);
+		List<WebElement> aft_items_chng_order = driver.findElements(By.xpath("//*[@class = 'drop-item']"));
+		ArrayList<String> array2 = new ArrayList<String>();
+		//		System.out.println("items count in grid is "+items_chng_order.size());
+		System.out.println("items order after change order");
+		for(int i=0; i<aft_items_chng_order.size(); i++) 
+		{
+			String sc = aft_items_chng_order.get(i).findElements(By.tagName("h4")).get(1).getText();
+			array2.add(sc);
+			System.out.println(1+i+" item is "+array2.get(i));
+		}
+		App.click_xpath("//*[text() = 'Save']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']")));
+		Thread.sleep(2500);
+		List<WebElement> aft_items_ord = driver.findElements(By.xpath("//*[@class = ' width-25 flexed']"));
+		ArrayList<String> aft_array = new ArrayList<String>();
+		for(int b=0; b<aft_items_ord.size(); b++) 
+		{
+			String sc = aft_items_ord.get(b).findElement(By.tagName("h4")).getText();
+			aft_array.add(sc);
+		}
+		Thread.sleep(1200);
+		if (array2.get(0).equals(aft_array.get(0))) 
+		{	
+			if (array2.get(1).equals(aft_array.get(1))) 
+			{
+				if (array2.get(2).equals(aft_array.get(2))) 
+				{
+					Object status[] = {"QUOTES_031_Verify_Change_Items_Order", "before change the items order "+bef_array, 
+							"after change the items order "+aft_array, "QuotesPage", "Passed",
+							java.time.LocalDateTime.now().toString(), env};
+					App.values1(status);
+				} else 
+				{
+					Object status[] = {"QUOTES_031_Verify_Change_Items_Order", "before change the items order "+bef_array, 
+							"after change the items order "+aft_array, "QuotesPage", "Failed",
+							java.time.LocalDateTime.now().toString(), env};
+					App.values1(status);
+				}	
+			} else
+			{
+				Object status[] = {"QUOTES_031_Verify_Change_Items_Order", "before change the items order "+bef_array, 
+						"after change the items order "+aft_array, "QuotesPage", "Failed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			}	
+		} else
+		{
+			Object status[] = {"QUOTES_031_Verify_Change_Items_Order", "before change the items order "+bef_array, 
+					"after change the items order "+aft_array, "QuotesPage", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
 	}
 	public boolean verifyCreateJob(String tcName ,String salesOrderId, int count, String env) throws Exception
 	{
