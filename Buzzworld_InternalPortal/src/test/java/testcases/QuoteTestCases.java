@@ -22,7 +22,7 @@ public class QuoteTestCases extends App{
 		}
 //		all.verify_total_price_grid_detail_view(env);
 		//Update the line item order in items grid
-		all.check_change_item_line_order();
+		all.check_change_item_line_order(env);
 		System.exit(0);
 		try {
 			all.quotesModule("Week(s)", "21", "32.23", env);

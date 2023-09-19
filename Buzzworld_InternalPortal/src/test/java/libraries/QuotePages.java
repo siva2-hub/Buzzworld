@@ -19,7 +19,7 @@ public class QuotePages extends App
 {
 	RepairPages rp;
 	PricingPages price ;
-	public void createQuote() throws Exception 
+	public boolean createQuote() throws Exception 
 	{	rp = new RepairPages();	
 		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -30,10 +30,11 @@ public class QuotePages extends App
 			System.out.println(e.getMessage());
 			System.out.println(e.getStackTrace()[0]);
 		}
-		App.spinner();
+		App.spinner(); boolean create = false;
 		try {
 			driver.findElement(By.xpath("//*[text() = 'OPEN123']")).isDisplayed();
 			driver.findElement(By.xpath("//*[text() = 'OPEN123']")).click();
+			create = false;
 		} catch (Exception e) 
 		{
 			String custName = "Motion Industries - Grand Prairie";
@@ -52,7 +53,9 @@ public class QuotePages extends App
 			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 			Thread.sleep(1600);
+			create = true;
 		}
+		return create;
 	}
 	public void selectItemToQuote() throws Exception {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
