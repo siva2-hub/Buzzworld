@@ -21,49 +21,49 @@ public class QuotePages extends App
 	PricingPages price ;
 	public boolean createQuote() throws Exception 
 	{	rp = new RepairPages();	
-		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		try {
-			driver.findElement(By.xpath("//*[contains(@class,'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;')]")).isDisplayed();
-			driver.findElement(By.xpath("//*[contains(@class,'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;')]")).click();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace()[0]);
-		}
-		App.spinner(); boolean create = false;
-		try {
-			driver.findElement(By.xpath("//*[text() = 'OPEN123']")).isDisplayed();
-			driver.findElement(By.xpath("//*[text() = 'OPEN123']")).click();
-			create = false;
-		} catch (Exception e) 
-		{
-			String custName = "Motion Industries - Grand Prairie";
-			driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
-			driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
-			App.spinner();
-			Thread.sleep(1200);
-			driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
-			App.spinner();Thread.sleep(1000);
-			driver.findElement(By.name("project_name")).sendKeys("Test");
-			driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
-			Thread.sleep(2500);
-			this.selectDropDown("Parts Quote");
-			Thread.sleep(1500);
-			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
-			Thread.sleep(1600);
-			create = true;
-		}
-		return create;
+	driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
+	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	try {
+		driver.findElement(By.xpath("//*[contains(@class,'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;')]")).isDisplayed();
+		driver.findElement(By.xpath("//*[contains(@class,'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;')]")).click();
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+		System.out.println(e.getStackTrace()[0]);
+	}
+	App.spinner(); boolean create = false; String quo_status = "Open123";
+	try {
+		driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).isDisplayed();
+		driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).click();
+		create = false;
+	} catch (Exception e) 
+	{
+		String custName = "Motion Industries - Grand Prairie";
+		driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
+		driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
+		App.spinner();
+		Thread.sleep(1200);
+		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
+		App.spinner();Thread.sleep(1000);
+		driver.findElement(By.name("project_name")).sendKeys("Test");
+		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+		Thread.sleep(2500);
+		this.selectDropDown("Parts Quote");
+		Thread.sleep(1500);
+		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		Thread.sleep(1600);
+		create = true;
+	}
+	return create;
 	}
 	public void selectItemToQuote() throws Exception {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 		driver.findElement(By.xpath("//*[text() = 'Add Items']")).click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
-		driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).sendKeys("0165009LS");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = '0165009LS']")));
+		driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).sendKeys("testsc1234");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'testsc1234']")));
 		Thread.sleep(1800);
 		Actions act = new Actions(driver);
 		driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).click();
@@ -119,11 +119,16 @@ public class QuotePages extends App
 	{
 		this.submitForInternalApproval();
 		Thread.sleep(1500);
-		driver.findElement(By.xpath("//*[text() = 'Approve']")).click();
-		Thread.sleep(1200);
-		rp.toastContainer("Approve");
-		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = 'Approve']"), "Approve"));
-		Thread.sleep(1500);
+		double total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class ,'width-auto')]")).get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+		if (total_price<=10000) {
+
+		} else {
+			driver.findElement(By.xpath("//*[text() = 'Approve']")).click();
+			Thread.sleep(1200);
+			rp.toastContainer("Approve");
+			wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = 'Approve']"), "Approve"));
+			Thread.sleep(1500);
+		}
 	}
 	public boolean verifyApproveButton() throws Exception{
 		boolean res = false;
@@ -231,8 +236,8 @@ public class QuotePages extends App
 		act.moveToElement(rfq).build().perform();
 		Thread.sleep(1000);
 		List<WebElement> edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
-		edits.get(0).click();
-		driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElement(By.tagName("button")).click();
+		edits.get(1).click();
+		App.click_xpath("//*[text() = 'Now']", "click", "");
 		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
 		Thread.sleep(2000);
 		Thread.sleep(1700);
@@ -240,8 +245,7 @@ public class QuotePages extends App
 		Actions action = new Actions(driver);
 		action.moveToElement(qReqBy).build().perform();
 		Thread.sleep(1000);
-		edits.get(2).click();
-
+		edits.get(3).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'react-select__control')]")).click();
 		Thread.sleep(1000);
@@ -258,19 +262,23 @@ public class QuotePages extends App
 		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(1).click();
 		Thread.sleep(1200);
 		act.sendKeys(Keys.ENTER).build().perform();
-		//Update leadTime
-//		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(2).click();
-//		Thread.sleep(1200);
-//		act.sendKeys("Week(s)").build().perform();
-//		act.sendKeys(Keys.ENTER).build().perform();
-//		driver.findElement(By.xpath("//*[@name='lead_time_value']")).sendKeys("3");
 		act.doubleClick(driver.findElement(By.xpath("//*[text()='Save']"))).build().perform();
-		Thread.sleep(2500);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]")));
-		driver.findElement(By.xpath("//*[text() = 'Submit for Internal Approval']")).click();
-		Thread.sleep(2000);
-		rp.toastContainer("Proceed");
-		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = 'Submit for Internal Approval']"), "Submit for Internal Approval"));
+		Thread.sleep(2500); String btnName = "";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]"))); Thread.sleep(1200);
+		double total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class ,'width-auto')]")).get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+		if(total_price<=10000) {
+			driver.findElement(By.xpath("//*[text() = 'Approve']")).click();
+			btnName = "Approve";
+			Thread.sleep(1200);
+			rp.toastContainer("Approve");
+			Thread.sleep(2000);
+		}else {
+			driver.findElement(By.xpath("//*[text() = 'Submit for Internal Approval']")).click();
+			btnName = "Submit for Internal Approval";
+			Thread.sleep(2000);
+			rp.toastContainer("Proceed");
+		}
+		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = '"+btnName+"']"), btnName));
 	}
 	public boolean verifyReviseQuote() throws Exception {
 		this.quoteApprove();
@@ -732,8 +740,8 @@ public class QuotePages extends App
 		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(2).click();
 		Thread.sleep(1200);
 		act.sendKeys(Keys.ENTER).build().perform();
-		act.doubleClick(driver.findElements(By.xpath("//*[text()='Edit Quote Item']")).get(1)).build().perform();
-		Thread.sleep(2500);
+		act.doubleClick(driver.findElements(By.xpath("//*[text()='Save']")).get(0)).build().perform();
+		App.spinner(); Thread.sleep(2500);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]")));
 		driver.findElement(By.xpath("//*[text()='Add Options']")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='I want to add products from scratch']")));
@@ -786,13 +794,22 @@ public class QuotePages extends App
 		String beforeCloneCust = repIds.get(1).getText();
 		String beforeCloneItems = driver.findElement(By.id("repair-items")).getText();
 		Thread.sleep(1500);
+		String bef_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
 		driver.findElement(By.xpath("//*[contains(@src,'clone')]")).click();
-		Thread.sleep(1300);
-		rp.toastContainer("Proceed");
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@style='animation-delay: 0ms;']")));
+		Thread.sleep(1300); String cust_name = "Applied Industrial-Corona";
+		App.click_xpath("//*[@id = 'async-select-example']", "send_keys", cust_name);
+		App.spinner(); Thread.sleep(1200);
+		Actions act = new Actions(driver);
+		act.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(1200);
+		driver.findElements(By.xpath("//*[text() = 'Proceed']")).get(1).click();
+		Thread.sleep(1300); App.click_xpath("//*[text() = 'Proceed']", "click", "");
+		App.spinner(); Thread.sleep(1400);
 		Thread.sleep(2000);
 		String[] is = {beforeCloneRepText, beforeCloneItems, beforeCloneCust};
-		return is;
+		String aft_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
+		String[] quote_types = {bef_quo_type, aft_quo_type};
+		return quote_types;
 	}
 	public boolean verifyQuoteClone_QuotesForParts(String env) throws Exception
 	{
@@ -801,39 +818,39 @@ public class QuotePages extends App
 		App.displayPopUp(tcName);
 
 		String is[] = this.quoteClone_QuotesForParts();
-		String beforeCloneRepText = is[0];
-		String beforeCloneItems = is[1];
-		String beforeCloneCust = is[2];
-		List<WebElement> repIds = driver.findElements(By.id("repair-info-id"));
-		String afterCloneRepText = repIds.get(0).getText();
-		String afterCloneCust = repIds.get(1).getText();
-		String afterCloneItems = driver.findElement(By.id("repair-items")).getText();
+		//		String beforeCloneRepText = is[0];
+		//		String beforeCloneItems = is[1];
+		//		String beforeCloneCust = is[2];
+		//		List<WebElement> repIds = driver.findElements(By.id("repair-info-id"));
+		//		String afterCloneRepText = repIds.get(0).getText();
+		//		String afterCloneCust = repIds.get(1).getText();
+		//		String afterCloneItems = driver.findElement(By.id("repair-items")).getText();
 		String quoteType = driver.findElement(By.id("repair-info-id")).findElement(By.xpath("//*[contains(@class,'pi-label')]")).findElement(By.xpath("//*[@class='description']")).getText();
 		boolean res = false;
-		if (quoteType.equalsIgnoreCase("Parts Quote")) {
+		if (is[0].equals("System Quote")) {
 			String actText = driver.findElement(By.className("quote-num-and-status")).getText();
 			String ExpText = "OPEN";
-			if (actText.toLowerCase().contains(ExpText.toLowerCase())) {
+			if (is[1].equals("Parts Quote")) {
 				res = true;
-				Object status[] = {tcName, actText, ExpText, "QuotesPage", "Passed",
+				Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Passed",
 						java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
 			} else {
 				res = false;
-				Object status[] = {tcName, actText, ExpText, "QuotesPage", "Failed",
+				Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Failed",
 						java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
 			}
 		} else {
-			System.out.println("Quote Cloned Failed.!");
-			System.out.println("before clone rep info"+beforeCloneRepText);
-			System.out.println("after clone  rep info "+afterCloneRepText);
-			System.out.println("before clone item info "+beforeCloneItems);
-			System.out.println("after clone  item info "+afterCloneItems);
-			System.out.println("before clone cust info "+beforeCloneCust);
-			System.out.println("after clone  cust info "+afterCloneCust);
+			//			System.out.println("Quote Cloned Failed.!");
+			//			System.out.println("before clone rep info"+beforeCloneRepText);
+			//			System.out.println("after clone  rep info "+afterCloneRepText);
+			//			System.out.println("before clone item info "+beforeCloneItems);
+			//			System.out.println("after clone  item info "+afterCloneItems);
+			//			System.out.println("before clone cust info "+beforeCloneCust);
+			//			System.out.println("after clone  cust info "+afterCloneCust);
 			res = false;
-			Object status[] = {"QUOTES_026_VerifyQuoteClone_QuotesForParts", "", "", "QuotesPage", "Failed",
+			Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
@@ -927,6 +944,7 @@ public class QuotePages extends App
 		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
 		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
 		driver.findElement(By.name("price")).sendKeys("198");
+		App.click_xpath("//*[@placeholder = 'Estimated Parts Cast']", "send_keys", "121");
 		btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
 		btns.get(7).click();
 		System.out.println("count of btns are "+btns.size());
@@ -947,36 +965,41 @@ public class QuotePages extends App
 		Thread.sleep(2000);
 		act.moveToElement(driver.findElement(By.xpath("//*[contains(@label,'2023')]"))).build().perform();
 		driver.findElement(By.xpath("//*[contains(@label,'2023')]")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Submit for Internal Approval']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Add Options']")));
 		price = new PricingPages();
-		Thread.sleep(2500);
-		act.moveToElement(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
-		act.moveToElement(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
-		act.click(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@placeholder='Quote Price']")));
-		Thread.sleep(1200);
-		//Update source
-		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(1).click();
-		Thread.sleep(1200);
-		act.sendKeys(Keys.ENTER).build().perform();
-		//Update leadTime
-		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(2).click();
-		Thread.sleep(1200);
-		act.sendKeys(Keys.ENTER).build().perform();
-		act.doubleClick(driver.findElements(By.xpath("//*[text()='Edit Quote Item']")).get(1)).build().perform();
-		Thread.sleep(2500);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]")));
-		price.clickButton("Submit for Internal Approval");
-		Thread.sleep(1500);
-		rp.toastContainer("Proceed");
-		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text()='Submit for Internal Approval']"), "Submit for Internal Approval"));
-		Thread.sleep(1500);
+		//		Thread.sleep(2500);
+		//		act.moveToElement(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
+		//		act.moveToElement(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
+		//		act.click(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
+		//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@placeholder='Quote Price']")));
+		//		Thread.sleep(1200);
+		//		//Update source
+		//		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(1).click();
+		//		Thread.sleep(1200);
+		//		act.sendKeys(Keys.ENTER).build().perform();
+		//		//Update leadTime
+		//		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(2).click();
+		//		Thread.sleep(1200);
+		//		act.sendKeys(Keys.ENTER).build().perform();
+		//		act.doubleClick(driver.findElements(By.xpath("//*[text()='Edit Quote Item']")).get(1)).build().perform();
+		//		Thread.sleep(2500);
+		//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]")));
+		//		price.clickButton("Submit for Internal Approval");
+		//		Thread.sleep(1500);
+		//		rp.toastContainer("Proceed");
+		//		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text()='Submit for Internal Approval']"), "Submit for Internal Approval"));
+		//		Thread.sleep(1500);
 		driver.findElement(By.xpath("//*[contains(@src,'clone')]")).click();
-		Thread.sleep(1300);
-		rp.toastContainer("Proceed");
+		Thread.sleep(1300); String cust_name = "Applied Industrial-Corona";
+		App.click_xpath("//*[@id = 'async-select-example']", "send_keys", cust_name);
+		App.spinner(); Thread.sleep(1200);
+		act.sendKeys(Keys.ENTER).build().perform();
+		driver.findElements(By.xpath("//*[text() = 'Proceed']")).get(1).click();
+		Thread.sleep(1300); App.click_xpath("//*[text() = 'Proceed']", "click", "");
+		App.spinner(); Thread.sleep(1400);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@style = 'animation-delay: 0ms;']")));
 		Thread.sleep(1500);
-		String quoteType = driver.findElement(By.id("repair-info-id")).findElement(By.xpath("//*[contains(@class,'pi-label')]")).findElement(By.xpath("//*[@class='description']")).getText();
+		String quoteType = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
 		System.out.println("quote type is "+quoteType);
 		List<WebElement> btms = driver.findElements(By.xpath("//*[contains(@class,'border-bottom')]"));
 		String repRelText = btms.get(1).getText();

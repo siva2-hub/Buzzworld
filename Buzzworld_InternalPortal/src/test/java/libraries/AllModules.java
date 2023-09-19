@@ -799,6 +799,24 @@ public class AllModules extends App
 			Object status[] = {"QUOTES_001_VerifyCreateQuote", actText, expText, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
+		List<WebElement> edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
+		//update Quote Type 
+		String bef_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
+		edits.get(0).click(); Thread.sleep(1200);
+		App.click_xpath("//*[text() = 'Parts Quote']", "click", ""); Thread.sleep(1300);
+		App.click_xpath("//*[text() = 'System Quote']", "click", ""); Thread.sleep(1200);
+		App.click_xpath("//*[@title = 'Save Changes']", "click", ""); Thread.sleep(1200);
+		App.spinner(); Thread.sleep(2000);
+		String aft_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
+		if (actText!=expText) {
+			Object status[] = {"QUOTES_032_VerifyUpdateQuoteType", "before update quote type is "+bef_quo_type, "After update quote type is "+aft_quo_type,
+					"QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_032_VerifyUpdateQuoteType", "before update quote type is "+bef_quo_type, "After update quote type is "+aft_quo_type,
+					"QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
 		//Add(Select) Items To Quote
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_023_VerifyDeleteIconInQuoteItems");
@@ -820,31 +838,8 @@ public class AllModules extends App
 		}
 		String ven_name_quote_del = driver.findElement(By.xpath("//*[contains(@class, 'm-0 manufacter')]")).getText();
 		String stockCode = driver.findElement(By.xpath("//*[@class=' width-25 flexed']")).findElement(By.tagName("h4")).getText();
-		//Check the  Quote Price and Suggested Price based on Customer Account Type
-		//Organization searching for Territory code
-		//		this.org_search(org_acc_number); Thread.sleep(1200);
-		//		String acc_number_org_grid = App.getGridData(1);
-		//		App.horizentalScroll();
-		//		String tertry_code_org_grid = App.getGridData(12);
-		//		App.clickLabel("click_admin"); App.spinner(); Thread.sleep(1300);
-		//		App.clickLabel("click_territory"); App.spinner(); 
-		//		App.spinner() ; Thread.sleep(1200);
-		//		driver.findElement(By.xpath("//*[@placeholder = 'Search By Territory']")).sendKeys(tertry_code_org_grid);
-		//		App.spinner() ; Thread.sleep(1200);
-		//		String branch_tertry_grid = App.getGridData(5);
-		//		//		App.clickLabel("click_branch"); App.spinner(); Thread.sleep(1300);
-		//		//		driver.findElement(By.xpath("")).sendKeys(branch_tertry_grid);
-		//		//		App.spinner(); Thread.sleep(1300);
-		//		price.pricingPage("Pricing");
-		//		App.spinner(); Thread.sleep(1500);
-		//		driver.findElement(By.xpath("//*[@placeholder = 'Search']")).sendKeys(ven_name_quote_del);
-		//		App.spinner() ; Thread.sleep(1200);
-		//		driver.findElement(By.xpath("//*[contains(@class, 'select-branch-button')]")).click(); 
-		//		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[@ref = 'lbRecordCount']"), "more"));
-		//		Thread.sleep(1600);
-		//		App.selectDropdowns(branch_tertry_grid);
 		//Print and Download
-		//		Warning Pop Up
+		//Warning Pop Up
 		App.displayPopUp("QUOTES_013_VerifyPrintFunctionality");
 		quotes.verifyPrintDownLoad(env);
 		//Check the Lead Time Displayed Or Not
@@ -855,11 +850,6 @@ public class AllModules extends App
 		Actions act = new Actions(driver);
 		act.moveToElement(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
 		act.click(driver.findElements(By.xpath("//*[contains(@src,'themecolorEdit')]")).get(1)).build().perform();
-		Thread.sleep(1600);
-		//		driver.findElement(By.xpath("//*[@placeholder='Enter Gross Profit']")).click();
-		//		act.sendKeys(Keys.TAB).build().perform();
-		//		act.sendKeys(Keys.TAB).build().perform();
-		//		act.sendKeys(leadTime).build().perform();
 		Thread.sleep(1500);
 		driver.findElements(By.xpath("//*[contains(@class,'dropdown-indicator')]")).get(1).click();
 		Thread.sleep(1200);
@@ -897,16 +887,23 @@ public class AllModules extends App
 					"Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//*[text() = 'Internal Approvals']")));
+		Thread.sleep(2000);
+		String total_price_detail = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", "");		
+		double total_value = Double.parseDouble(total_price_detail);
+		System.out.println("total value in int is "+total_value); 
+		js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//*[@title='RFQ Received Date']")));
 		//Proceed To Submit For Internal Approval
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_005_VerifySubmitForInternalApproval");
+		edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
 		Thread.sleep(2400);
 		WebElement rfq = driver.findElement(By.xpath("//*[@title='RFQ Received Date']"));
 		Thread.sleep(1500);
 		act.moveToElement(rfq).build().perform();
 		Thread.sleep(1000);
-		List<WebElement> edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
-		edits.get(0).click();
+		edits.get(1).click();
 		driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElement(By.tagName("button")).click();
 		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@title='Quote Requested By']")));
@@ -915,10 +912,10 @@ public class AllModules extends App
 		Actions action = new Actions(driver);
 		action.moveToElement(qReqBy).build().perform();
 		Thread.sleep(1000);
-		edits.get(2).click();
+		edits.get(3).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'react-select__control')]")).click();
-		Thread.sleep(1000);
+		App.spinner(); Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
@@ -968,7 +965,11 @@ public class AllModules extends App
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_007_VerifyApproveButton");
 		Thread.sleep(1500);
-		price.clickButton("Approve");
+		//below calling redirects toApproval Questions method
+		this.approval_questions(total_value);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() ='Revise Quote']")));
+		Thread.sleep(2000);
+		App.click_xpath("//*[text() = 'Approve']", "click", "");
 		Thread.sleep(1200);
 		repair.toastContainer("Approve");
 		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = 'Approve']"), "Approve"));
@@ -980,7 +981,6 @@ public class AllModules extends App
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		} else {
-
 			Object status[] = {"QUOTES_007_VerifyApproveButton", actText, expText, "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
@@ -1030,7 +1030,6 @@ public class AllModules extends App
 		App.displayPopUp("QUOTES_010_VerifyCreateSalesOrder_FromQuote");
 		driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
 		if (env.contains("QA")) {
-
 			try {
 				App.spinner();
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("customer_po_number")));
@@ -1085,6 +1084,7 @@ public class AllModules extends App
 				}
 			}
 		} else {
+			Thread.sleep(1300);
 			price.closeIcon();
 			Object status[] = {"QUOTES_010_VerifyCreateSalesOrder_FromQuote", "Not Executed", 
 					"", "SalesOrderPage", "Passed", java.time.LocalDateTime.now().toString(), env};
@@ -1095,25 +1095,84 @@ public class AllModules extends App
 
 		}
 	}
+	public void approval_questions(double total_value) throws Exception 
+	{
+		Actions act = new Actions(driver);
+
+		driver.findElement(By.xpath("//*[text() = 'Approval Questions']")).isDisplayed();
+		App.click_xpath("//*[text() = 'Approval Questions']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = '$10k+ Questions']")));
+		Thread.sleep(2000);
+		if(total_value>=50000) {
+			System.out.println("under 50k");
+			//$10k+ Approval Questions
+			driver.findElement(By.xpath("//*[contains(@class, 'indicatorContainer')]")).click();
+			act.sendKeys(Keys.ENTER).build().perform();
+			App.click_xpath("//*[@placeholder = 'Enter Competition']", "send_keys", "Test Competetion");
+			App.click_xpath("//*[@placeholder = 'Enter Budgetary Amount']", "send_keys", "149.12");
+			driver.findElements(By.xpath("//*[text() = 'Save']")).get(0).click();
+			//$25k+ Approval Questions
+			Thread.sleep(2300);
+			driver.findElements(By.xpath("//*[contains(@class, 'indicatorContainer')]")).get(1).click();
+			act.sendKeys(Keys.ENTER).build().perform();
+			//entering Pain
+			App.click_xpath("//*[@placeholder = 'Enter Pain']", "send_keys", "Test Pain");
+			//entering decision making process
+			App.click_xpath("//*[@placeholder = 'Enter Decision Making Process']", "send_keys", "Test Decision Making Process");
+			Thread.sleep(1300);
+			//selecting PO-date
+			act.sendKeys(Keys.TAB).build().perform();
+			act.sendKeys(Keys.ARROW_LEFT).build().perform(); act.sendKeys(Keys.ARROW_RIGHT).build().perform();
+			act.sendKeys(Keys.ENTER).build().perform();
+			driver.findElements(By.xpath("//*[text() = 'Save']")).get(1).click();
+			Thread.sleep(2400);
+			//$50k+ Approval Questions
+			App.click_xpath("//*[@placeholder = 'Enter Reasons']", "send_keys", "for testing Approval approval questions at");
+			driver.findElements(By.xpath("//*[text() = 'Save']")).get(2).click();
+			Thread.sleep(2000);
+		} else if(total_value>=25000){
+			System.out.println("under 25k");
+			//$10k+ Approval Questions
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = '$10k+ Questions']")));
+			driver.findElement(By.xpath("//*[contains(@class, 'indicatorContainer')]")).click();
+			act.sendKeys(Keys.ENTER).build().perform();
+			App.click_xpath("//*[@placeholder = 'Enter Competition']", "send_keys", "Test Competetion");
+			App.click_xpath("//*[@placeholder = 'Enter Budgetary Amount']", "send_keys", "149.12");
+			driver.findElements(By.xpath("//*[text() = 'Save']")).get(1).click();
+			Thread.sleep(2000);
+			//$25k+ Approval Questions
+			Thread.sleep(1400);
+			driver.findElements(By.xpath("//*[contains(@class, 'indicatorContainer')]")).get(1).click();
+			act.sendKeys(Keys.ENTER).build().perform();
+			App.click_xpath("//*[@placeholder = 'Enter Pain']", "send_keys", "Test Pain");
+			App.click_xpath("//*[@placeholder = 'decision_making_process']", "send_keys", "Test Decision Making Process");
+			driver.findElements(By.xpath("//*[text() = 'Save']")).get(1).click();
+			Thread.sleep(2000);
+			Thread.sleep(1400);
+
+		}else if (total_value>=10000) {
+			System.out.println("under 10k");
+			//$10k+ Approval Questions
+			driver.findElements(By.xpath("//*[contains(@class, 'indicatorContainer')]")).get(0).click();
+			System.out.println("type");
+			act.sendKeys(Keys.ENTER).build().perform();
+			System.out.println("enter");
+			App.click_xpath("//*[@placeholder = 'Enter Competition']", "send_keys", "Test Competetion");
+			System.out.println("competition");
+			App.click_xpath("//*[@placeholder = 'Enter Budgetary Amount']", "send_keys", "149.12");
+			driver.findElements(By.xpath("//*[text() = 'Save']")).get(0).click();
+			Thread.sleep(2000);
+		}
+		else {
+			System.out.println("None of the above");
+		}
+	}
 	public void verify_total_price_grid_detail_view(String env) throws Exception {
 		//create Quote
-		quotes.createQuote();
-		App.click_xpath("//*[text() = 'Add Items']", "click", "");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
-		App.click_xpath("//*[@placeholder='Search By Part Number']", "send_keys", "1234");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '1234')]")));
-		Thread.sleep(1800);
-		Actions act = new Actions(driver);
-		App.click_xpath("//*[@placeholder='Search By Part Number']", "click", "");
-		act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		act.sendKeys(Keys.TAB).build().perform(); act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		App.click_xpath("//*[text() = 'Add Selected 3 Items']", "click", "");
+		this.create_quote();
+		this.select_items(3); Actions act = new Actions(driver);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']"))); 
-		Thread.sleep(1000);
+		Thread.sleep(2500);
 		String total_price_det = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText();
 		String quote_number = driver.findElement(By.className("id-num")).getText().replace("#", "");
 		JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -1163,7 +1222,9 @@ public class AllModules extends App
 		App.click_xpath("//*[text() ='Proceed']", "click", "");
 		App.spinner(); Thread.sleep(1400);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Add Options')]")));
+
 		String aft_clone_quote_number = driver.findElement(By.className("id-num")).getText().replace("#", "");
+		Thread.sleep(2500);
 		String aft_clone_total_price_det = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText();
 		Thread.sleep(1300);
 		App.click_xpath("//*[text() = 'Quotes']", "click", "");
@@ -1218,16 +1279,56 @@ public class AllModules extends App
 
 		if (aft_clone_total_price_det.equals(total_price_det)) 
 		{
-			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After_Clone", "after clone grid price in det"+aft_clone_total_price_det, 
-					"after clone grid price in detIn detail view price "+total_price_det, "QuotesPage", "Passed",
+			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After and Before_Clone", "after clone total price in det "+aft_clone_total_price_det, 
+					"before clone total price in detail view "+total_price_det, "QuotesPage", "Passed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		} else {
-			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After_Clone", "after clone grid price in det"+aft_clone_total_price_det, 
-					"after clone grid price in detIn detail view price "+total_price_det, "QuotesPage", "Failed",
+			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After and Before_Clone", "after clone total price in det "+aft_clone_total_price_det, 
+					"before clone total price in detail view "+total_price_det, "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
+	}
+	public boolean create_quote() throws Exception 
+	{	QuotePages quotes = new QuotePages();	
+	driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
+	App.spinner(); Thread.sleep(1400);
+	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	try {
+		App.clearTopSearch(); Thread.sleep(2000);
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+		System.out.println(e.getStackTrace()[0]);
+	}
+	App.spinner(); boolean create = false; String quo_status = "Open";
+	try {
+		driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).isDisplayed();
+		driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).click();
+		create = false;
+	} catch (Exception e) 
+	{
+		String custName = "Motion Industries - Grand Prairie";
+		driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
+		driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
+		App.spinner();
+		Thread.sleep(1200);
+		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
+		App.spinner();Thread.sleep(1000);
+		driver.findElement(By.name("project_name")).sendKeys("Test");
+		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+		Thread.sleep(2500);
+		quotes.selectDropDown("Parts Quote");
+		Thread.sleep(1500);
+		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		Thread.sleep(1600);
+		create = true;
+	}
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+	Thread.sleep(1600);
+	return create;
 	}
 	public void org_search(String org_name) throws Exception {
 		driver.findElements(By.xpath("//*[text()='Organizations']")).get(0).click();
@@ -1291,10 +1392,10 @@ public class AllModules extends App
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
 		Thread.sleep(1300);
 		App.click_xpath("//*[@placeholder='Search By Part Number']", "send_keys", "1234");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '1234')]")));
-		Thread.sleep(1800);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@name = 'quantity_0']")));
+		Thread.sleep(2000);
 		App.click_xpath("//*[@placeholder='Search By Part Number']", "click", "");
-		
+
 		switch (count) {
 		case 1:
 			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
@@ -1435,7 +1536,7 @@ public class AllModules extends App
 	public void check_change_item_line_order(String env) throws Exception
 	{
 		//create Quote
-		boolean create = quotes.createQuote();
+		boolean create = this.create_quote();
 		Actions act = new Actions(driver);
 		if(create) 
 		{

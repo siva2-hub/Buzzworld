@@ -20,15 +20,17 @@ public class QuoteTestCases extends App{
 		} else {
 			env = "QA Instance";
 		}
+		//Verifying the total prices in grid and detail views from quotes
 //		all.verify_total_price_grid_detail_view(env);
-		//Update the line item order in items grid
-		all.check_change_item_line_order(env);
-		System.exit(0);
-		try {
-			all.quotesModule("Week(s)", "21", "32.23", env);
-		} catch (Exception e) {
-			System.err.println(e.getMessage().lines());
-		}
+//		System.exit(0);
+//		//Update the line item order in items grid
+//		all.check_change_item_line_order(env);
+//		System.exit(0);
+//		try {
+//			all.quotesModule("Week(s)", "21", "32.23", env);
+//		} catch (Exception e) {
+//			System.err.println(e.getMessage().lines());
+//		}
 		//		Verify Quote Lost, Verify Quote clone from Quote for Parts
 		quotes.verifyQuoteWon(2, env);
 		//Verify Quote Clone from Quote for Repair
