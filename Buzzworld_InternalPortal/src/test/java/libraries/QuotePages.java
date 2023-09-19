@@ -455,11 +455,16 @@ public class QuotePages extends App
 			xpath = "//*[text() = 'Close']";
 			tcName = "QUOTES_022_VerifyClose_ButtonInQuoteDetailePage";
 			expText = "closed";
-			driver.findElement(By.xpath("//*[text()='Submit for Internal Approval']")).click();
-			Thread.sleep(1500);
-			rp.toastContainer("Proceed");
+			double total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class ,'width-auto')]")).get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+			if (total_price<=10000) {
+			}else 
+			{
+				driver.findElement(By.xpath("//*[text()='Submit for Internal Approval']")).click();
+				Thread.sleep(1500);
+				rp.toastContainer("Proceed");
+			}
 			//
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Approve']")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Add Options']")));
 			Thread.sleep(1500);
 			driver.findElement(By.xpath("//*[text()='Approve']")).click();
 			Thread.sleep(1500);
