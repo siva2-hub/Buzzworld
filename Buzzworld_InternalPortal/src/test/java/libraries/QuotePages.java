@@ -1039,7 +1039,7 @@ public class QuotePages extends App
 	}
 	public boolean verifyDeclineInQuoteDetailedView(String env) throws Exception
 	{
-		//		this.declineTheQuote();
+		//this.declineTheQuote();
 		Thread.sleep(2400);
 		WebElement rfq = driver.findElement(By.xpath("//*[@title='RFQ Received Date']"));
 		Thread.sleep(1500);
@@ -1047,17 +1047,18 @@ public class QuotePages extends App
 		act.moveToElement(rfq).build().perform();
 		Thread.sleep(1000);
 		List<WebElement> edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
-		edits.get(0).click();
+		edits.get(1).click();
+		//Update Request for Quote date
 		driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElement(By.tagName("button")).click();
 		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
 		Thread.sleep(2000);
 		Thread.sleep(1700);
+		//Update Quote Requested by
 		WebElement qReqBy = driver.findElement(By.xpath("//*[@title='Quote Requested By']"));
 		Actions action = new Actions(driver);
 		action.moveToElement(qReqBy).build().perform();
 		Thread.sleep(1000);
-		edits.get(2).click();
-
+		edits.get(3).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'react-select__control')]")).click();
 		Thread.sleep(1000);
@@ -1070,13 +1071,20 @@ public class QuotePages extends App
 		driver.findElement(By.xpath("//*[@class='cards-btns-group']")).findElement(By.xpath("//*[contains(@src, 'delete-icon')]")).click();
 		Thread.sleep(1000);
 		driver.findElements(By.xpath("//*[text()='Yes']")).get(1).click();
-		Thread.sleep(1500);
+		App.spinner(); Thread.sleep(1500);
+		App.click_xpath("//*[text() = 'Option 1']", "click", "");
+		Thread.sleep(1300); App.spinner(); Thread.sleep(1100); 
 		//
-		driver.findElement(By.xpath("//*[text()='Submit for Internal Approval']")).click();
-		Thread.sleep(1500);
-		rp.toastContainer("Proceed");
+		double total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class ,'width-auto')]")).get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+		if (total_price<=10000) {
+		}else 
+		{
+			driver.findElement(By.xpath("//*[text()='Submit for Internal Approval']")).click();
+			Thread.sleep(1500);
+			rp.toastContainer("Proceed");
+		}
 		//
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[text()='Approve']")));
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[text()='Add Options']")));
 		Thread.sleep(1500);
 		driver.findElement(By.xpath("//*[text()='Approve']")).click();
 		Thread.sleep(1500);
