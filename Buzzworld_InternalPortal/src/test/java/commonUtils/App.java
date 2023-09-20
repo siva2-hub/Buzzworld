@@ -409,15 +409,17 @@ public class App {
 	}
 	public static void click_xpath(String path, String type, String send_value) 
 	{
+		String getText = "";
 		if (type.equals("click")) {
 			driver.findElement(By.xpath(path)).click();
 		}else if (type.equals("send_keys")) {
 			driver.findElement(By.xpath(path)).sendKeys(send_value);
 		}else if(type.equals("get_text")){
-			driver.findElement(By.xpath(path)).getText();
+			getText = driver.findElement(By.xpath(path)).getText();
 		}else {
 			driver.findElement(By.xpath(path));
 		}
+		return getText;
 	}
 	
 	public static void values1(Object data[]) throws Exception {
