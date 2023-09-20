@@ -20,6 +20,8 @@ public class QuoteTestCases extends App{
 		} else {
 			env = "QA Instance";
 		}
+		//Verify Edit Vendor while Adding New Item
+		quotes.edit_vendor_add_new_item(env);
 		//Verifying the total prices in grid and detail views from quotes
 		all.verify_total_price_grid_detail_view(env);
 		//Update the line item order in items grid
