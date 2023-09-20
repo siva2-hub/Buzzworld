@@ -115,6 +115,69 @@ public class QuotePages extends App
 		}
 		return res;
 	}
+	public void edit_vendor_add_new_item(String env) throws Exception 
+	{
+		AllModules all = new AllModules();
+		App.spinner(); Thread.sleep(1500);
+		App.click_xpath("//*[text() = 'System Quotes']", "click", "");
+		App.spinner(); Thread.sleep(2300);
+		App.horizentalScroll();
+		Actions act = new Actions(driver);
+		String vendor = "HAMMOND MFG-ENCLOSURES";
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+		} catch (Exception e) {
+			// TODO: handle exception		
+			all.create_quote(); Thread.sleep(1300);
+		}
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		App.click_xpath("//*[text() = 'Add Items']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add New Items']")));
+		App.click_xpath("//*[text() = 'Add New Items']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@placeholder = 'IIDM Cost']")));
+		String bef_edit_vendor = App.click_xpath("//*[contains(@class, 'react-select__single-value')]", "get_text", "");
+		App.click_xpath("//*[@id = 'async-select-example']", "send_keys", vendor);
+		App.spinner(); Thread.sleep(1300);
+		act.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(1300);
+		App.click_xpath("//*[@placeholder = 'Part Number']", "send_keys", "PN1234");
+		App.click_xpath("//*[@placeholder = 'Quantity']", "send_keys", "1");
+		App.click_xpath("//*[@placeholder = 'Quote Price']", "send_keys", "1795");
+		App.click_xpath("//*[@placeholder = 'List Price']", "send_keys", "1795");
+		App.click_xpath("//*[@placeholder = 'IIDM Cost']", "send_keys", "288");
+		App.click_xpath("//*[text() = 'Add']", "click", "");
+		App.spinner(); Thread.sleep(2500); String act_vendor = "";
+		List<WebElement> v_lists = driver.findElements(By.xpath("//*[contains(@class, 'm-0 manufacter')]"));
+		for(int i=0; i<v_lists.size(); i++) 
+		{
+			if (i==v_lists.size()-1) 
+			{
+				act_vendor = v_lists.get(i).getText();
+				if (act_vendor.equals(vendor)) 
+				{
+					if (!act_vendor.equals(bef_edit_vendor)) {
+						Object status[] = {"QUOTES_036_Verify_Edit_Manifacturer_Adding_New_Item", "before edit vendor is "+bef_edit_vendor, 
+								"after edit vendor is "+act_vendor, "QuotesPage", "Passed",
+								java.time.LocalDateTime.now().toString(), env};
+						App.values1(status);
+						Object status1[] = {"QUOTES_037_Verify_Add_New_Item", "before edit vendor is "+bef_edit_vendor, 
+								"after edit vendor is "+act_vendor, "QuotesPage", "Passed",
+								java.time.LocalDateTime.now().toString(), env};
+						App.values1(status1);
+						break;
+					} else {
+						Object status[] = {"QUOTES_036_Verify_Edit_Manifacturer_Adding_New_Item", "before edit vendor is "+bef_edit_vendor, 
+								"after edit vendor is "+act_vendor, "QuotesPage", "Failed",
+								java.time.LocalDateTime.now().toString(), env};
+						App.values1(status);
+						break;
+					}
+				}
+			}
+		}
+		
+	}
 	public void quoteApprove() throws Exception 
 	{
 		this.submitForInternalApproval();
