@@ -738,57 +738,87 @@ public class AllModules extends App
 	}
 	public void quotesModule(String leadTime, String leadValue, String discount, String env) throws Exception
 	{
-		//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-		//		//Search Functionality
-		//		try {
-		//			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
-		//			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
-		//		} catch (Exception e) {
-		//			System.out.println(e.getMessage());
-		//		}
-		//		//Search with Quote Id
-		//		//Warning Pop Up
-		//		this.clearButtonTopSearch();
-		//		App.displayPopUp("QUOTES_014_VerifySearchByQuoteId");
-		//		quotes.verifyTopSearchInQuoteListView("2023053100074", 1, env);
-		//		this.clearButtonTopSearch();
-		//		//Search with Company Name
-		//		//Warning Pop Up
-		//		App.displayPopUp("QUOTES_015_VerifySearchByCompanyName");
-		//		quotes.verifyTopSearchInQuoteListView("123 E Doty Corporation", 2, env);
-		//		this.clearButtonTopSearch();
-		//		//Search with Sales Person
-		//		//Warning Pop Up
-		//		App.displayPopUp("QUOTES_016_VerifySearchBySalesPersonName");
-		//		quotes.verifyTopSearchInQuoteListView("Frontier", 3, env);
-		//		this.clearButtonTopSearch();
-		//		//Search with Email
-		//		//Warning Pop Up
-		//		App.displayPopUp("QUOTES_017_VerifySearchByEmail");
-		//		quotes.verifyTopSearchInQuoteListView("pete.soto@motion-ind.com", 4, env);
-		//		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
-		//		App.spinner();
-		//		this.clearButtonTopSearch(); App.spinner(); Thread.sleep(1200);
-		//		//Filters In Quote List View
-		//		//Warning Pop Up
-		//		App.displayPopUp("QUOTES_018_VerifyFiltersInQuotesListView");
-		//		quotes.verifyFiltersInQuoteListView("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
-		//		//Filter's State Maintenance
-		//		//Warning Pop Up
-		//		App.displayPopUp("QUOTES_019_VerifyFiltersStateMaintanance");
-		//		quotes.verifyFiltersStateMaintanance("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
-		//		//Reset and Clear Buttons in Filter's Page
-		//		//Warning Pop Up
-		//		App.displayPopUp("QUOTES_020_VerifyResetandClearButtonInFiltersPage");
-		//		quotes.verifyResetandClearButtonInFiltersPage("Zummo Meat Co Inc", 1, env);
+		//All Quotes count
+		App.displayPopUp("QUOTES_033_VerifyAllQuotes_with_Count");
+		App.click_xpath("//*[text() ='Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearTopSearch(); Thread.sleep(1300);
+		App.click_xpath("//*[text() = 'All Quotes']", "click", "");
+		App.spinner(); Thread.sleep(1300);
+		String total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int all_quotes_count = Integer.parseInt(total_count);
+		//Parts Quotes Count
+		App.click_xpath("//*[text() = 'Parts Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int parts_quotes_count = Integer.parseInt(total_count);
+		//Repair Quotes Count
+		App.click_xpath("//*[text() = 'Repair Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int rep_quotes_count = Integer.parseInt(total_count);
+		//System Quotes Count
+		App.click_xpath("//*[text() = 'System Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int sys_quotes_count = Integer.parseInt(total_count);
+		int quotes_count = (parts_quotes_count+rep_quotes_count+sys_quotes_count);
+		if (all_quotes_count== quotes_count) {
+			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
+					"QuotesPage", "Passed",	java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
+					"QuotesPage", "Failed",	java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		//Search Functionality
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//Search with Quote Id
+		//Warning Pop Up
+		this.clearButtonTopSearch();
+		App.displayPopUp("QUOTES_014_VerifySearchByQuoteId");
+		quotes.verifyTopSearchInQuoteListView("2023053100074", 1, env);
+		this.clearButtonTopSearch();
+		//Search with Company Name
+		//Warning Pop Up
+		App.displayPopUp("QUOTES_015_VerifySearchByCompanyName");
+		quotes.verifyTopSearchInQuoteListView("123 E Doty Corporation", 2, env);
+		this.clearButtonTopSearch();
+		//Search with Sales Person
+		//Warning Pop Up
+		App.displayPopUp("QUOTES_016_VerifySearchBySalesPersonName");
+		quotes.verifyTopSearchInQuoteListView("Frontier", 3, env);
+		this.clearButtonTopSearch();
+		//Search with Email
+		//Warning Pop Up
+		App.displayPopUp("QUOTES_017_VerifySearchByEmail");
+		quotes.verifyTopSearchInQuoteListView("pete.soto@motion-ind.com", 4, env);
+		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
+		App.spinner();
+		this.clearButtonTopSearch(); App.spinner(); Thread.sleep(1200);
+		//Filters In Quote List View
+		//Warning Pop Up
+		App.displayPopUp("QUOTES_018_VerifyFiltersInQuotesListView");
+		quotes.verifyFiltersInQuoteListView("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
+		//Filter's State Maintenance
+		//Warning Pop Up
+		App.displayPopUp("QUOTES_019_VerifyFiltersStateMaintanance");
+		quotes.verifyFiltersStateMaintanance("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
+		//Reset and Clear Buttons in Filter's Page
+		//Warning Pop Up
+		App.displayPopUp("QUOTES_020_VerifyResetandClearButtonInFiltersPage");
+		quotes.verifyResetandClearButtonInFiltersPage("Zummo Meat Co Inc", 1, env);
 		//Create Quote
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_001_VerifyCreateQuote");
 		quotes.createQuote();
 		App.spinner(); Thread.sleep(1300);
-
 		String org_acc_number = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(5).findElement(By.tagName("p")).getText();
-
 		String actText = driver.findElement(By.xpath("//*[@class='quote-num-and-status']")).getText();
 		String expText = "OPEN";
 		if (actText.toLowerCase().contains(expText.toLowerCase())) 
@@ -1169,6 +1199,8 @@ public class AllModules extends App
 	}
 	public void verify_total_price_grid_detail_view(String env) throws Exception {
 		//create Quote
+		// Display warning Pop UP
+		App.displayPopUp("QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View_");
 		this.create_quote();
 		this.select_items(3); Actions act = new Actions(driver);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']"))); 
@@ -1208,7 +1240,8 @@ public class AllModules extends App
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
-
+		// Display warning Pop UP
+		App.displayPopUp("QUOTES_030_VerifyPrices_In_Grid_and_Detailed_View_After_Clone_");
 		//click on quote which in grid to redirects to detailed view
 		App.click_xpath("//*[@class ='ag-react-container']", "click", "");
 		App.spinner(); Thread.sleep(1300);
@@ -1245,6 +1278,8 @@ public class AllModules extends App
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
+		// Display warning Pop UP
+		App.displayPopUp("QUOTES_028_Verify_Items_Line_Order_After_Clone");
 		Thread.sleep(1400);
 		App.click_xpath("//*[@class ='ag-react-container']", "click", "");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Add Options')]")));
@@ -1276,7 +1311,7 @@ public class AllModules extends App
 					"before clone order is "+line_order_bef_clone, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
-
+		
 		if (aft_clone_total_price_det.equals(total_price_det)) 
 		{
 			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After and Before_Clone", "after clone total price in det "+aft_clone_total_price_det, 
@@ -1291,44 +1326,46 @@ public class AllModules extends App
 		}
 	}
 	public boolean create_quote() throws Exception 
-	{	QuotePages quotes = new QuotePages();	
-	driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
-	App.spinner(); Thread.sleep(1400);
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-	try {
-		App.clearTopSearch(); Thread.sleep(2000);
-	} catch (Exception e) {
-		System.out.println(e.getMessage());
-		System.out.println(e.getStackTrace()[0]);
-	}
-	App.spinner(); boolean create = false; String quo_status = "Open";
-	try {
-		driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).isDisplayed();
-		driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).click();
-		create = false;
-	} catch (Exception e) 
-	{
-		String custName = "Motion Industries - Grand Prairie";
-		driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
-		driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
-		App.spinner();
-		Thread.sleep(1200);
-		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
-		App.spinner();Thread.sleep(1000);
-		driver.findElement(By.name("project_name")).sendKeys("Test");
-		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
-		Thread.sleep(2500);
-		quotes.selectDropDown("Parts Quote");
-		Thread.sleep(1500);
-		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+	{	
+		QuotePages quotes = new QuotePages();	
+		driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
+		App.spinner(); Thread.sleep(1400);
+		App.clearTopSearch(); Thread.sleep(1300);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		try {
+			App.clearTopSearch(); Thread.sleep(2000);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace()[0]);
+		}
+		App.spinner(); boolean create = false; String quo_status = "Open1";
+		try {
+			driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = '"+quo_status+"']")).click();
+			create = false;
+		} catch (Exception e) 
+		{
+			String custName = "Motion Industries - Grand Prairie";
+			driver.findElement(By.xpath("//*[@class='button-icon-text ']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
+			driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(custName);
+			App.spinner();
+			Thread.sleep(1200);
+			driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
+			App.spinner();Thread.sleep(1000);
+			driver.findElement(By.name("project_name")).sendKeys("Test");
+			driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+			Thread.sleep(2500);
+			quotes.selectDropDown("Parts Quote");
+			Thread.sleep(1500);
+			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+			Thread.sleep(1600);
+			create = true;
+		}
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 		Thread.sleep(1600);
-		create = true;
-	}
-	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
-	Thread.sleep(1600);
-	return create;
+		return create;
 	}
 	public void org_search(String org_name) throws Exception {
 		driver.findElements(By.xpath("//*[text()='Organizations']")).get(0).click();
@@ -1536,6 +1573,7 @@ public class AllModules extends App
 	public void check_change_item_line_order(String env) throws Exception
 	{
 		//create Quote
+		App.clearTopSearch(); Thread.sleep(1300);
 		boolean create = this.create_quote();
 		Actions act = new Actions(driver);
 		if(create) 

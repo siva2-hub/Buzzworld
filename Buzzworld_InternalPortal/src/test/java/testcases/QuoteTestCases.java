@@ -21,24 +21,21 @@ public class QuoteTestCases extends App{
 			env = "QA Instance";
 		}
 		//Verifying the total prices in grid and detail views from quotes
-//		all.verify_total_price_grid_detail_view(env);
-//		System.exit(0);
-//		//Update the line item order in items grid
-//		all.check_change_item_line_order(env);
-//		System.exit(0);
-//		try {
-//			all.quotesModule("Week(s)", "21", "32.23", env);
-//		} catch (Exception e) {
-//			System.err.println(e.getMessage().lines());
-//		}
-		//		Verify Quote Lost, Verify Quote clone from Quote for Parts
+		all.verify_total_price_grid_detail_view(env);
+		//Update the line item order in items grid
+		all.check_change_item_line_order(env);
+		try {
+			all.quotesModule("Week(s)", "21", "32.23", env);
+		} catch (Exception e) {
+			System.err.println(e.getMessage().lines());
+		}
+		//Verify Quote Lost, Verify Quote clone from Quote for Parts
 		quotes.verifyQuoteWon(2, env);
 		//Verify Quote Clone from Quote for Repair
 		quotes.quoteClone_QuoteForRepairs(env);
 		//Verify Add Options in Quote detailed view, Verify Quote Decline, Verify Quote Re Open, Verify Quote Close
 		quotes.verifyAddOptionInQuoteDetailedView(env);
 	}
-
 	//	@Test(enabled = false)
 	//	//	@Test(priority=7)
 	//	public void testCase12() throws Exception {

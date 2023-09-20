@@ -307,35 +307,15 @@ public class QuotePages extends App
 		driver.findElement(By.xpath("//*[text()='Quotes']")).click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@placeholder='Quote ID / Company Name / Sales Person Name / Email']")));
-		try {
-			driver.findElement(By.xpath("//*[text()='Clear']")).click();
-			Thread.sleep(2000);
-		} catch (Exception e) {
-		}
-		//
-		try {
-			driver.findElement(By.xpath("//*[@class='Cross-svg close-icon-container']")).click();
-		} catch (Exception e) {
-		}
+		App.clearTopSearch(); Thread.sleep(1300);
+		App.clearFilter(); Thread.sleep(1300);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-react-container']")));
 		String tcName = "";String path = "";boolean res = false;String actText = "";
-		if (count == 1) {
-			tcName = "QUOTES_014_VerifySearchByQuoteId";
-			path = "/html/body/div[1]/div/div[4]/div[2]/div/div/div/div/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[1]";
-		} else if(count == 2) {
-			tcName = "QUOTES_015_VerifySearchByCompanyName";
-			path = "/html/body/div[1]/div/div[4]/div[2]/div/div/div/div/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[2]/span/div[2]";
-		}else if(count == 3) {
-			tcName = "QUOTES_016_VerifySearchBySalesPersonName";
-			path = "/html/body/div[1]/div/div[4]/div[2]/div/div/div/div/div/div[2]/div[2]/div[3]/div[2]/div/div/div[1]/div[7]/span/div[2]";
-		}else if(count == 4) {
-			tcName = "QUOTES_017_VerifySearchByEmail";
-
-		}
+		
 		driver.findElement(By.xpath("//*[@placeholder='Quote ID / Company Name / Sales Person Name / Email']")).sendKeys(searchBy);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-viewport']")));
-		App.spinner(); Thread.sleep(1300);
-		String gridText = driver.findElement(By.xpath("//*[@class='ag-center-cols-viewport']")).getText();
+		App.spinner(); Thread.sleep(2300);
+		String gridText = driver.findElement(By.xpath("//*[@class='ag-center-cols-container']")).getText();
 		System.out.println("data of grid is "+gridText);
 		Thread.sleep(2000);
 		if (gridText=="") {
@@ -345,6 +325,19 @@ public class QuotePages extends App
 			App.values1(status);
 			//			App.logout();
 		} else {
+			if (count == 1) {
+				tcName = "QUOTES_014_VerifySearchByQuoteId";
+				path = App.getGridData(0);
+			} else if(count == 2) {
+				tcName = "QUOTES_015_VerifySearchByCompanyName";
+				path = App.getGridData(1);
+			}else if(count == 3) {
+				tcName = "QUOTES_016_VerifySearchBySalesPersonName";
+				path = App.getGridData(6);
+			}else if(count == 4) {
+				tcName = "QUOTES_017_VerifySearchByEmail";
+
+			}
 			if (count==4) {
 				try {
 					driver.findElement(By.xpath("//*[contains(@src, 'vendor_logo')]")).click();
@@ -359,7 +352,7 @@ public class QuotePages extends App
 				actText = act1;
 				searchBy = act2.replace(" ", ".");
 			}else {
-				actText = driver.findElement(By.xpath(path)).getText();
+				actText = path;
 			}
 			if (actText.toLowerCase().contains(searchBy.toLowerCase())) {
 				res = true;
@@ -369,14 +362,12 @@ public class QuotePages extends App
 				res = false;
 				Object status[] = {tcName, actText, searchBy, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
-				//				App.logout();
 			}
 		}
 		if (count==4) {
 			driver.findElement(By.xpath("//*[text() = 'Quotes']")).click();
 			App.spinner(); Thread.sleep(1500);
 			try {
-
 				driver.findElement(By.xpath("//*[@style = 'padding: 10px 10px 10px 0px; display: flex; align-items: center; cursor: pointer;']")).click();
 				App.spinner();
 			} catch (Exception e) {
@@ -774,7 +765,7 @@ public class QuotePages extends App
 			App.values1(status);
 		}
 		//Warning Pop Up
-		App.displayPopUp("QUOTES_028_Verify_Decline_QuotesForParts");
+		App.displayPopUp("QUOTES_035_Verify_Decline_QuotesForParts");
 
 		//Decline Quote
 		this.verifyDeclineInQuoteDetailedView(env);
@@ -865,7 +856,7 @@ public class QuotePages extends App
 	{
 		rp = new RepairPages();
 		//Warning Pop Up
-		App.displayPopUp("QUOTES_027_VerifyQuoteClone_QuotesForRepairs");
+		App.displayPopUp("QUOTES_034_VerifyQuoteClone_QuotesForRepairs");
 		try {
 			driver.findElement(By.xpath("//*[text() = 'Check In Pending1']")).isDisplayed();
 			driver.findElement(By.xpath("//*[text() = 'Check In Pending']")).click();
@@ -1014,18 +1005,18 @@ public class QuotePages extends App
 		if (quoteType.toLowerCase().contains("parts quote")) {
 			if(actText.toLowerCase().contains("OPEN".toLowerCase())) {
 				res = true;
-				Object status[] = {"QUOTES_027_VerifyQuoteClone_QuotesForRepairs", "Quote Type is "+quoteType,
+				Object status[] = {"QUOTES_034_VerifyQuoteClone_QuotesForRepairs", "Quote Type is "+quoteType,
 						"Quote status is "+actText, "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
 			}else {
 				res = false;
-				Object status[] = {"QUOTES_027_VerifyQuoteClone_QuotesForRepairs", "Quote Type is "+quoteType,
+				Object status[] = {"QUOTES_034_VerifyQuoteClone_QuotesForRepairs", "Quote Type is "+quoteType,
 						"Quote status is "+actText, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
 			}
 		} else {
 			res = false;
-			Object status[] = {"QUOTES_027_VerifyQuoteClone_QuotesForRepairs", "Quote Type is "+quoteType,
+			Object status[] = {"QUOTES_034_VerifyQuoteClone_QuotesForRepairs", "Quote Type is "+quoteType,
 					"Quote status is "+actText, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
@@ -1106,12 +1097,12 @@ public class QuotePages extends App
 		String expText = "REJECTED";boolean res = false;
 		if (actText.contains(expText)) {
 			res = true;
-			Object status[] = {"QUOTES_028_Verify_Decline_QuotesForParts", actText, expText, "QuotesPage",
+			Object status[] = {"QUOTES_035_Verify_Decline_QuotesForParts", actText, expText, "QuotesPage",
 					"Passed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		} else {
 			res = false;
-			Object status[] = {"QUOTES_028_Verify_Decline_QuotesForParts", actText, expText, "QuotesPage",
+			Object status[] = {"QUOTES_035_Verify_Decline_QuotesForParts", actText, expText, "QuotesPage",
 					"Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
