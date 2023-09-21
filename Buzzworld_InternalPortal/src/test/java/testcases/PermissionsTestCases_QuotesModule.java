@@ -24,29 +24,33 @@ public class PermissionsTestCases_QuotesModule extends App
 		//Check the Quotes as None permission
 		quotes.verifyQuotesPermissionAsNone("PERMNS_054_Verify_QuoteForParts_Permission_As_View", "Admin", "Users", "Quote for Parts/Repairs",3, 3, env);
 		//Check the Pay Terms as No permission in Quotes
-		quotes.verifyPayTermsPermissionAsYes_Quotes("PERMNS_067_Verify_Pay Terms_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs", 4, 2, env);
+		quotes.verifyPayTermsPermissionAsYes_Quotes("PERMNS_067_Verify_Pay Terms_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs", 5, 2, env);
 		//Check the Pay Terms as Yes permission in Quotes
-		quotes.verifyPayTermsPermissionAsYes_Quotes("PERMNS_068_Verify_Pay Terms__Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs", 4, 1, env);
+		quotes.verifyPayTermsPermissionAsYes_Quotes("PERMNS_068_Verify_Pay Terms__Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs", 5, 1, env);
 		//Check the Edit IIDM Cost as No in Quotes
 		quotes.verifyEditIIDMCostPermissionAsYes_Quotes("PERMNS_059_Verify_Edit_IIDM_Cost_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",3, 2, env);
 		//Check the Edit IIDM Cost as Yes in Quotes
 		quotes.verifyEditIIDMCostPermissionAsYes_Quotes("PERMNS_060_Verify_Edit_IIDM_Cost_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",3, 1, env);
 		//Check the Revise Quote as No permission in quotes
-		quotes.verifyReviseQuotePermissionAsYes_Quotes("PERMNS_063_Verify_ReviseQuote_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",8, 2, env);
+		quotes.verifyReviseQuotePermissionAsYes_Quotes("PERMNS_063_Verify_ReviseQuote_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",9, 2, env);
 		//Check the Revise Quote as Yes permission in quotes
-		quotes.verifyReviseQuotePermissionAsYes_Quotes("PERMNS_064_Verify_ReviseQuote_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",8, 1, env);
+		quotes.verifyReviseQuotePermissionAsYes_Quotes("PERMNS_064_Verify_ReviseQuote_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",9, 1, env);
 		//Check the Quote approval limit as None permission in quotes
 		quotes.verifyQuoteApprovalLimitPermissionAsNone_Quotes("PERMNS_069_Verify_Quote Approval Limit__Permission_As_None_Quotes", "Admin", "Users", "Quote for Parts/Repairs","None", env);
 		//Check the Quote approval limit as above 50k permission in quotes
 		quotes.verifyQuoteApprovalLimitPermissionAsNone_Quotes("PERMNS_070_Verify_Quote Approval Limit__Permission_As_$50k and above_Quotes", "Admin", "Users", "Quote for Parts/Repairs","$50k and above", env);
 		//Check the Send to customer as No permission
-		quotes.verifySendToCustomerPermissionAsYes_Quotes("PERMNS_065_Verify_Send To Customer_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",9, 2, env);
+		quotes.verifySendToCustomerPermissionAsYes_Quotes("PERMNS_065_Verify_Send To Customer_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",10, 2, env);
 		//Check the Send to customer as Yes permission
-		quotes.verifySendToCustomerPermissionAsYes_Quotes("PERMNS_066_Verify_Send To Customer_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",9, 1, env);
+		quotes.verifySendToCustomerPermissionAsYes_Quotes("PERMNS_066_Verify_Send To Customer_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",10, 1, env);
 		//Check the Create sales order as no permission in quotes
 		quotes.verifyCreateSalesOrderPermissionAsYes("PERMNS_055_Verify_CreateSalesOrder_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",2, 2, env);
 		//Check the Create sales order as yes permission in quotes
 		quotes.verifyCreateSalesOrderPermissionAsYes("PERMNS_056_Verify_CreateSalesOrder_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",2, 1, env);
+		//Check the GP < 23 % Approval permission as in yes in quotes
+		quotes.verify_lessthan_23_approval("PERMNS_056_Verify_GP < 23 % Approval_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",4, 1, env);
+		//Check the GP < 23 % Approval permission as in No in quotes
+		quotes.verify_lessthan_23_approval("PERMNS_056_Verify_GP < 23 % Approval_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",4, 2, env);
 
 	}
 

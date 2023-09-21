@@ -104,14 +104,9 @@ public class Permissions_QuotesPages extends Permissions
 	{
 		//Pop Up message
 		App.displayPopUp(tcName);
-
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
 		RepairPages repair = new RepairPages();
-		//		quotes.submitForCustomerApproval();
-		//		PricingPages price = new PricingPages();
-		//		price.clickButton("Won");
-		//		repair.toastContainer("Proceed");
 		if (count==2) {
 			try {
 				Thread.sleep(500);
@@ -120,7 +115,7 @@ public class Permissions_QuotesPages extends Permissions
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(18));
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'print')]")));
 			Thread.sleep(1600);
 			driver.findElement(By.xpath("//*[@class='quote-num-and-status']")).findElement(By.tagName("button")).click();
@@ -147,10 +142,6 @@ public class Permissions_QuotesPages extends Permissions
 			message = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[2]")).getText();
 			if(count==1) 
 			{
-
-				//				expText = "Clone\n"
-				//						+ "Print\n"
-				//						+ "Download";
 				try {
 					Thread.sleep(1000);
 					driver.findElement(By.xpath("//*[text()='Create Sales Order']")).isDisplayed();
@@ -282,10 +273,6 @@ public class Permissions_QuotesPages extends Permissions
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30)); Actions act = new Actions(driver);
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
-		//		QuotePages quotes = new QuotePages();RepairPages repair = new RepairPages();
-		//		quotes.createQuote();
-		//		Thread.sleep(1600);
-		//		quotes.selectItemToQuote();
 		try {
 			Thread.sleep(500);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Open']")));
@@ -575,7 +562,6 @@ public class Permissions_QuotesPages extends Permissions
 	{
 		//Pop Up message
 		App.displayPopUp(tcName);
-
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
 		QuotePages quotes = new QuotePages();
@@ -631,12 +617,80 @@ public class Permissions_QuotesPages extends Permissions
 		this.verifyAdminTabswithNonePermission(itemName, tabName, labelName, 4);
 		return res;
 	}
+	public void verify_lessthan_23_approval(String tcName, String itemName, String tabName, String labelName, int childCount, int count, String env) throws Exception{
+		//Pop Up message
+		App.displayPopUp(tcName); Actions act = new Actions(driver);
+		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
+		driver.navigate().to(actURL[0].replace("users", actURL[1]));
+		QuotePages quotes = new QuotePages();
+		App.spinner(); Thread.sleep(2300);
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+		} catch (Exception e) {
+			quotes.createQuote(); 
+			quotes.selectItemToQuote();
+		}
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		Thread.sleep(1400);
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//*[text() = 'Internal Approvals']")));
+		Thread.sleep(1400);
+		double gp = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'w-32')]")).get(0)
+				.findElement(By.tagName("h4")).getText().replace("%", ""));
+		double total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]"))
+				.get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+		if (gp<23 && total_price<10000) {
+		
+		} else {
+			driver.findElements(By.xpath("//*[contains(@src, 'themecolorEdit')]")).get(1).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Turn Around Time']")));
+			App.click_react_dropdown(1);
+			act.sendKeys(Keys.ENTER).build().perform();
+			App.click_react_dropdown(2);
+			act.sendKeys(Keys.ENTER).build().perform();
+			//update the quote price if >10000
+			act.doubleClick(driver.findElement(By.xpath("//*[@placeholder = 'Enter Gross Profit']"))).build().perform();
+			act.sendKeys(Keys.BACK_SPACE).build().perform();
+			App.click_xpath("//*[@placeholder = 'Enter Gross Profit']", "send_keys", "16");
+			Thread.sleep(2000);
+			App.click_xpath("//*[text() = 'Save']", "click", "");
+			App.spinner(); Thread.sleep(2300);
+		}
+		gp = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'w-32')]")).get(0)
+				.findElement(By.tagName("h4")).getText().replace("%", ""));
+		boolean is_approve = false;
+		total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]"))
+				.get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+		if (count==2) {
+			try {
+				driver.findElement(By.xpath("//*[text() = 'Approve']")).isDisplayed();
+				is_approve = false;
+			} catch (Exception e) {
+				is_approve = true;
+			}
+		} else {
+			try {
+				driver.findElement(By.xpath("//*[text() = 'Approve']")).isDisplayed();
+				is_approve = true;
+			} catch (Exception e) {
+				is_approve = false;
+			}
+		}
+		//
+		if (is_approve) {
+			Object status[] = {tcName, "gp is "+gp, "total price is "+total_price, "Quotes_Permissions", "Passed", "", env};
+			App.values1(status);
+		}else {
+			Object status[] = {tcName, "gp is "+gp, "total price is "+total_price, "Quotes_Permissions", "Failed", "", env};
+			App.values1(status);
+		}
+	}
 	public boolean verifyQuoteApprovalLimitPermissionAsNone_Quotes(String tcName, String itemName, String tabName, String labelName,String perName, String env) throws Exception
 	{
 		//Pop Up message
 		App.displayPopUp(tcName);
-
-		//		QuotePages quotes = new QuotePages();
+		//QuotePages quotes = new QuotePages();
 		this.userTab(itemName, tabName);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		List<WebElement> labelsText = driver.findElements(By.xpath("//*[@class='permission-outer-border']")).get(3).findElements(By.xpath("//*[@class='permission']"));
