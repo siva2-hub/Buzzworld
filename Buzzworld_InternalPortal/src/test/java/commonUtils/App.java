@@ -421,7 +421,11 @@ public class App {
 		}
 		return getText;
 	}
-	
+	public static void click_react_dropdown(int count) throws Exception
+	{
+		driver.findElements(By.xpath("//*[contains(@class, 'react-select__dropdown-indicator')]")).get(count).click();
+		Thread.sleep(1400);
+	}
 	public static void values1(Object data[]) throws Exception {
 		String date = java.time.LocalDateTime.now().toString().replace("T", " ").substring(0, 19);
 		Class.forName("com.mysql.jdbc.Driver");  

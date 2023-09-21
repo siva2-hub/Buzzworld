@@ -176,7 +176,34 @@ public class QuotePages extends App
 				}
 			}
 		}
-		
+		String bef_edit_man = App.click_xpath("//*[contains(@class, 'm-0 manufacter')]", "get_text", "");
+		driver.findElements(By.xpath("//*[contains(@src, 'themecolorEdit')]")).get(1).click();
+		String change_vendor = "MENCOM CORPORATION";
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Turn Around Time']")));
+		App.click_xpath("//*[@id = 'async-select-example']", "send_keys", change_vendor);
+		App.spinner(); Thread.sleep(1300);
+		act.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(1300);
+		App.click_react_dropdown(1);
+		act.sendKeys(Keys.ENTER).build().perform();
+		App.click_react_dropdown(2);
+		act.sendKeys(Keys.ENTER).build().perform();
+		App.click_xpath("//*[text() = 'Save']", "click", "");
+		App.spinner(); Thread.sleep(2300);
+		String bef_edit_man1 = App.click_xpath("//*[contains(@class, 'm-0 manufacter')]", "get_text", "");
+		if (bef_edit_man1.equals(change_vendor)) 
+		{
+			Object status[] = {"QUOTES_038_Verify_Edit_Manifacturer_Already_Added_Item", "before edit Manifacturer is "+bef_edit_man, 
+					"after edit Manifacturer is "+change_vendor, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else 
+		{
+			Object status[] = {"QUOTES_038_Verify_Edit_Manifacturer_Already_Added_Item", "before edit Manifacturer is "+bef_edit_man, 
+					"after edit Manifacturer is "+change_vendor, "QuotesPage", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
 	}
 	public void quoteApprove() throws Exception 
 	{
