@@ -407,7 +407,7 @@ public class App {
 			}
 		} else {}
 	}
-	public static void click_xpath(String path, String type, String send_value) 
+	public static String click_xpath(String path, String type, String send_value) 
 	{
 		String getText = "";
 		if (type.equals("click")) {
