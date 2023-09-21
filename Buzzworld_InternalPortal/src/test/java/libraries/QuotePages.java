@@ -46,9 +46,9 @@ public class QuotePages extends App
 		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
 		App.spinner();Thread.sleep(1000);
 		driver.findElement(By.name("project_name")).sendKeys("Test");
-		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("System Quote");
 		Thread.sleep(2500);
-		this.selectDropDown("Parts Quote");
+		this.selectDropDown("System Quote");
 		Thread.sleep(1500);
 		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
@@ -275,7 +275,6 @@ public class QuotePages extends App
 		}
 		//Warning Pop Up
 		App.displayPopUp(tcName);
-
 		this.submitForCustomerApproval();
 		Thread.sleep(1000);
 		rp.wonOrLostButton(won);
@@ -856,20 +855,16 @@ public class QuotePages extends App
 		}
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_035_Verify_Decline_QuotesForParts");
-
 		//Decline Quote
 		this.verifyDeclineInQuoteDetailedView(env);
-
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_021_VerifyReOpen_ButtonInQuoteDetailePage");
 		//Re Open Quote
 		this.verifyClosenadReOpenButtons( 1, env);
-
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_022_VerifyClose_ButtonInQuoteDetailePage");
 		//Close Quote
 		this.verifyClosenadReOpenButtons( 2, env);
-
 		return res;
 	}
 	public String[] quoteClone_QuotesForParts() throws Exception 
@@ -880,6 +875,7 @@ public class QuotePages extends App
 		String beforeCloneCust = repIds.get(1).getText();
 		String beforeCloneItems = driver.findElement(By.id("repair-items")).getText();
 		Thread.sleep(1500);
+		
 		String bef_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
 		driver.findElement(By.xpath("//*[contains(@src,'clone')]")).click();
 		Thread.sleep(1300); String cust_name = "Applied Industrial-Corona";
@@ -904,13 +900,6 @@ public class QuotePages extends App
 		App.displayPopUp(tcName);
 
 		String is[] = this.quoteClone_QuotesForParts();
-		//		String beforeCloneRepText = is[0];
-		//		String beforeCloneItems = is[1];
-		//		String beforeCloneCust = is[2];
-		//		List<WebElement> repIds = driver.findElements(By.id("repair-info-id"));
-		//		String afterCloneRepText = repIds.get(0).getText();
-		//		String afterCloneCust = repIds.get(1).getText();
-		//		String afterCloneItems = driver.findElement(By.id("repair-items")).getText();
 		String quoteType = driver.findElement(By.id("repair-info-id")).findElement(By.xpath("//*[contains(@class,'pi-label')]")).findElement(By.xpath("//*[@class='description']")).getText();
 		boolean res = false;
 		if (is[0].equals("System Quote")) {
@@ -928,13 +917,6 @@ public class QuotePages extends App
 				App.values1(status);
 			}
 		} else {
-			//			System.out.println("Quote Cloned Failed.!");
-			//			System.out.println("before clone rep info"+beforeCloneRepText);
-			//			System.out.println("after clone  rep info "+afterCloneRepText);
-			//			System.out.println("before clone item info "+beforeCloneItems);
-			//			System.out.println("after clone  item info "+afterCloneItems);
-			//			System.out.println("before clone cust info "+beforeCloneCust);
-			//			System.out.println("after clone  cust info "+afterCloneCust);
 			res = false;
 			Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
