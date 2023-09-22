@@ -20,11 +20,11 @@ public class PricingTestCases extends App {
 		}else {
 			env = "Dev Instance";
 		}
-		
+		//Checking the Vendor's having the Data or not in grid list view
 		price.verifyVendorisEmptyOrNot(env, 1); 
 		//
-		System.exit(0);
-		price.verifyVendorisEmptyOrNot(env, 2); 
+		//		System.exit(0);
+		//		price.verifyVendorisEmptyOrNot(env, 2); 
 		//
 		price.deletrSPALogs(env);
 		//

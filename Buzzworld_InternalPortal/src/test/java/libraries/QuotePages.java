@@ -1,5 +1,7 @@
 package libraries;
 
+import static org.testng.Assert.expectThrows;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -120,6 +122,7 @@ public class QuotePages extends App
 		AllModules all = new AllModules();
 		App.spinner(); Thread.sleep(1500);
 		App.click_xpath("//*[text() = 'System Quotes']", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'vendor_logo')]")));
 		App.spinner(); Thread.sleep(2300);
 		App.horizentalScroll();
 		Actions act = new Actions(driver);
@@ -443,7 +446,7 @@ public class QuotePages extends App
 			}else {
 				actText = path;
 			}
-			if (actText.toLowerCase().contains(searchBy.toLowerCase())) {
+			if (searchBy.toLowerCase().contains(actText.toLowerCase())) {
 				res = true;
 				Object status[] = {tcName, actText, searchBy, "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);

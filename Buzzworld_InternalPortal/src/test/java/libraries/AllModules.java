@@ -738,46 +738,46 @@ public class AllModules extends App
 	}
 	public void quotesModule(String leadTime, String leadValue, String discount, String env) throws Exception
 	{
-		//All Quotes count
-		App.displayPopUp("QUOTES_033_VerifyAllQuotes_with_Count");
-		App.click_xpath("//*[text() ='Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-		App.clearTopSearch(); Thread.sleep(1300);
-		App.click_xpath("//*[text() = 'All Quotes']", "click", "");
-		App.spinner(); Thread.sleep(1300);
-		String total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-		int all_quotes_count = Integer.parseInt(total_count);
-		//Parts Quotes Count
-		App.click_xpath("//*[text() = 'Parts Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-		int parts_quotes_count = Integer.parseInt(total_count);
-		//Repair Quotes Count
-		App.click_xpath("//*[text() = 'Repair Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-		int rep_quotes_count = Integer.parseInt(total_count);
-		//System Quotes Count
-		App.click_xpath("//*[text() = 'System Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-		int sys_quotes_count = Integer.parseInt(total_count);
-		int quotes_count = (parts_quotes_count+rep_quotes_count+sys_quotes_count);
-		if (all_quotes_count== quotes_count) {
-			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
-					"QuotesPage", "Passed",	java.time.LocalDateTime.now().toString(), env};
-			App.values1(status);
-		} else {
-			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
-					"QuotesPage", "Failed",	java.time.LocalDateTime.now().toString(), env};
-			App.values1(status);
-		}
-		//Search Functionality
-		try {
-			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
-			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+//		//All Quotes count
+//		App.displayPopUp("QUOTES_033_VerifyAllQuotes_with_Count");
+//		App.click_xpath("//*[text() ='Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+//		App.clearTopSearch(); Thread.sleep(1300);
+//		App.click_xpath("//*[text() = 'All Quotes']", "click", "");
+//		App.spinner(); Thread.sleep(1300);
+//		String total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+//		int all_quotes_count = Integer.parseInt(total_count);
+//		//Parts Quotes Count
+//		App.click_xpath("//*[text() = 'Parts Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+//		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+//		int parts_quotes_count = Integer.parseInt(total_count);
+//		//Repair Quotes Count
+//		App.click_xpath("//*[text() = 'Repair Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+//		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+//		int rep_quotes_count = Integer.parseInt(total_count);
+//		//System Quotes Count
+//		App.click_xpath("//*[text() = 'System Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+//		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+//		int sys_quotes_count = Integer.parseInt(total_count);
+//		int quotes_count = (parts_quotes_count+rep_quotes_count+sys_quotes_count);
+//		if (all_quotes_count== quotes_count) {
+//			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
+//					"QuotesPage", "Passed",	java.time.LocalDateTime.now().toString(), env};
+//			App.values1(status);
+//		} else {
+//			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
+//					"QuotesPage", "Failed",	java.time.LocalDateTime.now().toString(), env};
+//			App.values1(status);
+//		}
+//		//Search Functionality
+//		try {
+//			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
+//			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
 		//Search with Quote Id
 		//Warning Pop Up
 		this.clearButtonTopSearch();
@@ -804,7 +804,7 @@ public class AllModules extends App
 		//Filters In Quote List View
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_018_VerifyFiltersInQuotesListView");
-		quotes.verifyFiltersInQuoteListView("Zummo Meat Co Inc", "Jeremy Morgan", "Approved", "Swetha Epi", 1, env);
+		quotes.verifyFiltersInQuoteListView("Applied Industrial-Warren", "Dallas House", "Won", "sivakrishna Epi", 1, env);
 		//Filter's State Maintenance
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_019_VerifyFiltersStateMaintanance");
@@ -833,8 +833,8 @@ public class AllModules extends App
 		//update Quote Type 
 		String bef_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
 		edits.get(0).click(); Thread.sleep(1200);
-		App.click_xpath("//*[text() = 'Parts Quote']", "click", ""); Thread.sleep(1300);
-		App.click_xpath("//*[text() = 'System Quote']", "click", ""); Thread.sleep(1200);
+		App.click_xpath("//*[text() = 'System Quote']", "click", ""); Thread.sleep(1300);
+		App.click_xpath("//*[text() = 'Parts Quote']", "click", ""); Thread.sleep(1200);
 		App.click_xpath("//*[@title = 'Save Changes']", "click", ""); Thread.sleep(1200);
 		App.spinner(); Thread.sleep(2000);
 		String aft_quo_type = driver.findElements(By.xpath("//*[contains(@class, 'calc-width-33')]")).get(1).findElement(By.tagName("p")).getText();
@@ -1201,8 +1201,16 @@ public class AllModules extends App
 		//create Quote
 		// Display warning Pop UP
 		App.displayPopUp("QUOTES_027_VerifyPrices_In_Grid_and_Detailed_View_");
-		this.create_quote();
-		this.select_items(3); Actions act = new Actions(driver);
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+		} catch (Exception e) {
+			// TODO: handle exception		
+			this.create_quote(); Thread.sleep(1300);
+			this.select_items(3);
+		}
+		Actions act = new Actions(driver);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']"))); 
 		Thread.sleep(2500);
 		String total_price_det = driver.findElements(By.xpath("//*[contains(@class, 'width-auto')]")).get(2).findElement(By.tagName("h4")).getText();

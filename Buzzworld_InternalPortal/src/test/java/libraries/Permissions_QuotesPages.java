@@ -434,7 +434,6 @@ public class Permissions_QuotesPages extends Permissions
 		action.moveToElement(qReqBy).build().perform();
 		Thread.sleep(1000);
 		edits.get(3).click();
-
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'react-select__control')]")).click();
 		Thread.sleep(1000);
@@ -470,9 +469,7 @@ public class Permissions_QuotesPages extends Permissions
 		List<WebElement> check_boxes =driver.findElements(By.xpath(path));
 		for(int i =0; i<check_boxes.size(); i++) 
 		{
-			
-			check_boxes.get(i).click();
-			
+			check_boxes.get(i).click();	
 		}
 		App.click_xpath("//*[contains(@title, 'Edit Item')]", "click", "");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Source')]")));

@@ -992,7 +992,7 @@ public class PricingPages extends App {
 		// Displaying Warning Pop Up
 		App.displayPopUp("PRICING_023_Verify_Importing_Buy_Side_Price_In_Non Standard Pricing");
 
-		String logFile = "/home/enterpi/Downloads/BRIMLOO ^0 TIGEROO.xlsx";
+		String logFile = "/home/enterpi/Downloads/BuySideNonstandardPricingIntake1.xlsx";
 		this.pricingPage("Non Standard Pricing");
 		driver.findElement(By.xpath("//*[@class = 'More-Options']")).click();
 		Thread.sleep(700);
