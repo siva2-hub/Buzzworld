@@ -1,9 +1,7 @@
 package libraries;
 
 import java.time.Duration;
-import java.util.Iterator;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -152,10 +150,6 @@ public class Permissions_QuotesPages extends Permissions
 				}
 
 			}else if(count==2) {
-				//				expText = "Create Sales Order\n"
-				//						+ "Clone\n"
-				//						+ "Print\n"
-				//						+ "Download";
 				try {
 					Thread.sleep(1000);
 					driver.findElement(By.xpath("//*[text()='Create Sales Order']")).isDisplayed();
@@ -190,7 +184,6 @@ public class Permissions_QuotesPages extends Permissions
 	{
 		//Warning Pop Up
 		App.displayPopUp(tcName);
-
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		QuotePages quotes = new QuotePages();RepairPages repair = new RepairPages();
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
@@ -209,7 +202,6 @@ public class Permissions_QuotesPages extends Permissions
 				App.click_xpath("//*[text() = 'Proceed']", "click", "");
 				wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = 'Approve']"), "Approve"));
 			}
-
 		}else {
 			try {
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Rejected']")));
@@ -224,10 +216,6 @@ public class Permissions_QuotesPages extends Permissions
 		String message = "";boolean sta = false;
 		if (count==2) {
 			message = driver.findElement(By.xpath("/html/body/div/div/div[3]/div[1]/div[2]")).getText();
-			//			expText = "Re Open\n"
-			//					+ "Clone\n"
-			//					+ "Print\n"
-			//					+ "Download";
 			try {
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[text()='Close']")).isDisplayed();
@@ -237,11 +225,6 @@ public class Permissions_QuotesPages extends Permissions
 			}
 		} else if(count==1) {
 			message = driver.findElement(By.xpath("/html/body/div/div/div[3]/div[1]/div[2]")).getText();
-			//			expText = "Re Open\n"
-			//					+ "Close\n"
-			//					+ "Clone\n"
-			//					+ "Print\n"
-			//					+ "Download";
 			try {
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[text()='Close']")).isDisplayed();
@@ -376,10 +359,8 @@ public class Permissions_QuotesPages extends Permissions
 	{
 		//Pop Up message
 		App.displayPopUp(tcName);
-
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
-		//		QuotePages quotes = new QuotePages();RepairPages repair = new RepairPages();
 		if (count==2) {
 			try {
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Open']")));
@@ -401,7 +382,6 @@ public class Permissions_QuotesPages extends Permissions
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 			this.submitForInternalApproval();
 		}
-
 		Thread.sleep(1500);
 		boolean message = false;boolean sta = false;
 		if (count==2) {
@@ -534,12 +514,6 @@ public class Permissions_QuotesPages extends Permissions
 				quotes.quoteApprove();
 			}
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
-//			Thread.sleep(1500);
-//			driver.findElement(By.xpath("//*[text() = 'Pay Terms']")).click();
-//			Thread.sleep(500);
-//			repair.toastContainer("Approve");
-//			Thread.sleep(2000);
-//			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[text() = 'Approve']")));
 		} else {
 			try {
 				Thread.sleep(500);
