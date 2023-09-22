@@ -5,8 +5,8 @@
     <classes>
       <class name="testcases.PermissionsTestCases_QuotesModule">
         <methods>
-          <include name="login"/>
           <include name="logout"/>
+          <include name="login"/>
           <include name="testCase1"/>
         </methods>
       </class> <!-- testcases.PermissionsTestCases_QuotesModule -->

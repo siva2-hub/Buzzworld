@@ -1,6 +1,7 @@
 package libraries;
 
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -116,7 +117,7 @@ public class Permissions_QuotesPages extends Permissions
 				System.out.println(e.getMessage());
 			}
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(18));
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'print')]")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
 			Thread.sleep(1600);
 			driver.findElement(By.xpath("//*[@class='quote-num-and-status']")).findElement(By.tagName("button")).click();
 			driver.findElement(By.xpath("//*[@role='menuitem']")).click();
@@ -134,7 +135,7 @@ public class Permissions_QuotesPages extends Permissions
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'print')]")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
 		}
 		Thread.sleep(1500);
 		String message = ""; boolean sta = false;
@@ -193,6 +194,7 @@ public class Permissions_QuotesPages extends Permissions
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		QuotePages quotes = new QuotePages();RepairPages repair = new RepairPages();
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
+		App.spinner(); Thread.sleep(1500);
 		if (count==2) {
 			try {
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Rejected']")));
@@ -204,7 +206,8 @@ public class Permissions_QuotesPages extends Permissions
 				Thread.sleep(1600);
 				price.clickButton("Approve");
 				repair.toastContainer("Decline");
-				wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("/html/body/div[1]/div/div[3]/div[2]/button"), "Approve"));
+				App.click_xpath("//*[text() = 'Proceed']", "click", "");
+				wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = 'Approve']"), "Approve"));
 			}
 
 		}else {
@@ -216,12 +219,11 @@ public class Permissions_QuotesPages extends Permissions
 			}
 		}
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'print')]")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
 		Thread.sleep(1500);
 		String message = "";boolean sta = false;
 		if (count==2) {
-
-			message = driver.findElement(By.xpath("//*[@id=\\\"root\\\"]/div/div[3]/div[1]/div[2]")).getText();
+			message = driver.findElement(By.xpath("/html/body/div/div/div[3]/div[1]/div[2]")).getText();
 			//			expText = "Re Open\n"
 			//					+ "Clone\n"
 			//					+ "Print\n"
@@ -234,7 +236,7 @@ public class Permissions_QuotesPages extends Permissions
 				sta = true;
 			}
 		} else if(count==1) {
-			message = driver.findElement(By.xpath("//*[@id=\\\"root\\\"]/div/div[3]/div[1]/div[2]")).getText();
+			message = driver.findElement(By.xpath("/html/body/div/div/div[3]/div[1]/div[2]")).getText();
 			//			expText = "Re Open\n"
 			//					+ "Close\n"
 			//					+ "Clone\n"
@@ -243,6 +245,7 @@ public class Permissions_QuotesPages extends Permissions
 			try {
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[text()='Close']")).isDisplayed();
+				message = "";
 				sta = true;
 			} catch (Exception e) {
 				sta = false;
@@ -323,23 +326,18 @@ public class Permissions_QuotesPages extends Permissions
 
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
-		//		QuotePages quotes = new QuotePages();RepairPages repair = new RepairPages();
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Rejected']")));
 			driver.findElement(By.xpath("//*[text() = 'Rejected']")).click();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'print')]")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
 		Thread.sleep(1500);
 		String message = ""; boolean sta = false;
 		if (count==2) {
 
 			message = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[2]")).getText();
-			//			expText = "Close\n"
-			//					+ "Clone\n"
-			//					+ "Print\n"
-			//					+ "Download";
 			try {
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[text()='Re Open']")).isDisplayed();
@@ -349,17 +347,12 @@ public class Permissions_QuotesPages extends Permissions
 			}
 		} else if(count==1) {
 			message = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div[2]")).getText();
-			//			expText = "Re Open\n"
-			//					+ "Close\n"
-			//					+ "Clone\n"
-			//					+ "Print\n"
-			//					+ "Download";
 			try {
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[text()='Re Open']")).isDisplayed();
-				sta = false;
-			} catch (Exception e) {
 				sta = true;
+			} catch (Exception e) {
+				sta = false;
 			}
 		}
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
@@ -391,7 +384,7 @@ public class Permissions_QuotesPages extends Permissions
 			try {
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Open']")));
 				driver.findElement(By.xpath("//*[text() = 'Open']")).click();
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Submit for Internal Approval']")));
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -399,13 +392,14 @@ public class Permissions_QuotesPages extends Permissions
 		} else {
 			try {
 				Thread.sleep(500);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pending Approval']")));
-				driver.findElement(By.xpath("//*[text() = 'Pending Approval']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Open']")));
+				driver.findElement(By.xpath("//*[text() = 'Open']")).click();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 			Thread.sleep(1500);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'print')]")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+			this.submitForInternalApproval();
 		}
 
 		Thread.sleep(1500);
@@ -450,7 +444,7 @@ public class Permissions_QuotesPages extends Permissions
 		act.moveToElement(rfq).build().perform();
 		Thread.sleep(1000);
 		List<WebElement> edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
-		edits.get(0).click();
+		edits.get(1).click();
 		driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElement(By.tagName("button")).click();
 		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
 		Thread.sleep(2000);
@@ -459,7 +453,7 @@ public class Permissions_QuotesPages extends Permissions
 		Actions action = new Actions(driver);
 		action.moveToElement(qReqBy).build().perform();
 		Thread.sleep(1000);
-		edits.get(2).click();
+		edits.get(3).click();
 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'react-select__control')]")).click();
@@ -483,13 +477,45 @@ public class Permissions_QuotesPages extends Permissions
 		act.sendKeys("Week(s)").build().perform();
 		act.sendKeys(Keys.ENTER).build().perform();
 		driver.findElement(By.xpath("//*[@name='lead_time_value']")).sendKeys("3");
-		act.doubleClick(driver.findElements(By.xpath("//*[text()='Edit Quote Item']")).get(1)).build().perform();
-		Thread.sleep(2500);
+		App.click_xpath("//*[text()='Save']", "click", "");
+		App.spinner(); Thread.sleep(2500);
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView(true)", driver.findElement(By.xpath("//*[contains(text() , 'Quote Items')]")));
+		Thread.sleep(1300); String path = "";
+		if (driver.getCurrentUrl().contains("web")) {
+			path = "//*[contains(@name, 'checkbox')]";
+		}else {
+			path = "//*[contains(@style, 'checkbox-tick-color')]";
+		}
+		List<WebElement> check_boxes =driver.findElements(By.xpath(path));
+		for(int i =0; i<check_boxes.size(); i++) 
+		{
+			
+			check_boxes.get(i).click();
+			
+		}
+		App.click_xpath("//*[contains(@title, 'Edit Item')]", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Source')]")));
+		App.click_react_dropdown(0); Thread.sleep(1300);
+		act.sendKeys(Keys.ENTER).build().perform();
+		App.click_xpath("//*[text()='Save']", "click", "");
+		App.spinner(); Thread.sleep(1400);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src,'delete-icon')]")));
-		driver.findElement(By.xpath("//*[text() = 'Submit for Internal Approval']")).click();
-		Thread.sleep(2000);
-		rp.toastContainer("Proceed");
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[text() = 'Submit for Internal Approval']")));
+		Thread.sleep(1400); String btn_name = "";
+		double total_price = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class ,'width-auto')]")).get(2).findElement(By.tagName("h4")).getText().replace("$", "").replace(",", ""));
+		if(total_price<=10000) {
+			driver.findElement(By.xpath("//*[text() = 'Approve']")).click();
+			btn_name = "Approve";
+			Thread.sleep(1200);
+			rp.toastContainer("Approve");
+			Thread.sleep(2000);
+		}else {
+			driver.findElement(By.xpath("//*[text() = 'Submit for Internal Approval']")).click();
+			btn_name = "Submit for Internal Approval";
+			Thread.sleep(2000);
+			rp.toastContainer("Proceed");
+		}
+		wait.until(ExpectedConditions.invisibilityOfElementWithText(By.xpath("//*[text() = '"+btn_name+"']"), btn_name));
 	}
 	public boolean verifySendToCustomerPermissionAsYes_Quotes(String tcName, String itemName, String tabName, String labelName, int childCount, int count, String env) throws Exception
 	{
@@ -498,31 +524,31 @@ public class Permissions_QuotesPages extends Permissions
 
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
-		RepairPages repair = new RepairPages();
+		RepairPages repair = new RepairPages(); QuotePages quotes = new QuotePages();
 		if (count==2) {
 			try {
 				Thread.sleep(500);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pending Approval']")));
-				driver.findElement(By.xpath("//*[text() = 'Pending Approval']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Approved']")));
+				driver.findElement(By.xpath("//*[text() = 'Approved']")).click();
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				quotes.quoteApprove();
 			}
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Approve']")));
-			Thread.sleep(1500);
-			driver.findElement(By.xpath("//*[text() = 'Approve']")).click();
-			Thread.sleep(500);
-			repair.toastContainer("Approve");
-			Thread.sleep(2000);
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[text() = 'Approve']")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
+//			Thread.sleep(1500);
+//			driver.findElement(By.xpath("//*[text() = 'Pay Terms']")).click();
+//			Thread.sleep(500);
+//			repair.toastContainer("Approve");
+//			Thread.sleep(2000);
+//			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[text() = 'Approve']")));
 		} else {
 			try {
 				Thread.sleep(500);
 				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Approved']")));
 				driver.findElement(By.xpath("//*[text() = 'Approved']")).click();
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				quotes.quoteApprove();
 			}
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'print')]")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
 		}
 
 		boolean message = false; boolean sta = false;
@@ -565,9 +591,16 @@ public class Permissions_QuotesPages extends Permissions
 		String actURL[] =this.createSalesOrderPermissionAsYes(itemName, tabName, labelName, childCount, count);
 		driver.navigate().to(actURL[0].replace("users", actURL[1]));
 		QuotePages quotes = new QuotePages();
+		App.spinner(); Thread.sleep(2000);
 		if (count==2) {
-			quotes.createQuote();
-			quotes.selectItemToQuote();
+			try {
+				driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
+				driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+			} catch (Exception e) {
+				quotes.createQuote();
+				quotes.selectItemToQuote();
+			}
 		} else {
 			try {
 				Thread.sleep(500);
@@ -583,7 +616,7 @@ public class Permissions_QuotesPages extends Permissions
 		System.out.println("count of edit tags are "+driver.findElements(By.xpath("//*[@viewBox='0 0 12 12']")).size());
 		Thread.sleep(1000);
 		act.moveToElement(driver.findElement(By.xpath("//*[contains(@title,'Pay Terms')]"))).perform();
-		driver.findElements(By.xpath("//*[contains(@class,'edit-icon')]")).get(5).click();
+		driver.findElements(By.xpath("//*[contains(@class,'edit-icon')]")).get(6).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'react-select__indicators')]")).click();	
 		Thread.sleep(1000);
@@ -700,12 +733,11 @@ public class Permissions_QuotesPages extends Permissions
 			//System.out.println(labelsText.get(i).findElements(By.tagName("span")).get(0).getText());// edit=4 :: view=3 :: none=2
 			if(labelsText.get(i).findElements(By.tagName("span")).get(0).getText().equalsIgnoreCase(labelName)) 
 			{
-				js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//*[@id='react-select-3-input']")));
+				App.spinner();
+				js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//*[text() ='Quote Approval Limit']")));
 				Thread.sleep(1500);
 				System.out.println("label name "+labelsText.get(i).findElements(By.tagName("span")).get(0).getText());
 				path = labelsText.get(i).findElement(By.tagName("input")).getAttribute("name");
-				Actions act = new Actions(driver);
-				act.moveToElement(driver.findElement(By.xpath("//*[@id='react-select-3-input']"))).perform();
 				driver.findElement(By.xpath("//*[contains(@class,'react-select__indicators')]")).click();
 				this.selectList(perName);
 				price.clickButton("Save");
@@ -719,12 +751,12 @@ public class Permissions_QuotesPages extends Permissions
 		driver.navigate().to(vals[0].replace("users", vals[1]));
 		try {
 			Thread.sleep(500);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pending Approval']")));
-			driver.findElement(By.xpath("//*[text() = 'Pending Approval']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Open']")));
+			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'print')]")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Pay Terms']")));
 		Thread.sleep(1600);
 		String actText = ""; boolean sta = false;
 		if (perName.equals("None")) {

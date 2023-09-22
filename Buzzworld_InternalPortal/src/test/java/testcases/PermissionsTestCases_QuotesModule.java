@@ -27,6 +27,10 @@ public class PermissionsTestCases_QuotesModule extends App
 		quotes.verifyPayTermsPermissionAsYes_Quotes("PERMNS_067_Verify_Pay Terms_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs", 5, 2, env);
 		//Check the Pay Terms as Yes permission in Quotes
 		quotes.verifyPayTermsPermissionAsYes_Quotes("PERMNS_068_Verify_Pay Terms__Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs", 5, 1, env);
+		//Check the GP < 23 % Approval permission as in No in quotes
+		quotes.verify_lessthan_23_approval("PERMNS_0_Verify_GP < 23 % Approval_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",4, 2, env);
+		//Check the GP < 23 % Approval permission as in yes in quotes
+		quotes.verify_lessthan_23_approval("PERMNS_0_Verify_GP < 23 % Approval_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",4, 1, env);
 		//Check the Edit IIDM Cost as No in Quotes
 		quotes.verifyEditIIDMCostPermissionAsYes_Quotes("PERMNS_059_Verify_Edit_IIDM_Cost_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",3, 2, env);
 		//Check the Edit IIDM Cost as Yes in Quotes
@@ -47,15 +51,18 @@ public class PermissionsTestCases_QuotesModule extends App
 		quotes.verifyCreateSalesOrderPermissionAsYes("PERMNS_055_Verify_CreateSalesOrder_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",2, 2, env);
 		//Check the Create sales order as yes permission in quotes
 		quotes.verifyCreateSalesOrderPermissionAsYes("PERMNS_056_Verify_CreateSalesOrder_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",2, 1, env);
-		//Check the GP < 23 % Approval permission as in yes in quotes
-		quotes.verify_lessthan_23_approval("PERMNS_056_Verify_GP < 23 % Approval_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",4, 1, env);
-		//Check the GP < 23 % Approval permission as in No in quotes
-		quotes.verify_lessthan_23_approval("PERMNS_056_Verify_GP < 23 % Approval_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",4, 2, env);
-
+		//Check the QuoteClose Permission As No in Quotes
+		quotes.verifyQuoteClosePermissionAsYes_Quotes("PERMNS_057_Verify_QuoteClose_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",7, 2, env);
+		//Check the QuoteClose Permission As Yes in Quotes
+		quotes.verifyQuoteClosePermissionAsYes_Quotes("PERMNS_058_Verify_QuoteClose_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",7, 1, env);
+		//Check the Re Open Permission As No in Quotes
+		quotes.verifyQuoteReOpenPermissionAsYes_Quotes("PERMNS_061_Verify_ReOpen_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",8, 2, env);
+		//Check the Re Open Permission As Yes in Quotes
+		quotes.verifyQuoteReOpenPermissionAsYes_Quotes("PERMNS_062_Verify_ReOpen_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",8, 1, env);
 	}
 
-	//	@Test(enabled = false)
-	@Test(priority = 5)
+	@Test(enabled = false)
+	//	@Test(priority = 2)
 	public void testCase5() throws Exception 
 	{
 		String env = "";
@@ -64,14 +71,14 @@ public class PermissionsTestCases_QuotesModule extends App
 		} else {
 			env = "QA Instance";
 		}
-
-		quotes.verifyQuoteClosePermissionAsYes_Quotes("PERMNS_057_Verify_QuoteClose_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",6, 2, env);
-		//
-		quotes.verifyQuoteClosePermissionAsYes_Quotes("PERMNS_058_Verify_QuoteClose_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",6, 1, env);
-		//
-		quotes.verifyQuoteReOpenPermissionAsYes_Quotes("PERMNS_062_Verify_ReOpen_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",7, 1, env);
-		//
-		quotes.verifyQuoteReOpenPermissionAsYes_Quotes("PERMNS_061_Verify_ReOpen_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",7, 2, env);
+		//Check the QuoteClose Permission As No in Quotes
+		quotes.verifyQuoteClosePermissionAsYes_Quotes("PERMNS_057_Verify_QuoteClose_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",7, 2, env);
+		//Check the QuoteClose Permission As Yes in Quotes
+		quotes.verifyQuoteClosePermissionAsYes_Quotes("PERMNS_058_Verify_QuoteClose_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",7, 1, env);
+		//Check the Re Open Permission As No in Quotes
+		quotes.verifyQuoteReOpenPermissionAsYes_Quotes("PERMNS_061_Verify_ReOpen_Permission_As_No_Quotes", "Admin", "Users", "Quote for Parts/Repairs",8, 2, env);
+		//Check the Re Open Permission As Yes in Quotes
+		quotes.verifyQuoteReOpenPermissionAsYes_Quotes("PERMNS_062_Verify_ReOpen_Permission_As_Yes_Quotes", "Admin", "Users", "Quote for Parts/Repairs",8, 1, env);
 	}
 
 	//	@Test(enabled = false)
