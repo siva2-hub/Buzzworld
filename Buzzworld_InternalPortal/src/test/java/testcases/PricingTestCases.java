@@ -23,8 +23,7 @@ public class PricingTestCases extends App {
 		//Checking the Vendor's having the Data or not in grid list view
 		price.verifyVendorisEmptyOrNot(env, 1); 
 		//
-		//		System.exit(0);
-		//		price.verifyVendorisEmptyOrNot(env, 2); 
+		price.verifyVendorisEmptyOrNot(env, 2); 
 		//
 		price.deletrSPALogs(env);
 		//

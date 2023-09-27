@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,8 +112,8 @@ public class App {
 	}
 	public static void main(String args[]) throws  Exception 
 	{	
-		App.getExcelCellData();
-		System.exit(0);
+		//		App.getExcelCellData();
+		//		System.exit(0);
 		String file = "tcfile.xlsx";
 		FileOutputStream fo = new FileOutputStream(file);
 		@SuppressWarnings("resource")
@@ -182,7 +183,7 @@ public class App {
 		wb.write(fo);
 		fo.close();
 		//Send reports to email
-		App.mail("sivakrishna.d@enterpi.com", "Siva7661@", "sivakrishna.d@enterpi.com");
+		App.mail("sivakrishna.d@enterpi.com", "siva7661@", "sivakrishna.d@enterpi.com");
 	}
 
 	public static ArrayList<Object> getExcelCellData() throws  Exception {
@@ -227,7 +228,7 @@ public class App {
 
 		// this will set host of server- you can change based on your requirement 
 		props.put("mail.smtp.host", "smtp.gmail.com");
-
+		props.put("mail.smtp.ssl.trust", "smtp.gmail.com"); 
 		// set the port of socket factory 
 		props.put("mail.smtp.socketFactory.port", "465");
 

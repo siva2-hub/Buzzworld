@@ -1,5 +1,6 @@
 package libraries;
 
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -738,46 +739,46 @@ public class AllModules extends App
 	}
 	public void quotesModule(String leadTime, String leadValue, String discount, String env) throws Exception
 	{
-//		//All Quotes count
-//		App.displayPopUp("QUOTES_033_VerifyAllQuotes_with_Count");
-//		App.click_xpath("//*[text() ='Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-//		App.clearTopSearch(); Thread.sleep(1300);
-//		App.click_xpath("//*[text() = 'All Quotes']", "click", "");
-//		App.spinner(); Thread.sleep(1300);
-//		String total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-//		int all_quotes_count = Integer.parseInt(total_count);
-//		//Parts Quotes Count
-//		App.click_xpath("//*[text() = 'Parts Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-//		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-//		int parts_quotes_count = Integer.parseInt(total_count);
-//		//Repair Quotes Count
-//		App.click_xpath("//*[text() = 'Repair Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-//		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-//		int rep_quotes_count = Integer.parseInt(total_count);
-//		//System Quotes Count
-//		App.click_xpath("//*[text() = 'System Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
-//		App.clearFilter(); App.spinner(); Thread.sleep(1200);
-//		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
-//		int sys_quotes_count = Integer.parseInt(total_count);
-//		int quotes_count = (parts_quotes_count+rep_quotes_count+sys_quotes_count);
-//		if (all_quotes_count== quotes_count) {
-//			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
-//					"QuotesPage", "Passed",	java.time.LocalDateTime.now().toString(), env};
-//			App.values1(status);
-//		} else {
-//			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
-//					"QuotesPage", "Failed",	java.time.LocalDateTime.now().toString(), env};
-//			App.values1(status);
-//		}
-//		//Search Functionality
-//		try {
-//			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
-//			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+		//All Quotes count
+		App.displayPopUp("QUOTES_033_VerifyAllQuotes_with_Count");
+		App.click_xpath("//*[text() ='Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearTopSearch(); Thread.sleep(1300);
+		App.click_xpath("//*[text() = 'All Quotes']", "click", "");
+		App.spinner(); Thread.sleep(1300);
+		String total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int all_quotes_count = Integer.parseInt(total_count);
+		//Parts Quotes Count
+		App.click_xpath("//*[text() = 'Parts Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int parts_quotes_count = Integer.parseInt(total_count);
+		//Repair Quotes Count
+		App.click_xpath("//*[text() = 'Repair Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int rep_quotes_count = Integer.parseInt(total_count);
+		//System Quotes Count
+		App.click_xpath("//*[text() = 'System Quotes']", "click", ""); App.spinner(); Thread.sleep(1300);
+		App.clearFilter(); App.spinner(); Thread.sleep(1200);
+		total_count = driver.findElements(By.xpath("//*[contains(@class, 'summary-panel-number')]")).get(2).getText().replace(",", "");
+		int sys_quotes_count = Integer.parseInt(total_count);
+		int quotes_count = (parts_quotes_count+rep_quotes_count+sys_quotes_count);
+		if (all_quotes_count== quotes_count) {
+			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
+					"QuotesPage", "Passed",	java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_033_VerifyAllQuotes_with_Count", "All Quotes count in grid is "+all_quotes_count, "Parts, Repair and System Quotes count in grid is "+quotes_count,
+					"QuotesPage", "Failed",	java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		//Search Functionality
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Clear']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Clear']")).click();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		//Search with Quote Id
 		//Warning Pop Up
 		this.clearButtonTopSearch();
@@ -868,6 +869,33 @@ public class AllModules extends App
 		}
 		String ven_name_quote_del = driver.findElement(By.xpath("//*[contains(@class, 'm-0 manufacter')]")).getText();
 		String stockCode = driver.findElement(By.xpath("//*[@class=' width-25 flexed']")).findElement(By.tagName("h4")).getText();
+		//verify GP calculation
+		double act_gp_value = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'w-32')]")).get(0).findElement(By.tagName("h4")).getText().replace("%", ""));
+		double act_dis_value = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class,'d-flex align-center g-8 ')]")).get(1).findElement(By.tagName("h4")).getText().replace("%", ""));
+		
+		double qp = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]")).get(2).getText().replace("$", "").replace(",", ""));
+		double lp = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]")).get(7).getText().replace("$", "").replace(",", ""));
+		double iidm_cost = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]")).get(4).getText().replace("$", "").replace(",", ""));
+		DecimalFormat decfor = new DecimalFormat("0.00");
+		double gp_value = Double.parseDouble(decfor.format(((qp-iidm_cost)/qp)*100));
+		double dis_value = Double.parseDouble(decfor.format(((lp-qp)/lp)*100));
+		if (act_gp_value==gp_value) {
+			Object status[] = {"QUOTES_039_Verify_GP_Value", "actual gp "+act_gp_value, "expected gp "+gp_value, "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_039_Verify_GP_Value", "actual gp "+act_gp_value, "expected gp "+gp_value, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		//verify discount calculation
+		if (act_dis_value==dis_value) {
+			Object status[] = {"QUOTES_040_Verify_discount_Value", "actual discount "+act_dis_value, "expected discount "+dis_value, "QuotesPage", "Passed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_040_Verify_discount_Value", "actual discount "+act_dis_value, "expected discount "+dis_value, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		System.out.println("act gp value "+act_gp_value);
+		System.out.println("exp gp value "+gp_value);
 		//Print and Download
 		//Warning Pop Up
 		App.displayPopUp("QUOTES_013_VerifyPrintFunctionality");
@@ -1072,6 +1100,8 @@ public class AllModules extends App
 						java.time.LocalDateTime.now().toString(), env};
 				App.values1(status1);
 			}
+			
+		} else {
 			Thread.sleep(1200);
 			driver.findElement(By.name("customer_po_number")).sendKeys("PO1234");
 			String stockItem = driver.findElement(By.xpath("/html/body/div/div/div[6]/div/div[1]/div/div[2]/div[3]")).getText();
@@ -1113,7 +1143,6 @@ public class AllModules extends App
 					this.verifyCreateJob("QUOTES_011_VerifyCreateJobFromQuote", orderId, 2, env);
 				}
 			}
-		} else {
 			Thread.sleep(1300);
 			price.closeIcon();
 			Object status[] = {"QUOTES_010_VerifyCreateSalesOrder_FromQuote", "Not Executed", 
