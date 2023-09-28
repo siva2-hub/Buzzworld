@@ -26,8 +26,8 @@ public class PricingTestCases extends App {
 		price.verifyVendorisEmptyOrNot(env, 2); 
 		//
 		price.deletrSPALogs(env);
-		//
-		price.addSPA(env);
+		//Importing Buy Side file
+		price.addSPA(env, 1, "Import Buy Side Data");
 		//
 		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
 		//
