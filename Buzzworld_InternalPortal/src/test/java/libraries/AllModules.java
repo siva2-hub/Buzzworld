@@ -1236,7 +1236,7 @@ public class AllModules extends App
 		} catch (Exception e) {
 			// TODO: handle exception		
 			this.create_quote(); Thread.sleep(1300);
-			this.select_items(3);
+			this.select_items(3, "1234");
 		}
 		Actions act = new Actions(driver);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
@@ -1456,7 +1456,7 @@ public class AllModules extends App
 		Object[] vals = {serverMsg, createJob};
 		return vals;
 	}
-	public void select_items(int count) throws Exception
+	public void select_items(int count, String item) throws Exception
 	{
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
@@ -1465,7 +1465,7 @@ public class AllModules extends App
 		App.click_xpath("//*[text() = 'Add Items']", "click", "");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
 		Thread.sleep(1300);
-		App.click_xpath("//*[@placeholder='Search By Part Number']", "send_keys", "1234");
+		App.click_xpath("//*[@placeholder='Search By Part Number']", "send_keys", item);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@name = 'quantity_0']")));
 		Thread.sleep(2000);
 		App.click_xpath("//*[@placeholder='Search By Part Number']", "click", "");
@@ -1615,7 +1615,7 @@ public class AllModules extends App
 		Actions act = new Actions(driver);
 		if(create) 
 		{
-			this.select_items(3);
+			this.select_items(3, "1234");
 		}else {}
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']"))); 
 		Thread.sleep(2000);
