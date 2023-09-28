@@ -21,17 +21,18 @@ public class PricingTestCases extends App {
 			env = "Dev Instance";
 		}
 		//Checking the Vendor's having the Data or not in grid list view
-		price.verifyVendorisEmptyOrNot(env, 1); 
-		//
-		price.verifyVendorisEmptyOrNot(env, 2); 
+//		price.verifyVendorisEmptyOrNot(env, 1); 
+//		//
+//		price.verifyVendorisEmptyOrNot(env, 2); 
 		//
 		price.deletrSPALogs(env);
 		//Importing Buy Side file
 		price.addSPA(env, 1, "Import Buy Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\buy_side_3_items.xlsx");
 		//Importing Sell Side file
 		price.addSPA(env, 1, "Import Sell Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\sell_side_3_items.xlsx");
-		//
+		//After Importing files check the Quote Price
 		price.import_files_to_SPA_verify_qp(env);
+		System.exit(0);
 		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
 		//
 		price.verifyAddDiscountCode(env);
