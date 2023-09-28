@@ -988,38 +988,53 @@ public class PricingPages extends App {
 		}
 	}
 
-	public void addSPA(String env, int count, String type_side) throws Exception {
+	public String addSPA(String env, int count, String type_side, String log_file) throws Exception {
 		// Displaying Warning Pop Up
-		App.displayPopUp("PRICING_023_Verify_Importing_Buy_Side_Price_In_Non Standard Pricing");
-		String logFile = "/home/enterpi/Downloads/BuySideNonstandardPricingIntake1.xlsx";
+		App.displayPopUp("PRICING_023_Verify_Importing_"+type_side+"_In_Non Standard Pricing");
 		this.pricingPage("Non Standard Pricing");
 		driver.findElement(By.xpath("//*[@class = 'More-Options']")).click();
 		Thread.sleep(700);
 		driver.findElement(By.xpath("//*[text() = '"+type_side+"']")).click();
 		App.spinner();
-		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(logFile);
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(log_file);
 		App.spinner();
 		Thread.sleep(1200);
 		driver.findElements(By.xpath("//*[text() = 'Proceed']")).get(1).click();
-		App.spinner();
-		driver.findElement(By.xpath("//*[text() = 'Skip & Proceed']")).click();
+		App.spinner(); Thread.sleep(1400);
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Skip & Proceed']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Skip & Proceed']")).click();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		App.spinner();
 		Thread.sleep(2000);
-		String actText = driver.findElement(By.xpath("//*[@style = 'padding: unset;']")).getText();
-		String expText = " SPA Logs Not Available";
+		String actText = "";
+		try {
+			actText = driver.findElement(By.xpath("//*[@class = 'card-title']")).getText();
+		} catch (Exception e) {	
+		}
 		//added if condition for using feature purpose
+		int tc_num = 0;
 		if (count==1) {
-			if (actText.contains(expText)) {
-				Object status[] = { "PRICING_023_Verify_Importing_Buy_Side_Price", "SPA Imported Successfully ", "",
+			if (!actText.equals("")) {
+				if (type_side.contains("Buy")) {
+					tc_num = 23;
+				} else {
+					tc_num = 24;
+				}
+				Object status[] = { "PRICING_0"+tc_num+"_Verify_"+type_side, "SPA Imported Successfully "+actText, "",
 						"PricingPage", "Passed", java.time.LocalDateTime.now().toString(), env };
-				App.values1(status);	
+				App.values1(status);
 			} else {
-				Object status[] = { "PRICING_023_Verify_Importing_Buy_Side_Price", "SPA Imported Failed !", "",
+				Object status[] = { "PRICING_0"+tc_num+"_Verify_"+type_side, "SPA Imported Failed !", "",
 						"PricingPage", "Failed", java.time.LocalDateTime.now().toString(), env };
 				App.values1(status);
 			}
 		} else {
+
 		}
+		return actText;
 	}
 
 	public void deletrSPALogs(String env) throws Exception {
@@ -1057,7 +1072,129 @@ public class PricingPages extends App {
 
 		}
 	}
-
+	public void import_files_to_SPA_verify_qp(String env) throws Exception 
+	{
+		this.addSPA(env, 0, "Import Buy Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\buy_side_3_items.xlsx");
+		//Importing Sell Side file
+		String cust_name = this.addSPA(env, 0, "Import Sell Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\sell_side_3_items.xlsx");
+		App.click_xpath("//*[text() = '"+cust_name+"']", "click", "");
+		Thread.sleep(1300); App.spinner(); Thread.sleep(1300);
+		List<WebElement> bp = driver.findElements(By.xpath("//*[@style = 'left: 840px; width: 140px;']"));
+		ArrayList<String> buy_prices = new ArrayList<String>();
+		for(int b=0; b<bp.size(); b++) {
+			buy_prices.add(bp.get(b).getText());
+		}
+		List<WebElement> sc = driver.findElements(By.xpath("//*[@style = 'left: 380px; width: 166px;']"));
+		ArrayList<String> stock_codes = new ArrayList<String>();
+		for(int s=0; s<sc.size(); s++) {
+			stock_codes.add(sc.get(s).getText());
+		}
+		App.horizentalScroll(); Thread.sleep(1300);
+		List<WebElement> fsp = driver.findElements(By.xpath("//*[@style = 'left: 1638px; width: 169px;']"));
+		ArrayList<String> fs_prices = new ArrayList<String>();
+		for(int f=0; f<fsp.size(); f++) {
+			fs_prices.add(fsp.get(f).getText());
+		}
+		List<WebElement> sp = driver.findElements(By.xpath("//*[@style = 'left: 1807px; width: 117px;']"));
+		ArrayList<String> sell_prices = new ArrayList<String>();
+		for(int p=0; p<sp.size(); p++) {
+			sell_prices.add(sp.get(p).getText());
+		}
+		//		
+		App.click_xpath("//*[contains(@src, 'chevron_left')]", "click", "");
+		Thread.sleep(1300); App.spinner();
+		QuotePages quotes = new QuotePages(); 
+		App.click_xpath("//*[contains(text(), 'Quotes')]", "click", "");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'vendor_logo')]")));
+		Thread.sleep(1300);
+		driver.findElement(By.xpath("//*[text() = 'Create Quote']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
+		driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(cust_name);
+		App.spinner(); AllModules all = new AllModules();
+		Thread.sleep(1200);
+		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
+		App.spinner();Thread.sleep(1000);
+		driver.findElement(By.name("project_name")).sendKeys("for Testing QA");
+		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+		Thread.sleep(2500);
+		quotes.selectDropDown("Parts Quote");
+		Thread.sleep(1500);
+		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+		Thread.sleep(1600); String quote_price = ""; String tc_name = ""; int tc_num = 25;
+		System.out.println("count of stock_codes in spa grid is "+stock_codes.size());
+		for(int i=0; i<stock_codes.size(); i++) 
+		{
+			System.out.println(stock_codes.get(i));
+			all.select_items(1, stock_codes.get(i));
+			String fixed_sp = fs_prices.get(i).replace("$", "").replace(",", "");
+			String buy_p = buy_prices.get(i).replace("$", "").replace(",", "");
+			String sell_p = sell_prices.get(i).replace("$", "").replace(",", "");
+			quote_price = driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]"))
+					.get(2).getText().replace("$", "").replace(",", "");
+			if(fs_prices.get(i)!="" && sell_prices.get(i)!="" && buy_prices.get(i)!="") {
+				tc_name = "FSP is not Null, SP is not Null and Buy price is not Null we display the FSP as Quote Price";
+				if (quote_price.equals(fixed_sp)) {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa, "Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				} else {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa, "Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				}
+			}else if(fs_prices.get(i)=="" && sell_prices.get(i)=="" && buy_prices.get(i)!="") {
+				tc_name = "FSP is Null, Sp is Null and  Buy price is not Null we display the Buy Price as Quote Price";
+				if (quote_price.equals(buy_p)) {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa, "Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				} else {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa,"Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				}
+			}else if(buy_prices.get(i)!="" && fs_prices.get(i)=="" && sell_prices.get(i)!="") {
+				tc_name = "FSP is Null, SP is not Null, Buy price is not Null we display the SP as Quote Price";
+				if (quote_price.equals(sell_p)) {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa,"Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				} else {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa ,"Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				}
+			}else if(sell_prices.get(i)!="" && buy_prices.get(i)!="") {
+				tc_name = "FSP is not Null, Buy price is not Null we display the FSP as Quote Price";
+				if (quote_price.equals(fixed_sp)) {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa, "Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				} else {
+					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+							spa, "Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
+					App.values1(status);
+				}
+			}
+			//deleting the items in quote detail view
+			if (i!=3) {
+				App.click_xpath("//*[contains(@src, 'delete-icon')]", "click", "");
+				Thread.sleep(1300);
+				driver.findElements(By.xpath("//*[text() = 'Yes']")).get(0).click();
+				Thread.sleep(1300); App.spinner();
+			}
+			tc_num++;
+		}
+	}
 	public String getTime() {
 		LocalTime time = LocalTime.now();
 		System.out.println(String.valueOf(time).substring(0, 5));
