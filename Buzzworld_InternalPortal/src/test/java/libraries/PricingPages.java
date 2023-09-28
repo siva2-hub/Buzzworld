@@ -988,15 +988,14 @@ public class PricingPages extends App {
 		}
 	}
 
-	public void addSPA(String env) throws Exception {
+	public void addSPA(String env, int count, String type_side) throws Exception {
 		// Displaying Warning Pop Up
 		App.displayPopUp("PRICING_023_Verify_Importing_Buy_Side_Price_In_Non Standard Pricing");
-
 		String logFile = "/home/enterpi/Downloads/BuySideNonstandardPricingIntake1.xlsx";
 		this.pricingPage("Non Standard Pricing");
 		driver.findElement(By.xpath("//*[@class = 'More-Options']")).click();
 		Thread.sleep(700);
-		driver.findElement(By.xpath("//*[text() = 'Import Buy Side Data']")).click();
+		driver.findElement(By.xpath("//*[text() = '"+type_side+"']")).click();
 		App.spinner();
 		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(logFile);
 		App.spinner();
@@ -1008,18 +1007,18 @@ public class PricingPages extends App {
 		Thread.sleep(2000);
 		String actText = driver.findElement(By.xpath("//*[@style = 'padding: unset;']")).getText();
 		String expText = " SPA Logs Not Available";
-		if (actText.contains(expText)) {
-
-			Object status[] = { "PRICING_023_Verify_Importing_Buy_Side_Price", "SPA Imported Successfully ", "",
-					"PricingPage", "Passed", java.time.LocalDateTime.now().toString(), env };
-			App.values1(status);
-
+		//added if condition for using feature purpose
+		if (count==1) {
+			if (actText.contains(expText)) {
+				Object status[] = { "PRICING_023_Verify_Importing_Buy_Side_Price", "SPA Imported Successfully ", "",
+						"PricingPage", "Passed", java.time.LocalDateTime.now().toString(), env };
+				App.values1(status);	
+			} else {
+				Object status[] = { "PRICING_023_Verify_Importing_Buy_Side_Price", "SPA Imported Failed !", "",
+						"PricingPage", "Failed", java.time.LocalDateTime.now().toString(), env };
+				App.values1(status);
+			}
 		} else {
-
-			Object status[] = { "PRICING_023_Verify_Importing_Buy_Side_Price", "SPA Imported Failed !", "",
-					"PricingPage", "Failed", java.time.LocalDateTime.now().toString(), env };
-			App.values1(status);
-
 		}
 	}
 
