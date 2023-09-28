@@ -27,8 +27,11 @@ public class PricingTestCases extends App {
 		//
 		price.deletrSPALogs(env);
 		//Importing Buy Side file
-		price.addSPA(env, 1, "Import Buy Side Data");
+		price.addSPA(env, 1, "Import Buy Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\buy_side_3_items.xlsx");
+		//Importing Sell Side file
+		price.addSPA(env, 1, "Import Sell Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\sell_side_3_items.xlsx");
 		//
+		price.import_files_to_SPA_verify_qp(env);
 		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
 		//
 		price.verifyAddDiscountCode(env);
