@@ -63,7 +63,7 @@ public class AllModules extends App
 		}
 	}
 	public void one(){
-		
+		int a 10;
 	}
 	public void linksRedirectsOrNot(String env) throws Exception 
 	{
