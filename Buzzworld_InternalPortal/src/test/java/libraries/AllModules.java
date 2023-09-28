@@ -62,6 +62,9 @@ public class AllModules extends App
 			count++;
 		}
 	}
+	public void one(){
+		
+	}
 	public void linksRedirectsOrNot(String env) throws Exception 
 	{
 		QuotePages qp = new QuotePages();
