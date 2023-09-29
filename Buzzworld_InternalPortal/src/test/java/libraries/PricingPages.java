@@ -1074,28 +1074,28 @@ public class PricingPages extends App {
 	}
 	public void import_files_to_SPA_verify_qp(String env) throws Exception 
 	{
-		this.addSPA(env, 0, "Import Buy Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\buy_side_3_items.xlsx");
+		this.addSPA(env, 1, "Import Buy Side Data", "/home/enterpi/git/Buzzworld/Buzzworld_InternalPortal/buy_side_3_items.xlsx");
 		//Importing Sell Side file
-		String cust_name = this.addSPA(env, 0, "Import Sell Side Data", "E:\\GitHubFolder\\IIDM\\New_Buzzworld\\sell_side_3_items.xlsx");
+		String cust_name = this.addSPA(env, 1, "Import Sell Side Data", "/home/enterpi/git/Buzzworld/Buzzworld_InternalPortal/sell_side_3_items.xlsx");
 		App.click_xpath("//*[text() = '"+cust_name+"']", "click", "");
 		Thread.sleep(1300); App.spinner(); Thread.sleep(1300);
-		List<WebElement> bp = driver.findElements(By.xpath("//*[@style = 'left: 840px; width: 140px;']"));
+		List<WebElement> bp = driver.findElements(By.xpath("//*[@style = 'left: 841px; width: 140px;']"));
 		ArrayList<String> buy_prices = new ArrayList<String>();
 		for(int b=0; b<bp.size(); b++) {
 			buy_prices.add(bp.get(b).getText());
 		}
-		List<WebElement> sc = driver.findElements(By.xpath("//*[@style = 'left: 380px; width: 166px;']"));
+		List<WebElement> sc = driver.findElements(By.xpath("//*[@style = 'left: 380px; width: 167px;']"));
 		ArrayList<String> stock_codes = new ArrayList<String>();
 		for(int s=0; s<sc.size(); s++) {
 			stock_codes.add(sc.get(s).getText());
 		}
 		App.horizentalScroll(); Thread.sleep(1300);
-		List<WebElement> fsp = driver.findElements(By.xpath("//*[@style = 'left: 1638px; width: 169px;']"));
+		List<WebElement> fsp = driver.findElements(By.xpath("//*[@style = 'left: 1639px; width: 169px;']"));
 		ArrayList<String> fs_prices = new ArrayList<String>();
 		for(int f=0; f<fsp.size(); f++) {
 			fs_prices.add(fsp.get(f).getText());
 		}
-		List<WebElement> sp = driver.findElements(By.xpath("//*[@style = 'left: 1807px; width: 117px;']"));
+		List<WebElement> sp = driver.findElements(By.xpath("//*[@style = 'left: 1808px; width: 117px;']"));
 		ArrayList<String> sell_prices = new ArrayList<String>();
 		for(int p=0; p<sp.size(); p++) {
 			sell_prices.add(sp.get(p).getText());
@@ -1106,20 +1106,25 @@ public class PricingPages extends App {
 		QuotePages quotes = new QuotePages(); 
 		App.click_xpath("//*[contains(text(), 'Quotes')]", "click", "");
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'vendor_logo')]")));
-		Thread.sleep(1300);
-		driver.findElement(By.xpath("//*[text() = 'Create Quote']")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
-		driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(cust_name);
-		App.spinner(); AllModules all = new AllModules();
-		Thread.sleep(1200);
-		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
-		App.spinner();Thread.sleep(1000);
-		driver.findElement(By.name("project_name")).sendKeys("for Testing QA");
-		driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
-		Thread.sleep(2500);
-		quotes.selectDropDown("Parts Quote");
-		Thread.sleep(1500);
-		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+		Thread.sleep(1300);  AllModules all = new AllModules();
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//*[text() = 'Create Quote']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
+			driver.findElement(By.xpath("//*[@id='async-select-example']")).sendKeys(cust_name);
+			App.spinner();
+			Thread.sleep(1200);
+			driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
+			App.spinner();Thread.sleep(1000);
+			driver.findElement(By.name("project_name")).sendKeys("for Testing QA");
+			driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+			Thread.sleep(2500);
+			quotes.selectDropDown("Parts Quote");
+			Thread.sleep(1500);
+			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+		}
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 		Thread.sleep(1600); String quote_price = ""; String tc_name = ""; int tc_num = 25;
 		System.out.println("count of stock_codes in spa grid is "+stock_codes.size());
