@@ -134,13 +134,13 @@ public class PricingPages extends App {
 			res = true;
 			Object status[] = { "PRICING_002_VerifyUpdateProduct", "before update List Price is " + beforeEdit,
 					"after update List Price is " + afterEdit, "PricingPage", "Passed",
-					java.time.LocalDateTime.now().toString() };
+					java.time.LocalDateTime.now().toString(), env };
 			App.values1(status);
 		} else {
 			res = false;
 			Object status[] = { "PRICING_002_VerifyUpdateProduct", "before update List Price is " + beforeEdit,
 					"after update List Price is " + afterEdit, "PricingPage", "Failed",
-					java.time.LocalDateTime.now().toString() };
+					java.time.LocalDateTime.now().toString(), env };
 			App.values1(status);
 		}
 		return res;
@@ -430,9 +430,9 @@ public class PricingPages extends App {
 		Thread.sleep(1500);
 		String listPrice = App.getGridData(2);
 		String ourPrice = App.getGridData(8);
-		String op1 = ourPrice.replace("$", "");
+		String op1 = ourPrice.replace("$", "").replace(",", "");
 		Double op = Double.parseDouble(op1);
-		String lp1 = listPrice.replace("$", "");
+		String lp1 = listPrice.replace("$", "").replace(",", "");
 		Double lp = Double.parseDouble(lp1);
 		DecimalFormat decfor = new DecimalFormat("0.00");
 		Double expBuyPrice = 0.0;
@@ -539,19 +539,21 @@ public class PricingPages extends App {
 		App.spinner();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '" + orgName + "')]")));
 		Thread.sleep(2000);
-		String at = App.getGridData(5);
+		//reading the account type from organization grid
+		String at = App.getGridData(4);
 		System.out.println("account type " + at);
 		// Click on Admin tab for Account Types
 		driver.findElement(By.xpath("//*[text() = 'Admin']")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(App.clickLabel("act_type_search"))));
 		Thread.sleep(2500);
 		App.clearTopSearch();
+		App.spinner();
 		Thread.sleep(1200);
 		// Account type search
 		App.clearFilter();
 		App.spinner();
 		Thread.sleep(1200);
-		driver.findElement(By.xpath(App.clickLabel("act_type_search"))).sendKeys(at);
+		App.click_xpath("//*[@placeholder='Search By Account Type']", "send_keys", at);
 		Thread.sleep(1000);
 		App.spinner();
 		Thread.sleep(1500);

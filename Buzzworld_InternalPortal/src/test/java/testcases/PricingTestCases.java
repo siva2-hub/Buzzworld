@@ -45,7 +45,7 @@ public class PricingTestCases extends App {
 		price.verifyBuyPrice_SellPrice_InSpecialPricing("Markup", 19, "39", "", "267", 3, env);
 		// VerifyBuyPrice_SellPrice_InSpecialPricing_BuyPrice_PurchaseDiscounts_Not_Null
 		price.verifyBuyPrice_SellPrice_InSpecialPricing("Discount", 27, "39", "", "123", 4, env);
-		//
+//		//
 		price.verifyaAddSPItemsToQuotewithAccountType(
 				"PRICING_010_VerifyaAddSPItemsToQuotewithAccountType_withFixedPrice", "Markup", 17, "43", "201.23", "",
 				env);
