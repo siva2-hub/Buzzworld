@@ -43,6 +43,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -436,6 +437,12 @@ public class App {
 		String sql = "INSERT INTO buzzworld_automation_logs ( test_case_name, actual_text, expected_text, page_name, status, date, environment) "
 				+ "VALUES ('"+ data[0]+ "',\""+ data[1] + "\",\""+ data[2] + "\",'" + data[3] + "','" + data[4]+ "','"+date+"','"+data[6]+"')";
 		stmt.executeUpdate(sql);  
+	}
+	public static void remove_text_box_data(String name) {
+		int len = driver.findElement(By.xpath(name)).getAttribute("value").length();
+		for(int i=0; i<=len; i++) {
+			driver.findElement(By.xpath(name)).sendKeys(Keys.BACK_SPACE);
+		}
 	}
 	public static long startTime() {
 		long startTime = System.currentTimeMillis();
