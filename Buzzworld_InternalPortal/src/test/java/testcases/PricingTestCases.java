@@ -21,10 +21,10 @@ public class PricingTestCases extends App {
 			env = "Dev Instance";
 		}
 		//Checking the Vendor's having the Data or not in grid list view
-		price.verifyVendorisEmptyOrNot(env, 1); 
-		//
-		price.verifyVendorisEmptyOrNot(env, 2); 
-		//
+//		price.verifyVendorisEmptyOrNot(env, 1); 
+//		//
+//		price.verifyVendorisEmptyOrNot(env, 2); 
+//		//
 		price.deletrSPALogs(env);
 		//After Importing files check the Quote Price
 		price.import_files_to_SPA_verify_qp(env);

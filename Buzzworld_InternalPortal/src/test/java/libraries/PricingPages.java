@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.concurrent.ThreadSafe;
@@ -1081,26 +1082,35 @@ public class PricingPages extends App {
 		String cust_name = this.addSPA(env, 1, "Import Sell Side Data", "/home/enterpi/git/Buzzworld/Buzzworld_InternalPortal/sell_side_3_items.xlsx");
 		App.click_xpath("//*[text() = '"+cust_name+"']", "click", "");
 		Thread.sleep(1300); App.spinner(); Thread.sleep(1300);
-		List<WebElement> bp = driver.findElements(By.xpath("//*[@style = 'left: 841px; width: 140px;']"));
+		//Buy Prices
+		List<WebElement> bp = driver.findElements(By.xpath("//*[@style = 'left: 994px; width: 140px;']"));
 		ArrayList<String> buy_prices = new ArrayList<String>();
 		for(int b=0; b<bp.size(); b++) {
 			buy_prices.add(bp.get(b).getText());
 		}
-		List<WebElement> sc = driver.findElements(By.xpath("//*[@style = 'left: 380px; width: 167px;']"));
+		List<WebElement> sc = driver.findElements(By.xpath("//*[@style = 'left: 533px; width: 167px;']"));
 		ArrayList<String> stock_codes = new ArrayList<String>();
 		for(int s=0; s<sc.size(); s++) {
 			stock_codes.add(sc.get(s).getText());
 		}
+		//Fixed Sales Prices
 		App.horizentalScroll(); Thread.sleep(1300);
-		List<WebElement> fsp = driver.findElements(By.xpath("//*[@style = 'left: 1639px; width: 169px;']"));
+		List<WebElement> fsp = driver.findElements(By.xpath("//*[@style = 'left: 1792px; width: 169px;']"));
 		ArrayList<String> fs_prices = new ArrayList<String>();
 		for(int f=0; f<fsp.size(); f++) {
 			fs_prices.add(fsp.get(f).getText());
 		}
-		List<WebElement> sp = driver.findElements(By.xpath("//*[@style = 'left: 1808px; width: 117px;']"));
+		//Sell prices
+		List<WebElement> sp = driver.findElements(By.xpath("//*[@style = 'left: 1961px; width: 117px;']"));
 		ArrayList<String> sell_prices = new ArrayList<String>();
 		for(int p=0; p<sp.size(); p++) {
 			sell_prices.add(sp.get(p).getText());
+		}
+		//IIDM costs
+		List<WebElement> ic = driver.findElements(By.xpath("//*[@style = 'left: 1134px; width: 120px;']"));
+		ArrayList<String> iidm_costs = new ArrayList<String>();
+		for(int p=0; p<ic.size(); p++) {
+			iidm_costs.add(ic.get(p).getText());
 		}
 		//		
 		App.click_xpath("//*[contains(@src, 'chevron_left')]", "click", "");
@@ -1112,6 +1122,18 @@ public class PricingPages extends App {
 		try {
 			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
 			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+			App.spinner(); Thread.sleep(1500);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
+			App.spinner(); Thread.sleep(1500);
+			driver.findElement(By.xpath("//*[contains(@src, 'delete')]")).isDisplayed();
+			List<WebElement> delete_icons = driver.findElements(By.xpath("//*[contains(@src, 'delete')]"));
+			for (int i=0; i<delete_icons.size(); i++) {
+				delete_icons.get(i).click();
+				Thread.sleep(1300);
+				driver.findElements(By.xpath("//*[contains(text(), 'Yes')]")).get(0).click();
+				Thread.sleep(1400);
+				App.spinner(); Thread.sleep(1400);
+			}
 		} catch (Exception e) {
 			driver.findElement(By.xpath("//*[text() = 'Create Quote']")).click();
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='async-select-example']")));
@@ -1128,7 +1150,7 @@ public class PricingPages extends App {
 			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
 		}
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
-		Thread.sleep(1600); String quote_price = ""; String tc_name = ""; int tc_num = 25;
+		Thread.sleep(1600); String quote_price = ""; String iidm_cost = ""; String tc_name = ""; int tc_num = 25;
 		System.out.println("count of stock_codes in spa grid is "+stock_codes.size());
 		for(int i=0; i<stock_codes.size(); i++) 
 		{
@@ -1137,62 +1159,67 @@ public class PricingPages extends App {
 			String fixed_sp = fs_prices.get(i).replace("$", "").replace(",", "");
 			String buy_p = buy_prices.get(i).replace("$", "").replace(",", "");
 			String sell_p = sell_prices.get(i).replace("$", "").replace(",", "");
+			String iidm_c = iidm_costs.get(i).replace("$", "").replace(",", "");
+			//Reading quote price from quote detailed view
 			quote_price = driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]"))
 					.get(2).getText().replace("$", "").replace(",", "");
-			if(fs_prices.get(i)!="" && sell_prices.get(i)!="" && buy_prices.get(i)!="") {
-				tc_name = "FSP is not Null, SP is not Null and Buy price is not Null we display the FSP as Quote Price";
-				if (quote_price.equals(fixed_sp)) {
+			//Reading IIDM cost from quote detailed view
+			iidm_cost =driver.findElements(By.xpath("//*[contains(@class, 'g-16')]")).get(2).findElement(By.tagName("h4"))
+					.getText().replace("$", "").replace(",", "");
+			if(fixed_sp!="" && sell_p!="" && buy_p!="") {
+				tc_name = "FSP is not Null, SP is not Null and Buy price is not Null we display the FSP as Quote Price and Buy Prioce as IIDM cost";
+				if (quote_price.equals(fixed_sp) && iidm_cost.equals(buy_p)) {
 					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price+" IIDM cost is "+iidm_cost,
 							spa, "Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				} else {
 					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price+" IIDM cost is "+iidm_cost,
 							spa, "Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				}
-			}else if(fs_prices.get(i)=="" && sell_prices.get(i)=="" && buy_prices.get(i)!="") {
-				tc_name = "FSP is Null, Sp is Null and  Buy price is not Null we display the Buy Price as Quote Price";
-				if (quote_price.equals(buy_p)) {
+			}else if(fixed_sp=="" && sell_p=="" && buy_p!="") {
+				tc_name = "FSP is Null, Sp is Null and  Buy price is not Null we display the Buy Price as IIDM cost and QP is tasken from at/lp";
+				if (iidm_cost.equals(buy_p) && !buy_p.equals(quote_price)) {
 					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price+" IIDM cost is "+iidm_cost,
 							spa, "Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				} else {
 					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price+" IIDM cost is "+iidm_cost,
 							spa,"Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				}
-			}else if(buy_prices.get(i)!="" && fs_prices.get(i)=="" && sell_prices.get(i)!="") {
-				tc_name = "FSP is Null, SP is not Null, Buy price is not Null we display the SP as Quote Price";
-				if (quote_price.equals(sell_p)) {
+			}else if(buy_p!="" && fixed_sp=="" && sell_p!="") {
+				tc_name = "FSP is Null, SP is not Null, Buy price is not Null we display the SP as Quote Price and Buy price as IIDM cost";
+				if (quote_price.equals(sell_p) && iidm_cost.equals(buy_p)) {
 					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price+" IIDM cost is "+iidm_cost,
 							spa,"Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				} else {
 					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price+" IIDM cost is "+iidm_cost,
 							spa ,"Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				}
-			}else if(sell_prices.get(i)!="" && buy_prices.get(i)!="") {
-				tc_name = "FSP is not Null, Buy price is not Null we display the FSP as Quote Price";
-				if (quote_price.equals(fixed_sp)) {
-					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+			}else if(buy_p==""){
+				tc_name = "Buy price is Null, we display the IIDM cost as Item Our Price";
+				if (iidm_cost.equals(iidm_c)) {
+					String spa = "IIDM cost is "+iidm_c+ "Item Our Price is "+iidm_c;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Buy Price is " +buy_p,
 							spa, "Non_Standard_Pricing_Page", "Passed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				} else {
-					String spa = "FSP is "+fixed_sp+" SP is "+sell_p+" Buy Price is "+buy_p;
-					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Quote Price " +quote_price,
+					String spa = "IIDM cost is "+iidm_c+ "Item Our Price is "+iidm_c;
+					Object status[] = { "PRICING_0"+tc_num+"_Verifying_"+tc_name, "Buy Price is " +buy_p,
 							spa, "Non_Standard_Pricing_Page", "Failed", java.time.LocalDateTime.now().toString(), env };
 					App.values1(status);
 				}
 			}
-			//deleting the items in quote detail view
+			//Deleting the items in quote detail view
 			if (i!=3) {
 				App.click_xpath("//*[contains(@src, 'delete-icon')]", "click", "");
 				Thread.sleep(1300);

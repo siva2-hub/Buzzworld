@@ -112,8 +112,7 @@ public class App {
 	}
 	public static void main(String args[]) throws  Exception 
 	{	
-		//		App.getExcelCellData();
-		//		System.exit(0);
+		
 		String file = "tcfile.xlsx";
 		FileOutputStream fo = new FileOutputStream(file);
 		@SuppressWarnings("resource")
@@ -138,7 +137,8 @@ public class App {
 		//To down load Table use below command
 		String sql = ("SELECT * FROM buzzworld_automation_logs ORDER BY test_case_name;");
 		ResultSet rs = st.executeQuery(sql);
-		int col = 1;
+		int col = 1; 
+		
 		while(rs.next()) 
 		{
 			String tc = rs.getString("test_case_name"); 
@@ -373,8 +373,8 @@ public class App {
 	public static void clearTopSearch() 
 	{
 		try {
-			driver.findElement(By.xpath(App.clickLabel("cross_symbol_search"))).isDisplayed();
-			driver.findElement(By.xpath(App.clickLabel("cross_symbol_search"))).click();
+			driver.findElement(By.xpath("//*[contains(@style, 'padding: 10px 10px 10px 0px; display:')]")).isDisplayed();
+			driver.findElement(By.xpath("//*[contains(@style, 'padding: 10px 10px 10px 0px; display:')]")).click();
 			App.spinner();
 			Thread.sleep(1200);
 		} catch (Exception e) {}
