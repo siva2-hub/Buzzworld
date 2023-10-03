@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Default_suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="testcases.PricingTestCases" class="method navigator-link" hash-for-method="testCase1">testCase1</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="testcases.Filters_TestCases" class="method navigator-link" hash-for-method="testCase1">testCase1</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Default_suite -->
@@ -121,7 +121,7 @@
           <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">testcases.PricingTestCases</span>
+              <span class="class-name">testcases.Filters_TestCases</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
@@ -129,14 +129,14 @@
                   <a name="testCase1">
                   </a> <!-- testCase1 -->
                   <span class="method-name">testCase1</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to no longer be visible: By.xpath: //*[@style = &apos;animation-delay: 0ms;&apos;] (tried for 32 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:87)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
-	at commonUtils.App.spinner(App.java:385)
-	at libraries.PricingPages.pricingPage(PricingPages.java:45)
-	at libraries.PricingPages.addProduct(PricingPages.java:50)
-	at libraries.PricingPages.verifyAddProduct(PricingPages.java:85)
-	at testcases.PricingTestCases.testCase1(PricingTestCases.java:31)
+                  <div class="stack-trace">java.lang.IndexOutOfBoundsException: Index 2 out of bounds for length 2
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at libraries.FiltersPages.filtersInOrganizations(FiltersPages.java:123)
+	at testcases.Filters_TestCases.testCase1(Filters_TestCases.java:45)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -165,34 +165,6 @@
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: chrome=106.0.5249.119)
-Build info: version: &apos;4.8.0&apos;, revision: &apos;267030adea&apos;
-System info: os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.15.0-84-generic&apos;, java.version: &apos;17.0.5&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [db85923dfd7355e7de7cb05ddf38ea0b, findElement {using=xpath, value=//*[@style = &apos;animation-delay: 0ms;&apos;]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.gpEoDm}, goog:chromeOptions: {debuggerAddress: localhost:33519}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:33519/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: db85923dfd7355e7de7cb05ddf38ea0b
-	at jdk.internal.reflect.GeneratedConstructorAccessor18.newInstance(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-	at org.openqa.selenium.support.ui.ExpectedConditions$20.apply(ExpectedConditions.java:570)
-	at org.openqa.selenium.support.ui.ExpectedConditions$20.apply(ExpectedConditions.java:566)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:208)
-	... 33 more
 
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
@@ -202,7 +174,7 @@ Session ID: db85923dfd7355e7de7cb05ddf38ea0b
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse-1922814460/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse--2054626079/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -211,11 +183,11 @@ Session ID: db85923dfd7355e7de7cb05ddf38ea0b
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;testcases.PricingTestCases&quot;&gt;
+      &lt;class name=&quot;testcases.Filters_TestCases&quot;&gt;
         &lt;methods&gt;
           &lt;include name=&quot;testCase1&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- testcases.PricingTestCases --&gt;
+      &lt;/class&gt; &lt;!-- testcases.Filters_TestCases --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -258,13 +230,13 @@ data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testCase1')
-data.setCell(0, 2, 'testcases.PricingTestCases')
-data.setCell(0, 3, 179508);
+data.setCell(0, 2, 'testcases.Filters_TestCases')
+data.setCell(0, 3, 21191);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 2 minutes</span>
+              <span class="suite-total-time">Total running time: 21 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -290,7 +262,7 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">testcases.PricingTestCases</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">testcases.Filters_TestCases</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">login</span>
                 <span class="method-start">0 ms</span>
@@ -299,13 +271,13 @@ return data;
                 <img src="failed.png">
                 </img>
                 <span class="method-name">testCase1</span>
-                <span class="method-start">11316 ms</span>
+                <span class="method-start">11258 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">logout</span>
-                <span class="method-start">190829 ms</span>
+                <span class="method-start">32463 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

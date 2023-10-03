@@ -115,12 +115,12 @@ public class FiltersPages extends App
 		Thread.sleep(1200);
 		driver.findElements(By.xpath("//*[contains(@class,'react-select__dropdown-indicator')]")).get(0).click();
 		act.sendKeys(actType).build().perform();
-		Thread.sleep(1000);
+		Thread.sleep(1000); App.spinner(); Thread.sleep(1300);
 		driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
 		//Selecting the Status
 		Thread.sleep(1200);
 		if (count==2) {
-			driver.findElements(By.xpath("//*[contains(@class,'react-select__dropdown-indicator')]")).get(2).click();
+			driver.findElements(By.xpath("//*[contains(@class,'react-select__dropdown-indicator')]")).get(1).click();
 		} else if(count==1) {
 			driver.findElements(By.xpath("//*[contains(@class,'react-select__dropdown-indicator')]")).get(4).click();
 		}

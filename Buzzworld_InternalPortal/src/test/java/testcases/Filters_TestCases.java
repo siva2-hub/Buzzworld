@@ -39,12 +39,12 @@ public class Filters_TestCases extends App
 		//check filters in discount codes List view
 		filters.filtersInDiscountCodes("FILT_002_VerifyingFiltersInDiscountCodesListView", "1672236325", env);
 		//check filters in organizations list view
-		filters.filtersInOrganizations("FILT_004_VerifyingFiltersInOrganizationssListView"
+		filters.filtersInOrganizations("FILT_004_VerifyingFiltersInOrganizationsListView"
 				,"RS, Reseller or Broker", "Active", 1, env);
 		//check filters in contacts list view
 		try {
-			filters.filtersInOrganizations("FILT_005_VerifyingFiltersInContactssListView"
-					,"RS, Reseller or Broker", "Active", 2, env);
+			filters.filtersInOrganizations("FILT_005_VerifyingFiltersInContactsListView"
+					,"Multicam Inc", "Active", 2, env);
 		} catch (Exception e) {
 			Object status[] = {"FILT_005_VerifyingFiltersInContactsListView", "", "", "ContactsPage", "Not Executed..", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
