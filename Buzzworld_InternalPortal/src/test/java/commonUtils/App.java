@@ -74,7 +74,7 @@ public class App {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		//Select Environment
-		urlOpen("qa");
+		urlOpen("qa123");
 		driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/form/div[3]/button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-container']")));
 		Thread.sleep(1800);
@@ -99,9 +99,9 @@ public class App {
 			pwd = "Enter@4321";
 
 		} else {
-			url = "http://192.168.1.28:3000/pricing";
-			mail = "defaultuser@enterpi.com";
-			pwd = "Enter@4321";
+			url = "http://192.168.1.176:3000/pricing";
+			mail = "b.raghuvardhanreddy@enterpi.com";
+			pwd = "Enter@1248";
 		}
 
 		driver.get(url);
@@ -321,8 +321,7 @@ public class App {
 		}
 		return labelVal;
 	}
-	public static ResultSet adminTabs() throws SQLException {
-		String sql = "SELECT admin_tab_names,tc_name FROM Clicking_Label WHERE admin_tab_names IS not null;";
+	public static ResultSet adminTabs(String sql) throws SQLException {
 		Connection con = DriverManager.getConnection("jdbc:mysql://192.168.1.35/testing", "enterpi", "enterpi@1234");
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery(sql);

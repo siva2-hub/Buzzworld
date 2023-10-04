@@ -55,7 +55,7 @@ public class Filters_TestCases extends App
 			}
 		}
 		//check filters in Admin tabs list view
-		ResultSet rs  = App.adminTabs();
+		ResultSet rs  = App.adminTabs("SELECT admin_tab_names,tc_name FROM Clicking_Label WHERE admin_tab_names IS not null;");
 		String sts = "";
 		while(rs.next()) {
 			String labelVal = rs.getString("admin_tab_names");

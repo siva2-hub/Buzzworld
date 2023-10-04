@@ -1,5 +1,6 @@
 package libraries;
 
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class AllModules extends App
 			count++;
 		}
 	}
-	
+
 	public void linksRedirectsOrNot(String env) throws Exception 
 	{
 		QuotePages qp = new QuotePages();
@@ -105,14 +106,10 @@ public class AllModules extends App
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Filters']")));
 		Thread.sleep(1500);
-		try {
-			driver.findElement(By.xpath("//*[text()='Clear']")).isDisplayed();
-			driver.findElement(By.xpath("//*[text()='Clear']")).click();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		App.spinner();
-		Thread.sleep(1200);
+		App.clearTopSearch(); 
+		App.spinner(); Thread.sleep(1300);
+		App.clearFilter();
+		App.spinner(); Thread.sleep(1200);
 		boolean isSelected = false;
 		try {
 
@@ -133,6 +130,8 @@ public class AllModules extends App
 			App.values1(status);
 			driver.findElement(By.xpath("//*[@data-size='large']")).click();
 		}
+		//Verify left menu tabs in repairs list voiew
+		this.left_menu_tab_list(env); System.exit(0);
 		//Filters In Repair List View
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_018_VerifyFilters");
@@ -873,7 +872,7 @@ public class AllModules extends App
 		//verify GP calculation
 		double act_gp_value = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'w-32')]")).get(0).findElement(By.tagName("h4")).getText().replace("%", ""));
 		double act_dis_value = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class,'d-flex align-center g-8 ')]")).get(1).findElement(By.tagName("h4")).getText().replace("%", ""));
-		
+
 		double qp = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]")).get(2).getText().replace("$", "").replace(",", ""));
 		double lp = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]")).get(7).getText().replace("$", "").replace(",", ""));
 		double iidm_cost = Double.parseDouble(driver.findElements(By.xpath("//*[contains(@class, 'item-value-ellipsis')]")).get(4).getText().replace("$", "").replace(",", ""));
@@ -1101,7 +1100,7 @@ public class AllModules extends App
 						java.time.LocalDateTime.now().toString(), env};
 				App.values1(status1);
 			}
-			
+
 		} else {
 			Thread.sleep(1200);
 			driver.findElement(By.name("customer_po_number")).sendKeys("PO1234");
@@ -1349,7 +1348,7 @@ public class AllModules extends App
 					"before clone order is "+line_order_bef_clone, "QuotesPage", "Failed", java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
-		
+
 		if (aft_clone_total_price_det.equals(total_price_det)) 
 		{
 			Object status[] = {"QUOTES_029_VerifyPrices_In_Grid_and_Detailed_View_After and Before_Clone", "after clone total price in det "+aft_clone_total_price_det, 
@@ -1703,6 +1702,52 @@ public class AllModules extends App
 					"after change the items order "+aft_array, "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
+		}
+	}
+	public void left_menu_tab_list(String env) throws Exception
+	{
+		//click receiving
+		ResultSet rs  = App.adminTabs("SELECT * FROM repairs_left_menu_tabs;");
+		System.err.println(rs); 
+		String tabName = ""; String stas = ""; int tcCount =0;
+		while(rs.next()) {
+			System.out.println(rs.getString(1));
+			tcCount = rs.getInt("tc_count");
+			tabName = rs.getString("tab_name");
+			stas = rs.getString("status");
+			Actions act = new Actions(driver);
+			act.moveToElement(driver.findElement(By.xpath("//*[text() = '"+tabName+"']"))).build().perform();
+			Thread.sleep(1300);
+			App.click_xpath("//*[text() = '"+tabName+"']", "click", ""); String act_sta = "";
+			App.spinner(); Thread.sleep(1300); boolean res = false;
+			try {
+				driver.findElement(By.xpath("//*[@class = 'ag-react-container']")).isDisplayed();
+				List<WebElement> receiving_list = driver.findElements(By.xpath("//*[@class = 'ag-react-container']"));
+				for(int i =0; i <receiving_list.size(); i++) 
+				{
+					act_sta = receiving_list.get(i).getText();
+					if (act_sta.toLowerCase().contains(stas.toLowerCase())) {
+						res = true;
+					} else {
+						res = false;
+						break;
+					}
+				}
+			}catch (Exception e) {
+				act_sta = "Grid is empty!";
+				res = false;
+			}
+			if (res) {
+				Object status[] = {"REPAIRS_0"+tcCount+"_Verify_"+tabName+"_Tab_in_left_menu", "actual status "+act_sta, 
+						"expected status "+stas, "RepairsPage", "Passed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			} else {
+				Object status[] = {"REPAIRS_0"+tcCount+"_Verify_"+tabName+"_Tab_in_left_menu", "actual status "+act_sta, 
+						"expected status "+stas, "RepairsPage", "Failed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			}
 		}
 	}
 	public boolean verifyCreateJob(String tcName ,String salesOrderId, int count, String env) throws Exception
