@@ -131,7 +131,7 @@ public class AllModules extends App
 			driver.findElement(By.xpath("//*[@data-size='large']")).click();
 		}
 		//Verify left menu tabs in repairs list voiew
-		this.left_menu_tab_list(env); System.exit(0);
+		this.left_menu_tab_list(env);
 		//Filters In Repair List View
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_018_VerifyFilters");
