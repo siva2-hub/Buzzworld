@@ -1236,6 +1236,8 @@ public class AllModules extends App
 		repair.createRMA();
 		//Add Items to Repair
 		this.select_items(1, "1234");
+		//Reading RMA number into a variable
+		String rma_number = driver.findElement(By.xpath("//*[@class = 'id-num']")).getText().replace("#", "");
 		//Assign Location
 		repair.assignLocation();
 		//Assign Technician
@@ -1263,13 +1265,13 @@ public class AllModules extends App
 			result = false;
 		}
 		if (result) {
-			Object status[] = {"REPAIRS_025_Verify_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
-					"expected displayed text is "+exp_text, "QuotesPage", "Passed",
+			Object status[] = {"REPAIRS_025_Verify_My_Repair_Requests_Tab", "Actual displayed test is "+act_text+" "+rma_number, 
+					"expected displayed text is "+exp_text+" "+rma_number, "QuotesPage", "Passed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		} else {
-			Object status[] = {"REPAIRS_025_Verify_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
-					"expected displayed text is "+exp_text, "QuotesPage", "Failed",
+			Object status[] = {"REPAIRS_025_Verify_My_Repair_Requests_Tab", "Actual displayed test is "+act_text+" "+rma_number, 
+					"expected displayed text is "+exp_text+" "+rma_number, "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
@@ -1280,8 +1282,7 @@ public class AllModules extends App
 		//Redirect to My repair request tab list view
 		driver.navigate().to(url_my_repair); App.spinner(); Thread.sleep(1300);
 		try {
-			driver.findElement(By.xpath("//*[text()='Pending Evaluation']")).isDisplayed();
-			act_text = driver.findElement(By.xpath("//*[text()='Pending Evaluation']")).getText();
+			driver.findElement(By.xpath("//*[text()='"+rma_number+"']")).isDisplayed();
 			result = false;
 			exp_text = "Pending Evaluation";
 		} catch (Exception e) {
@@ -1289,13 +1290,27 @@ public class AllModules extends App
 			exp_text = "Not Display that in My Repair Requests";
 		}
 		if (result) {
-			Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should't_display_in_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
-					"expected displayed text is "+exp_text, "QuotesPage", "Passed",
-					java.time.LocalDateTime.now().toString(), env};
-			App.values1(status);
+			try {
+				driver.findElement(By.xpath("//*[text() = '"+rma_number+"']")).isDisplayed();
+				result = false;
+			} catch (Exception e) {
+				result = true;
+			}
+			if (result) 
+			{
+				Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should not_display_in_My_Repair_Requests_Tab", "Actual displayed RMA is "+rma_number, 
+						"expected displayed RMA is "+rma_number, "QuotesPage", "Passed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			}else {
+				Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should not_display_in_My_Repair_Requests_Tab", "Actual displayed RMA is "+rma_number, 
+						"expected displayed RMA is "+rma_number, "QuotesPage", "Failed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			}
 		} else {
-			Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should't_display_in_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
-					"expected displayed text is "+exp_text, "QuotesPage", "Failed",
+			Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should not_display_in_My_Repair_Requests_Tab", "Actual displayed RMA is "+rma_number, 
+					"expected displayed RMA is "+rma_number, "QuotesPage", "Failed",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status);
 		}
