@@ -552,8 +552,8 @@ public class RepairPages extends App
 		System.out.println("grid text after apply the filter "+driver.findElement(By.xpath("//*[@class='ag-center-cols-viewport']")).getText());
 		if (driver.findElement(By.xpath("//*[@class='ag-center-cols-viewport']")).getText().equalsIgnoreCase("")) {
 			res = false;
-			Object status[] = {"REPAIRS_019_VerifyFilters", "Repair Request Not Found", "", "RepairsPage", "Failed", java.time.LocalDate.now().toString()};
-			quotes.values(status);
+			Object status[] = {"REPAIRS_019_VerifyFilters", "Repair Request Not Found for Applied filters", "", "RepairsPage", "Failed", java.time.LocalDate.now().toString(), env};
+			App.values1(status);
 		} else {
 
 			List<WebElement> txts = driver.findElement(By.xpath("//*[@class='ag-center-cols-container']")).findElements(By.xpath("//*[@row-index='0']"));
@@ -586,13 +586,13 @@ public class RepairPages extends App
 		ele = driver.findElement(By.xpath("//*[text() = 'Clear']"));
 		if (ele.isDisplayed()) {
 			res = true;
-			Object status[] = {"REPAIRS_0_VerifyFilterStateMaintanance", "filters  are stabled after refresh the page",
+			Object status[] = {"REPAIRS_019_VerifyFilterStateMaintanance", "filters  are stabled after refresh the page",
 					"", "RepairsPage", "Passed", java.time.LocalDate.now().toString(), env};
 			App.values1(status);
 		} else 
 		{
 			res = false;
-			Object status[] = {"REPAIRS_01_VerifyFilterStateMaintanance", "filters  are not stabled after refresh the page",
+			Object status[] = {"REPAIRS_019_VerifyFilterStateMaintanance", "filters  are not stabled after refresh the page",
 					"", "RepairsPage", "Failed", java.time.LocalDate.now().toString(), env};
 			App.values1(status);
 		}
