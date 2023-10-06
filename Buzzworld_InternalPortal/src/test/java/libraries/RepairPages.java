@@ -270,7 +270,7 @@ public class RepairPages extends App
 		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
 		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
 		driver.findElement(By.name("price")).sendKeys("198");
-		driver.findElement(By.xpath("//*[@placeholder = 'Estimated Parts Cast']")).sendKeys("178");
+		driver.findElement(By.xpath("//*[@placeholder = 'Estimated Parts Cost']")).sendKeys("178");
 		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
 		App.click_xpath("//*[text() = 'Update Evaluation']", "click", "");
 		App.spinner(); Thread.sleep(1200);
