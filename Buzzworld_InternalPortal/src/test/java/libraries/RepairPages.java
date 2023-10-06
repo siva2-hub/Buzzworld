@@ -61,7 +61,7 @@ public class RepairPages extends App
 		quotes.selectDropDown("Luke Pelts");
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='repair-items']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() ='Add Items']")));
 		Thread.sleep(1600);
 	}
 	public boolean verifyCreateRMA() throws Exception {
@@ -142,23 +142,42 @@ public class RepairPages extends App
 	}
 	public void assignLocation() throws Exception 
 	{
-		this.selectItemToRepair();
-		List<WebElement> btn=  driver.findElement(By.xpath("//*[@id='repair-items']")).findElements(By.xpath("//*[contains(@class,'action-item icon-bg-hover')]"));
-		btn.get(0).click();
-		Thread.sleep(1000);
-		Thread.sleep(1500);
+//		this.selectItemToRepair();
+//		List<WebElement> btn=  driver.findElement(By.xpath("//*[@id='repair-items']")).findElements(By.xpath("//*[contains(@class,'action-item icon-bg-hover')]"));
+//		btn.get(0).click();
+//		Thread.sleep(1000);
+//		Thread.sleep(1500);
+//		Actions act = new Actions(driver);
+//		WebElement editIcon = driver.findElement(By.xpath("//*[@class='quantity-parent']")).findElement(By.tagName("svg"));
+//		act.moveToElement(editIcon).perform();
+//		editIcon.click();
+//		Thread.sleep(1400);
+//		//		driver.findElements(By.xpath("//*[@title='Edit']")).get(2).click();
+//		driver.findElement(By.name("storage")).sendKeys("New York");
+//		driver.findElement(By.name("serial_no")).sendKeys(java.time.LocalTime.now().toString().replace("-","").replace(":", "").replace(".", ""));
+//		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
+//		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Assign Technician']")));
+//		Thread.sleep(1300);
+		driver.findElement(By.xpath("//*[text() = 'Assign Location']")).click();
+		App.spinner(); Thread.sleep(1200);
 		Actions act = new Actions(driver);
 		WebElement editIcon = driver.findElement(By.xpath("//*[@class='quantity-parent']")).findElement(By.tagName("svg"));
 		act.moveToElement(editIcon).perform();
 		editIcon.click();
 		Thread.sleep(1400);
-		//		driver.findElements(By.xpath("//*[@title='Edit']")).get(2).click();
+		if (driver.findElement(By.name("serial_no")).getAttribute("value").length()==0) {
+
+			driver.findElement(By.name("serial_no")).sendKeys(java.time.LocalTime.now().toString().substring(0, 8).replace(":", ""));
+			driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
+		} else {
+			driver.findElement(By.xpath("//*[@title='Undo Changes']")).click();
+		}
 		driver.findElement(By.name("storage")).sendKeys("New York");
-		driver.findElement(By.name("serial_no")).sendKeys(java.time.LocalTime.now().toString().replace("-","").replace(":", "").replace(".", ""));
-		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
+		driver.findElement(By.xpath("//*[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Location");
+		Thread.sleep(1200);
 		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Assign Technician']")));
-		Thread.sleep(1300);
+		App.spinner(); Thread.sleep(1300);
 	}
 	public boolean verifyAssignLocation() throws Exception {
 		this.assignLocation();
@@ -178,19 +197,36 @@ public class RepairPages extends App
 	}
 	public void assignTechnician() throws Exception 
 	{
-		this.assignLocation();
+//		this.assignLocation();
+//		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//*[contains(@class,'react-select__indicator')]")).click();
+//		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
+//		//		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
+//		//		for(int i=0;i<btns.size();i++) {
+//		//			if(btns.get(i).getText().equalsIgnoreCase("Assign")) {
+//		//				btns.get(i).click();
+//		//				break;
+//		//			}
+//		//		}
+//		driver.findElement(By.xpath("//*[text()='Assign']")).click();
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='repair-items']")));
+//		Thread.sleep(2000);
+		Thread.sleep(1200); Actions act = new Actions(driver);
 		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//*[contains(@class,'react-select__indicator')]")).click();
+		driver.findElement(By.name("storage")).click();
+		act.sendKeys(Keys.TAB).build().perform();
+		act.sendKeys(Keys.SPACE).build().perform();
 		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
-		//		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-		//		for(int i=0;i<btns.size();i++) {
-		//			if(btns.get(i).getText().equalsIgnoreCase("Assign")) {
-		//				btns.get(i).click();
-		//				break;
-		//			}
-		//		}
-		driver.findElement(By.xpath("//*[text()='Assign']")).click();
+		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
+		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
+		for(int i=0;i<btns.size();i++) {
+			if(btns.get(i).getText().equalsIgnoreCase("Assign")) {
+				btns.get(i).click();
+				break;
+			}
+		}
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='repair-items']")));
 		Thread.sleep(2000);
 	}
@@ -212,22 +248,32 @@ public class RepairPages extends App
 	}
 	public void evaluateItem() throws Exception 	
 	{
-		this.assignTechnician();
-		List<WebElement> btn=  driver.findElement(By.xpath("//*[@id='repair-items']")).findElements(By.xpath("//*[contains(@class,'action-item icon-bg-hover')]"));
-		//		btn.get(0).click();
-		driver.findElement(By.className("hides")).click();
+//		this.assignTechnician();
+//		List<WebElement> btn=  driver.findElement(By.xpath("//*[@id='repair-items']")).findElements(By.xpath("//*[contains(@class,'action-item icon-bg-hover')]"));
+//		//		btn.get(0).click();
+//		driver.findElement(By.className("hides")).click();
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("//*[contains(@class,'auto__dropdown-indicator')]")).click();
+//		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
+//		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
+//		driver.findElement(By.name("price")).sendKeys("198");
+//		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
+//		btns.get(7).click();
+//		System.out.println("count of btns are "+btns.size());
+//		for(int i=0;i<btns.size();i++) {
+//			System.out.println(btns.get(i).getText());
+//		}
+//		Thread.sleep(1300);
+		driver.findElement(By.xpath("//*[text() = 'Evaluate']")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'auto__dropdown-indicator')]")).click();
 		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
 		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
 		driver.findElement(By.name("price")).sendKeys("198");
-		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-		btns.get(7).click();
-		System.out.println("count of btns are "+btns.size());
-		for(int i=0;i<btns.size();i++) {
-			System.out.println(btns.get(i).getText());
-		}
-		Thread.sleep(1300);
+		driver.findElement(By.xpath("//*[@placeholder = 'Estimated Parts Cast']")).sendKeys("178");
+		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
+		App.click_xpath("//*[text() = 'Update Evaluation']", "click", "");
+		App.spinner(); Thread.sleep(1200);
 	}
 	public boolean verifyEvaluateItem() throws Exception {
 		this.evaluateItem();

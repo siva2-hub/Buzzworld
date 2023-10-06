@@ -131,7 +131,9 @@ public class AllModules extends App
 			driver.findElement(By.xpath("//*[@data-size='large']")).click();
 		}
 		//Verify left menu tabs in repairs list voiew
-		this.left_menu_tab_list(env);
+//		this.left_menu_tab_list(env);
+		//verify My repair Request
+		this.verify_my_repair_repair_request_tab(env);
 		//Filters In Repair List View
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_018_VerifyFilters");
@@ -273,26 +275,26 @@ public class AllModules extends App
 		//Assign Location
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_004_VerifyAssignLocation");
-
-		driver.findElement(By.xpath("//*[text() = 'Assign Location']")).click();
-		App.spinner(); Thread.sleep(1200);
 		Actions act = new Actions(driver);
-		WebElement editIcon = driver.findElement(By.xpath("//*[@class='quantity-parent']")).findElement(By.tagName("svg"));
-		act.moveToElement(editIcon).perform();
-		editIcon.click();
-		Thread.sleep(1400);
-		if (driver.findElement(By.name("serial_no")).getAttribute("value").length()==0) {
-
-			driver.findElement(By.name("serial_no")).sendKeys(java.time.LocalTime.now().toString().substring(0, 8).replace(":", ""));
-			driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
-		} else {
-			driver.findElement(By.xpath("//*[@title='Undo Changes']")).click();
-		}
-		driver.findElement(By.name("storage")).sendKeys("New York");
-		driver.findElement(By.xpath("//*[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Location");
-		Thread.sleep(1200);
-		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
-		App.spinner();
+		repair.assignLocation();
+//		driver.findElement(By.xpath("//*[text() = 'Assign Location']")).click();
+//		App.spinner(); Thread.sleep(1200);
+//		WebElement editIcon = driver.findElement(By.xpath("//*[@class='quantity-parent']")).findElement(By.tagName("svg"));
+//		act.moveToElement(editIcon).perform();
+//		editIcon.click();
+//		Thread.sleep(1400);
+//		if (driver.findElement(By.name("serial_no")).getAttribute("value").length()==0) {
+//
+//			driver.findElement(By.name("serial_no")).sendKeys(java.time.LocalTime.now().toString().substring(0, 8).replace(":", ""));
+//			driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
+//		} else {
+//			driver.findElement(By.xpath("//*[@title='Undo Changes']")).click();
+//		}
+//		driver.findElement(By.name("storage")).sendKeys("New York");
+//		driver.findElement(By.xpath("//*[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Location");
+//		Thread.sleep(1200);
+//		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
+//		App.spinner();
 		Thread.sleep(1200);
 		expText = "CHECKED-IN";
 		actText = driver.findElement(By.xpath("//*[@style = 'white-space: nowrap; max-width: 100%; text-overflow: ellipsis;']")).getText();
@@ -306,24 +308,24 @@ public class AllModules extends App
 		//Assign Technician
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_005_VerifyAssignTechnician");
-
-		Thread.sleep(1200);
-		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.name("storage")).click();
-		act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys(Keys.SPACE).build().perform();
-		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
-		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
+		repair.assignTechnician();
+//		Thread.sleep(1200);
+//		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.name("storage")).click();
+//		act.sendKeys(Keys.TAB).build().perform();
+//		act.sendKeys(Keys.SPACE).build().perform();
+//		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
+//		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
 		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-		for(int i=0;i<btns.size();i++) {
-			if(btns.get(i).getText().equalsIgnoreCase("Assign")) {
-				btns.get(i).click();
-				break;
-			}
-		}
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='repair-items']")));
-		Thread.sleep(2000);
+//		for(int i=0;i<btns.size();i++) {
+//			if(btns.get(i).getText().equalsIgnoreCase("Assign")) {
+//				btns.get(i).click();
+//				break;
+//			}
+//		}
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='repair-items']")));
+//		Thread.sleep(2000);
 		expText = "PENDING EVALUATION";
 		actText = driver.findElement(By.xpath("//*[@style = 'white-space: nowrap; max-width: 100%; text-overflow: ellipsis;']")).getText();
 		if (actText.toLowerCase().contains(expText.toLowerCase())) {
@@ -336,23 +338,23 @@ public class AllModules extends App
 		//Item Evaluation
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_006_VerifyEvaluateItem");
-
-		driver.findElement(By.xpath("//*[text() = 'Evaluate']")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[contains(@class,'auto__dropdown-indicator')]")).click();
-		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
-		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
-		driver.findElement(By.name("price")).sendKeys("198");
-		driver.findElement(By.xpath("//*[@placeholder = 'Estimated Parts Cast']")).sendKeys("178");
-		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
-		btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-		btns.get(7).click();
-		System.out.println("count of btns are "+btns.size());
-		for(int i=0;i<btns.size();i++) {
-			System.out.println(btns.get(i).getText());
-		}
-		App.spinner();
-		Thread.sleep(1200);
+		repair.evaluateItem();
+//		driver.findElement(By.xpath("//*[text() = 'Evaluate']")).click();
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("//*[contains(@class,'auto__dropdown-indicator')]")).click();
+//		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
+//		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
+//		driver.findElement(By.name("price")).sendKeys("198");
+//		driver.findElement(By.xpath("//*[@placeholder = 'Estimated Parts Cast']")).sendKeys("178");
+//		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
+//		btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
+//		btns.get(7).click();
+//		System.out.println("count of btns are "+btns.size());
+//		for(int i=0;i<btns.size();i++) {
+//			System.out.println(btns.get(i).getText());
+//		}
+//		App.spinner();
+//		Thread.sleep(1200);
 		expText = "PENDING QUOTE";
 		actText = driver.findElement(By.xpath("//*[@style = 'white-space: nowrap; max-width: 100%; text-overflow: ellipsis;']")).getText();
 		if (actText.toLowerCase().contains(expText.toLowerCase())) {
@@ -1226,6 +1228,78 @@ public class AllModules extends App
 			System.out.println("None of the above");
 		}
 	}
+	public void verify_my_repair_repair_request_tab(String env) throws Exception
+	{
+		//create RMA
+		//display pop up message
+		App.displayPopUp("Verify pending quote status, should't display in My repair request");
+		repair.createRMA();
+		//Add Items to Repair
+		this.select_items(1, "1234");
+		//Assign Location
+		repair.assignLocation();
+		//Assign Technician
+		Thread.sleep(1200); Actions act = new Actions(driver);
+		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
+		Thread.sleep(2000);
+		App.click_react_dropdown(0);
+		act.sendKeys("sivakrishna").build().perform();
+		App.spinner();
+		act.sendKeys(Keys.ENTER).build().perform();
+		driver.findElement(By.xpath("//textarea[@placeholder= 'Type here']")).sendKeys("Internal Item Notes While Assign Technician");
+		App.click_xpath("//*[text() = 'Assign']", "click", "");
+		App.spinner(); Thread.sleep(1300);
+		String url_repair= driver.getCurrentUrl();
+		//
+		App.click_xpath("//*[text() = 'Repairs']", "click", "");
+		App.spinner(); Thread.sleep(1300); String exp_text = "Pending Evaluation";
+		App.click_xpath("//*[text() = 'My Repair Requests']", "click", "");
+		App.spinner(); Thread.sleep(1300); boolean result = false; String act_text = "";
+		try {
+			driver.findElement(By.xpath("//*[text()='Pending Evaluation']")).isDisplayed();
+			act_text = driver.findElement(By.xpath("//*[text()='Pending Evaluation']")).getText();
+			result = true;
+		} catch (Exception e) {
+			result = false;
+		}
+		if (result) {
+			Object status[] = {"REPAIRS_025_Verify_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
+					"expected displayed text is "+exp_text, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"REPAIRS_025_Verify_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
+					"expected displayed text is "+exp_text, "QuotesPage", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+		String url_my_repair= driver.getCurrentUrl();
+		//Redirects to Repair detailed view
+		driver.navigate().to(url_repair); App.spinner(); Thread.sleep(1300);
+		repair.evaluateItem();
+		//Redirect to My repair request tab list view
+		driver.navigate().to(url_my_repair); App.spinner(); Thread.sleep(1300);
+		try {
+			driver.findElement(By.xpath("//*[text()='Pending Evaluation']")).isDisplayed();
+			act_text = driver.findElement(By.xpath("//*[text()='Pending Evaluation']")).getText();
+			result = false;
+			exp_text = "Pending Evaluation";
+		} catch (Exception e) {
+			result = true;
+			exp_text = "Not Display that in My Repair Requests";
+		}
+		if (result) {
+			Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should't_display_in_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
+					"expected displayed text is "+exp_text, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"REPAIRS_026_Verify_Quote_Stattus_Pending_Quote_Should't_display_in_My_Repair_Requests_Tab", "Actual displayed test is "+act_text, 
+					"expected displayed text is "+exp_text, "QuotesPage", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+	}
 	public void verify_total_price_grid_detail_view(String env) throws Exception {
 		//create Quote
 		// Display warning Pop UP
@@ -1602,9 +1676,15 @@ public class AllModules extends App
 			act.sendKeys(Keys.SPACE).build().perform();
 			break;
 		}
-		App.click_xpath("//*[text() = 'Add Selected "+count+" Items']", "click", "");
+		String tab = "";
+		if (driver.getCurrentUrl().contains("quote")) {
+			tab = "Items";
+		} else {
+			tab = "Parts";
+		}
+		App.click_xpath("//*[text() = 'Add Selected "+count+" "+tab+"']", "click", "");
 		App.spinner();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 		Thread.sleep(1300);
 	}
 	public void check_change_item_line_order(String env) throws Exception
@@ -1711,6 +1791,9 @@ public class AllModules extends App
 		System.err.println(rs); 
 		String tabName = ""; String stas = ""; int tcCount =0;
 		while(rs.next()) {
+			//display Pop up message
+			App.displayPopUp("REPAIRS_0"+tcCount+"_Verify_"+tabName+"_Tab_in_left_menu");
+			
 			System.out.println(rs.getString(1));
 			tcCount = rs.getInt("tc_count");
 			tabName = rs.getString("tab_name");
