@@ -222,6 +222,7 @@ public class AllModules extends App
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
 		driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).sendKeys(stCode);
+		App.spinner(); Thread.sleep(0);
 		try {
 			Thread.sleep(4500);
 			driver.findElement(By.xpath("//*[text() = '? Click here to add them']")).isDisplayed();
@@ -232,25 +233,32 @@ public class AllModules extends App
 			driver.findElement(By.id("async-select-example")).sendKeys("WAGO");
 			Thread.sleep(1200);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'WAGO')]")));
-			quotes.selectDropDown("WAGO CORPORATION");
-			Thread.sleep(500);
+			quotes.selectDropDown("WAGO CORPORATION"); Thread.sleep(500);
 			driver.findElement(By.xpath("//*[@placeholder='Part Number']")).sendKeys(stCode);
 			driver.findElement(By.xpath("//*[@placeholder='Serial No']")).sendKeys(java.time.LocalTime.now().toString().substring(0, 8).replace(":", ""));
 			driver.findElement(By.xpath("//*[text()='Add New Part']")).click();
 			Thread.sleep(1500);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			Actions act = new Actions(driver);
-			driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).click();
-			act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
-			act.sendKeys(Keys.SPACE).build().perform();
-			Thread.sleep(1000);
-			List<WebElement> btn = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-			for(int i=0;i<btn.size();i++) 
-			{
-				if(btn.get(i).getText().toLowerCase().contains("Add Selected".toLowerCase())) {
-					btn.get(i).click();
-					break;
+			System.out.println("Error message is "+e.getMessage());
+
+			if (driver.getCurrentUrl().contains("stage")) 
+			{	
+				driver.findElements(By.xpath("//*[contains(@style, '--checkbox-background-color);')]")).get(1).click();
+				App.click_xpath("//*[text() = 'Add Selected 1 Parts']", "click", "");
+				App.spinner(); Thread.sleep(1300);
+			} else {
+				Actions act = new Actions(driver);
+				driver.findElement(By.xpath("//*[@placeholder='Search By Part Number']")).click();
+				act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();act.sendKeys(Keys.TAB).build().perform();
+				act.sendKeys(Keys.SPACE).build().perform();
+				Thread.sleep(1000);
+				List<WebElement> btn = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
+				for(int i=0;i<btn.size();i++) 
+				{
+					if(btn.get(i).getText().toLowerCase().contains("Add Selected".toLowerCase())) {
+						btn.get(i).click();
+						break;
+					}
 				}
 			}
 		}
