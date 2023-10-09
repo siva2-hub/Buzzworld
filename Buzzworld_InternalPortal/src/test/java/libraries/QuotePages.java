@@ -905,22 +905,13 @@ public class QuotePages extends App
 		App.displayPopUp(tcName);
 
 		String is[] = this.quoteClone_QuotesForParts();
-		String quoteType = driver.findElement(By.id("repair-info-id")).findElement(By.xpath("//*[contains(@class,'pi-label')]")).findElement(By.xpath("//*[@class='description']")).getText();
 		boolean res = false;
-		if (is[0].equals("System Quote")) {
-			String actText = driver.findElement(By.className("quote-num-and-status")).getText();
-			String ExpText = "OPEN";
-			if (is[1].equals("Parts Quote")) {
-				res = true;
-				Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Passed",
-						java.time.LocalDateTime.now().toString(), env};
-				App.values1(status);
-			} else {
-				res = false;
-				Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Failed",
-						java.time.LocalDateTime.now().toString(), env};
-				App.values1(status);
-			}
+		if (!is[0].equals(is[1])) {
+			
+			res = true;
+			Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
 		} else {
 			res = false;
 			Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Failed",
