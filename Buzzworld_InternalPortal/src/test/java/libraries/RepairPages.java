@@ -114,8 +114,9 @@ public class RepairPages extends App
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='side-drawer open']")));
 		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.id("tab-2")).click();
 		driver.findElement(By.id("async-select-example")).sendKeys("BACO CONTROLS INC");
-		Thread.sleep(1000);
-		quotes.selectDropDown("BACO CONTROLS INC");
+		App.spinner(); Thread.sleep(1000);
+		Actions act = new Actions(driver);
+		act.sendKeys(Keys.ENTER).build().perform();
 		driver.findElement(By.name("custom_part_items.0.part_number")).sendKeys("PN12345");
 		driver.findElement(By.name("custom_part_items.0.serial_number")).sendKeys(serialNumber);
 		driver.findElement(By.name("custom_part_items.0.description")).sendKeys("Test Description");

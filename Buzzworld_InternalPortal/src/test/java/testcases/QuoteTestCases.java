@@ -30,8 +30,8 @@ public class QuoteTestCases extends App{
 		all.quotesModule("Week(s)", "21", "32.23", env);
 		//Verify Quote Lost, Verify Quote clone from Quote for Parts
 		quotes.verifyQuoteWon(2, env);
-		//Verify Quote Clone from Quote for Repair
-		quotes.quoteClone_QuoteForRepairs(env);
+		//Verify Quote Clone from Quote for Repair this feature  is removed //quotes.quoteClone_QuoteForRepairs(env);
+		
 		//Verify Add Options in Quote detailed view, Verify Quote Decline, Verify Quote Re Open, Verify Quote Close
 		quotes.verifyAddOptionInQuoteDetailedView(env);
 	}

@@ -21,7 +21,6 @@ public class RepairTestCases extends App
 			env = "QA Instance";
 		}
 		all.repairsModule("00-83000019", env);
-		App.login();
 	}
 	//	@Test(enabled = false)
 	//	//	@Test(priority = 1)
