@@ -494,9 +494,10 @@ public class RepairPages extends App
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Upload']")));
 		driver.findElement(By.xpath("//*[@type='file']")).sendKeys("/home/enterpi/Pictures/Screenshot from 2023-04-18 10-35-23.png");
 		Thread.sleep(2000);
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//*[text()='Upload']")));
-		Thread.sleep(1500);
+		App.scroll_to_vertical("//*[text()='Upload']");
+		//		JavascriptExecutor js = (JavascriptExecutor)driver;
+		//		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//*[text()='Upload']")));
+		//		Thread.sleep(1500);
 		boolean res = false; boolean sta = false;
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='image_Container']")));
@@ -587,13 +588,13 @@ public class RepairPages extends App
 		ele = driver.findElement(By.xpath("//*[text() = 'Clear']"));
 		if (ele.isDisplayed()) {
 			res = true;
-			Object status[] = {"REPAIRS_019_VerifyFilterStateMaintanance", "filters  are stabled after refresh the page",
+			Object status[] = {"REPAIRS_028_VerifyFilterStateMaintanance", "filters  are stabled after refresh the page",
 					"", "RepairsPage", "Passed", java.time.LocalDate.now().toString(), env};
 			App.values1(status);
 		} else 
 		{
 			res = false;
-			Object status[] = {"REPAIRS_019_VerifyFilterStateMaintanance", "filters  are not stabled after refresh the page",
+			Object status[] = {"REPAIRS_028_VerifyFilterStateMaintanance", "filters  are not stabled after refresh the page",
 					"", "RepairsPage", "Failed", java.time.LocalDate.now().toString(), env};
 			App.values1(status);
 		}

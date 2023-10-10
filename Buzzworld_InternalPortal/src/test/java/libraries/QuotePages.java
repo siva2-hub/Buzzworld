@@ -130,8 +130,8 @@ public class QuotePages extends App
 		Actions act = new Actions(driver);
 		String vendor = "HAMMOND MFG-ENCLOSURES";
 		try {
-			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
-			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+			driver.findElement(By.xpath("//*[text() = 'Open1']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Open1']")).click();
 		} catch (Exception e) {
 			// TODO: handle exception		
 			all.create_quote(); Thread.sleep(1300);
@@ -415,6 +415,15 @@ public class QuotePages extends App
 		App.spinner(); Thread.sleep(2300);
 		String gridText = driver.findElement(By.xpath("//*[@class='ag-center-cols-container']")).getText();
 		System.out.println("data of grid is "+gridText);
+		if (count == 1) {
+			tcName = "QUOTES_014_VerifySearchByQuoteId";
+		} else if(count == 2) {
+			tcName = "QUOTES_015_VerifySearchByCompanyName";
+		}else if(count == 3) {
+			tcName = "QUOTES_016_VerifySearchBySalesPersonName";
+		}else if(count == 4) {
+			tcName = "QUOTES_017_VerifySearchByEmail";
+		}
 		Thread.sleep(2000);
 		if (gridText=="") {
 			res = false;
@@ -906,8 +915,7 @@ public class QuotePages extends App
 
 		String is[] = this.quoteClone_QuotesForParts();
 		boolean res = false;
-		if (!is[0].equals(is[1])) {
-			
+		if (is[0].equals(is[1])) {	
 			res = true;
 			Object status[] = {tcName, "before clone quote type is "+is[0], "after clone quote type is "+is[1], "QuotesPage", "Passed",
 					java.time.LocalDateTime.now().toString(), env};

@@ -12,7 +12,8 @@ public class QuoteTestCases extends App{
 
 	//@Test(enabled = false)
 	@Test(priority = 1)
-	public void testCase0() throws Exception {
+	public void testCase0() throws Exception 
+	{
 		//Testing environment
 		String env = "";
 		if (driver.getCurrentUrl().contains("staging")) {

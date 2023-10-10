@@ -43,6 +43,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -110,6 +111,12 @@ public class App {
 		driver.findElement(By.id("username")).sendKeys(mail);
 		driver.findElement(By.id("password")).sendKeys(pwd);
 
+	}
+	public static void scroll_to_vertical(String ele_path) throws Exception
+	{
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath(ele_path)));
+		Thread.sleep(1500);
 	}
 	public static void main(String args[]) throws  Exception 
 	{	

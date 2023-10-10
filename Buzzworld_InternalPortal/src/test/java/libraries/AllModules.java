@@ -98,7 +98,6 @@ public class AllModules extends App
 		//Display All Items Check-box
 		//Warning Pop Up
 		App.displayPopUp("REPAIRS_001_Verify_Display All Items");
-
 		driver.findElement(By.xpath("//*[text()='Repairs']")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'All Repairs Requests']")));
 		Thread.sleep(1300);
@@ -141,7 +140,7 @@ public class AllModules extends App
 		repair.verifyFilters("123 E Doty Corporation", "Dallas House", "Receiving", env);
 		//Filter's State Maintenance
 		//Warning Pop Up
-		App.displayPopUp("REPAIRS_019_VerifyFilterStateMaintanance");
+		App.displayPopUp("REPAIRS_028_VerifyFilterStateMaintanance");
 		repair.verifyFilterStateMaintanance(env);
 		//Create RMA
 		//Warning Pop Up
@@ -847,7 +846,9 @@ public class AllModules extends App
 		Thread.sleep(1200);
 		act.sendKeys(Keys.ENTER).build().perform();
 		//Click on Save button in Edit Quote Items page
-		price.clickButton("Save");Thread.sleep(2000);
+		price.clickButton("Save");
+		App.spinner(); Thread.sleep(1400);
+		App.scroll_to_vertical("//*[text() = 'Add Options']");
 		actText = driver.findElements(By.xpath("//*[@class='d-flex align-center g-16 ']")).get(1).findElement(By.tagName("h4")).getText();
 		expText = "TBD";
 		if (actText.contains(expText)) {
@@ -1458,9 +1459,9 @@ public class AllModules extends App
 			driver.findElement(By.xpath("//*[contains(@class, 'css-4mp3pp-menu')]")).click();
 			App.spinner();Thread.sleep(1000);
 			driver.findElement(By.name("project_name")).sendKeys("Test");
-			driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("Parts Quote");
+			driver.findElement(By.xpath("//*[contains(@id,'react-select')]")).sendKeys("System Quote");
 			Thread.sleep(2500);
-			quotes.selectDropDown("Parts Quote");
+			quotes.selectDropDown("System Quote");
 			Thread.sleep(1500);
 			driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
