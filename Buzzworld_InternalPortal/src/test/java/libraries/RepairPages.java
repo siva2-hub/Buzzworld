@@ -143,23 +143,6 @@ public class RepairPages extends App
 	}
 	public void assignLocation() throws Exception 
 	{
-//		this.selectItemToRepair();
-//		List<WebElement> btn=  driver.findElement(By.xpath("//*[@id='repair-items']")).findElements(By.xpath("//*[contains(@class,'action-item icon-bg-hover')]"));
-//		btn.get(0).click();
-//		Thread.sleep(1000);
-//		Thread.sleep(1500);
-//		Actions act = new Actions(driver);
-//		WebElement editIcon = driver.findElement(By.xpath("//*[@class='quantity-parent']")).findElement(By.tagName("svg"));
-//		act.moveToElement(editIcon).perform();
-//		editIcon.click();
-//		Thread.sleep(1400);
-//		//		driver.findElements(By.xpath("//*[@title='Edit']")).get(2).click();
-//		driver.findElement(By.name("storage")).sendKeys("New York");
-//		driver.findElement(By.name("serial_no")).sendKeys(java.time.LocalTime.now().toString().replace("-","").replace(":", "").replace(".", ""));
-//		driver.findElement(By.xpath("//*[@title='Save Changes']")).click();
-//		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Assign Technician']")));
-//		Thread.sleep(1300);
 		driver.findElement(By.xpath("//*[text() = 'Assign Location']")).click();
 		App.spinner(); Thread.sleep(1200);
 		Actions act = new Actions(driver);
@@ -198,21 +181,6 @@ public class RepairPages extends App
 	}
 	public void assignTechnician() throws Exception 
 	{
-//		this.assignLocation();
-//		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("//*[contains(@class,'react-select__indicator')]")).click();
-//		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
-//		//		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-//		//		for(int i=0;i<btns.size();i++) {
-//		//			if(btns.get(i).getText().equalsIgnoreCase("Assign")) {
-//		//				btns.get(i).click();
-//		//				break;
-//		//			}
-//		//		}
-//		driver.findElement(By.xpath("//*[text()='Assign']")).click();
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='repair-items']")));
-//		Thread.sleep(2000);
 		Thread.sleep(1200); Actions act = new Actions(driver);
 		driver.findElement(By.xpath("//*[text()='Assign Technician']")).click();
 		Thread.sleep(2000);
@@ -249,22 +217,6 @@ public class RepairPages extends App
 	}
 	public void evaluateItem() throws Exception 	
 	{
-//		this.assignTechnician();
-//		List<WebElement> btn=  driver.findElement(By.xpath("//*[@id='repair-items']")).findElements(By.xpath("//*[contains(@class,'action-item icon-bg-hover')]"));
-//		//		btn.get(0).click();
-//		driver.findElement(By.className("hides")).click();
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//*[contains(@class,'auto__dropdown-indicator')]")).click();
-//		driver.findElement(By.xpath("//*[contains(@class,'css-4mp3pp-menu')]")).click();
-//		driver.findElement(By.name("estimated_hrs")).sendKeys("23");
-//		driver.findElement(By.name("price")).sendKeys("198");
-//		List<WebElement> btns = driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElements(By.tagName("button"));
-//		btns.get(7).click();
-//		System.out.println("count of btns are "+btns.size());
-//		for(int i=0;i<btns.size();i++) {
-//			System.out.println(btns.get(i).getText());
-//		}
-//		Thread.sleep(1300);
 		driver.findElement(By.xpath("//*[text() = 'Evaluate']")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[contains(@class,'auto__dropdown-indicator')]")).click();
@@ -495,9 +447,6 @@ public class RepairPages extends App
 		driver.findElement(By.xpath("//*[@type='file']")).sendKeys("/home/enterpi/Pictures/Screenshot from 2023-04-18 10-35-23.png");
 		Thread.sleep(2000);
 		App.scroll_to_vertical("//*[text()='Upload']");
-		//		JavascriptExecutor js = (JavascriptExecutor)driver;
-		//		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//*[text()='Upload']")));
-		//		Thread.sleep(1500);
 		boolean res = false; boolean sta = false;
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='image_Container']")));
