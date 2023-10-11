@@ -553,8 +553,7 @@ public class PricingPages extends App {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(App.clickLabel("act_type_search"))));
 		Thread.sleep(2500);
 		App.clearTopSearch();
-		App.spinner();
-		Thread.sleep(1200);
+		App.spinner(); Thread.sleep(1200);
 		// Account type search
 		App.clearFilter();
 		App.spinner();

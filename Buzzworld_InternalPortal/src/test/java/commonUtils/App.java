@@ -331,37 +331,18 @@ public class App {
 			// Add the subject link
 			message.setSubject("Automation Testing Reports");
 
-			// Create object to add multimedia type content
-			BodyPart messageBodyPart1 = new MimeBodyPart();
-
-			// Set the body of email
-			messageBodyPart1.setText("Automation Reports");
-
-			// Create another object to add another content
-			MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-
 			// Mention the file which you want to send
-			String filename = "tcfile.xlsx";
-			//String filename = "output.html";
-
-			// Create data source and pass the filename
-			DataSource source = new FileDataSource(filename);
-
-			// set the handler
-			messageBodyPart2.setDataHandler(new DataHandler(source));
-
-			// set the file
-			messageBodyPart2.setFileName(filename);
-
-			// Create object of MimeMultipart class
+			String filename1 = "tcfile.xlsx";
+			String filename2 = "output.html";
+			String filename3 = "test-output//index.html";
+			
 			Multipart multipart = new MimeMultipart();
-
-			// add body part 1
-			multipart.addBodyPart(messageBodyPart2);
-
-			// add body part 2
-			multipart.addBodyPart(messageBodyPart1);
-
+			//add first file
+			addAttachment(multipart, filename1);
+			//add second file
+			addAttachment(multipart, filename2);
+			//add third file
+			addAttachment(multipart, filename3);
 			// set the content
 			message.setContent(multipart);
 
@@ -377,6 +358,13 @@ public class App {
 		}
 		System.err.println("email sent successfully....");
 	}
+	private static void addAttachment(Multipart multipart, String filePath) throws MessagingException {
+        MimeBodyPart attachmentPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(filePath);
+        attachmentPart.setDataHandler(new DataHandler(source));
+        attachmentPart.setFileName(new File(filePath).getName());
+        multipart.addBodyPart(attachmentPart);
+    }
 	public static String clickLabel(String val) throws SQLException 
 	{
 		String sql = "SELECT label_path FROM Clicking_Label WHERE label_name='"+val+"';";
