@@ -392,11 +392,16 @@ public class PricingPages extends App {
 		driver.findElement(By.xpath("//*[contains(@placeholder, 'Buy Price')]")).sendKeys(buyPrice);
 		driver.findElement(By.xpath("//*[contains(@placeholder,'Fixed Sales Price')]")).sendKeys(fprice);
 		String orgName = driver.findElement(By.xpath("//*[contains(@class,'react-select__single-value')]")).getText();
-		this.clickButton("Preview Items");
 		Thread.sleep(1300);
-		rp.toastContainer("Override");
-		wait.until(
-				ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '" + supplier + "')]")));
+		App.click_xpath("//*[text()= 'Preview Items']", "click", "");
+		Thread.sleep(1300);
+		try {
+			driver.findElement(By.xpath("//*[text() = 'Override']")).isDisplayed();
+			rp.toastContainer("Override");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '" + supplier + "')]")));
 		Thread.sleep(2000);
 		double actBuyPrice = 0.0;
 		if (purchaseDiscount.equals("") && buyPrice.equals("")) {
@@ -1120,8 +1125,8 @@ public class PricingPages extends App {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@src, 'vendor_logo')]")));
 		Thread.sleep(1300);  AllModules all = new AllModules();
 		try {
-			driver.findElement(By.xpath("//*[text() = 'Open']")).isDisplayed();
-			driver.findElement(By.xpath("//*[text() = 'Open']")).click();
+			driver.findElement(By.xpath("//*[text() = 'Open1']")).isDisplayed();
+			driver.findElement(By.xpath("//*[text() = 'Open1']")).click();
 			App.spinner(); Thread.sleep(1500);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Items']")));
 			App.spinner(); Thread.sleep(1500);

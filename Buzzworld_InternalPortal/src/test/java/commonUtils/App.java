@@ -1,7 +1,10 @@
 package commonUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +15,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -54,6 +60,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+
+import com.google.common.util.concurrent.Runnables;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -190,10 +198,62 @@ public class App {
 		con.close();
 		wb.write(fo);
 		fo.close();
+		//convert excel file to html
+		App.excel_to_html(file);
 		//Send reports to email
 		App.mail("sivakrishna.d@enterpi.com", "siva7661@", "sivakrishna.d@enterpi.com");
 	}
 
+	public static void excel_to_html(String file_name) throws Exception {
+		
+		FileInputStream excelFile = new FileInputStream(new File("tcfile.xlsx"));
+        Workbook workbook = new XSSFWorkbook(excelFile);
+
+        // Create an HTML StringBuilder
+        StringBuilder html = new StringBuilder("<html><body><table cellspacing=\"0\" border=\"0\">\n"
+        		+ "	<colgroup width=\"400\"></colgroup>\n"
+        		+ "	<colgroup span=\"2\" width=\"292\"></colgroup>\n"
+        		+ "	<colgroup width=\"186\"></colgroup>\n"
+        		+ "	<colgroup width=\"121\"></colgroup>\n"
+        		+ "	<colgroup width=\"185\"></colgroup>\n"
+        		+ "	<colgroup width=\"129\"></colgroup>");
+
+        // Assuming you are working with the first sheet in the Excel file
+        Sheet sheet = workbook.getSheetAt(0);
+
+        // Iterate through rows and cells to generate HTML
+        for (Row row : sheet) {
+            html.append("<tr>");
+            for (Cell cell : row) {
+            	    if (cell.toString().contains("Test Case Name")||cell.toString().contains("Actual Text")||cell.toString().contains("Expected Text")||
+            	    		cell.toString().contains("Page Name")||cell.toString().contains("Status")||cell.toString().contains("Date")||cell.toString().contains("Environment")) 
+            	    {
+            	    	html.append("<td style = \"color:black; font:menu; font-weight: bold; background-color: #FFCC00;\">").append(cell.toString()).append("</td>");
+					} else {
+						if (cell.toString().contains("Passed")) {
+							html.append("<td style = \"color:black; background-color: green;\">").append(cell.toString()).append("</td>");
+						}else if(cell.toString().contains("Failed")){
+							html.append("<td style = \"color:black; background-color: red;\">").append(cell.toString()).append("</td>");
+						}else {							
+							html.append("<td>").append(cell.toString()).append("</td>");							
+						}
+					}		
+       
+            }
+            html.append("</tr>");
+        }
+
+        html.append("</table></body></html>");
+        // Save the HTML content to an HTML file
+        String htmlFilePath = "output.html";
+        try (FileOutputStream outputStream = new FileOutputStream(htmlFilePath)) {
+            outputStream.write(html.toString().getBytes());
+            System.out.println("HTML file saved successfully to " + htmlFilePath);
+        }
+
+        workbook.close();
+        excelFile.close();
+    }
 	public static ArrayList<Object> getExcelCellData() throws  Exception {
 
 		String file = "/home/enterpi/Documents/vendors_count.xlsx";
@@ -215,6 +275,7 @@ public class App {
 		System.out.println("count of list is "+list.size());
 		return list;
 	}
+	
 	public static void getGridData() throws InterruptedException 
 	{
 		App.spinner(); Thread.sleep(2000);
@@ -281,6 +342,7 @@ public class App {
 
 			// Mention the file which you want to send
 			String filename = "tcfile.xlsx";
+			//String filename = "output.html";
 
 			// Create data source and pass the filename
 			DataSource source = new FileDataSource(filename);
