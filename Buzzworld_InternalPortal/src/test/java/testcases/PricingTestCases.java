@@ -21,24 +21,24 @@ public class PricingTestCases extends App {
 			env = "Dev Instance";
 		}
 		//Checking the Vendor's having the Data or not in grid list view
-//		price.verifyVendorisEmptyOrNot(env, 1); 
-//		//
-//		price.verifyVendorisEmptyOrNot(env, 2); 
-//		//
-//		price.deletrSPALogs(env);
-//		//After Importing files check the Quote Price
-//		price.import_files_to_SPA_verify_qp(env);
-//		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
-//		//
-//		price.verifyAddDiscountCode(env);
-//		//
-//		price.verifyUpdateProduct(env);
-//		//
-//		price.verifyUpdateDiscountCode(env);
-//		//
-//		price.importFile(env);
-//		//
-//		price.verifyBuyPrice_SellPrice_InSpecialPricing("Markup", 49, "34", "", "", 1, env);
+		price.verifyVendorisEmptyOrNot(env, 1); 
+		//
+		price.verifyVendorisEmptyOrNot(env, 2); 
+		//
+		price.deletrSPALogs(env);
+		//After Importing files check the Quote Price
+		price.import_files_to_SPA_verify_qp(env);
+		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
+		//
+		price.verifyAddDiscountCode(env);
+		//
+		price.verifyUpdateProduct(env);
+		//
+		price.verifyUpdateDiscountCode(env);
+		//
+		price.importFile(env);
+		//
+		price.verifyBuyPrice_SellPrice_InSpecialPricing("Markup", 49, "34", "", "", 1, env);
 		// VerifyBuyPrice_SellPrice_InSpecialPricing_BuyPrice_PurchaseDiscounts_Null
 		price.verifyBuyPrice_SellPrice_InSpecialPricing("Markup", 29, "", "", "", 2, env);
 		// VerifyBuyPrice_SellPrice_InSpecialPricing_BuyPrice_PurchaseDiscounts_Not_Null
