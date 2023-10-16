@@ -382,7 +382,7 @@ public class RepairPages extends App
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[text()='Save']")));
 		Thread.sleep(1300);
 		driver.findElements(By.xpath("//*[contains(@class,'react-select__indicator')]")).get(0).click();
-		act.sendKeys("Quality control report");
+		act.sendKeys("QC Control Report");
 		Thread.sleep(1000);
 		act.sendKeys(Keys.ENTER).build().perform();
 		//		quotes.selectDropDown("Quality control report");

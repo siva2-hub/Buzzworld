@@ -1,68 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="35" total="36" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-10-11T15:04:33 IST" name="Default suite" finished-at="2023-10-11T15:05:20 IST" duration-ms="46554">
+  <suite started-at="2023-10-16T17:19:12 IST" name="Default suite" finished-at="2023-10-16T17:24:12 IST" duration-ms="300483">
     <groups>
     </groups>
-    <test started-at="2023-10-11T15:04:33 IST" name="Default test" finished-at="2023-10-11T15:05:20 IST" duration-ms="46554">
-      <class name="testcases.PermissionsTestCases_AdminTabs">
-        <test-method is-config="true" signature="login()[pri:0, instance:testcases.PermissionsTestCases_AdminTabs@18271936]" started-at="2023-10-11T15:04:33 IST" name="login" finished-at="2023-10-11T15:04:44 IST" duration-ms="10999" status="PASS">
+    <test started-at="2023-10-16T17:19:12 IST" name="Default test" finished-at="2023-10-16T17:24:12 IST" duration-ms="300483">
+      <class name="testcases.RepairTestCases">
+        <test-method is-config="true" signature="login()[pri:0, instance:testcases.RepairTestCases@53045c6c]" started-at="2023-10-16T17:19:12 IST" name="login" finished-at="2023-10-16T17:19:35 IST" duration-ms="22724" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- login -->
-        <test-method signature="PERMNS_007_Verify_QC_Control_Permission_As_None()[pri:7, instance:testcases.PermissionsTestCases_AdminTabs@18271936]" started-at="2023-10-11T15:04:44 IST" name="PERMNS_007_Verify_QC_Control_Permission_As_None" finished-at="2023-10-11T15:05:18 IST" duration-ms="33956" status="FAIL">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[expected [true] but found [false]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
-at org.testng.Assert.fail(Assert.java:110)
-at org.testng.Assert.failNotEquals(Assert.java:1577)
-at org.testng.Assert.assertTrue(Assert.java:56)
-at org.testng.Assert.assertTrue(Assert.java:66)
-at testcases.PermissionsTestCases_AdminTabs.check_result(PermissionsTestCases_AdminTabs.java:100)
-at testcases.PermissionsTestCases_AdminTabs.PERMNS_007_Verify_QC_Control_Permission_As_None(PermissionsTestCases_AdminTabs.java:142)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:829)
-at org.testng.TestRunner.run(TestRunner.java:602)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:437)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)
-at org.testng.SuiteRunner.run(SuiteRunner.java:330)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1176)
-at org.testng.TestNG.runSuites(TestNG.java:1099)
-at org.testng.TestNG.run(TestNG.java:1067)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+        <test-method signature="testCases()[pri:0, instance:testcases.RepairTestCases@53045c6c]" started-at="2023-10-16T17:19:35 IST" name="testCases" finished-at="2023-10-16T17:24:10 IST" duration-ms="275558" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- PERMNS_007_Verify_QC_Control_Permission_As_None -->
-        <test-method is-config="true" signature="logout()[pri:0, instance:testcases.PermissionsTestCases_AdminTabs@18271936]" started-at="2023-10-11T15:05:18 IST" name="logout" finished-at="2023-10-11T15:05:20 IST" duration-ms="1549" status="PASS">
+        </test-method> <!-- testCases -->
+        <test-method is-config="true" signature="logout()[pri:0, instance:testcases.RepairTestCases@53045c6c]" started-at="2023-10-16T17:24:10 IST" name="logout" finished-at="2023-10-16T17:24:12 IST" duration-ms="2145" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- logout -->
-      </class> <!-- testcases.PermissionsTestCases_AdminTabs -->
+      </class> <!-- testcases.RepairTestCases -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

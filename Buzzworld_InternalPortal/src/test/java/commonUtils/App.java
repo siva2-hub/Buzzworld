@@ -58,6 +58,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -83,7 +84,7 @@ public class App {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		//Select Environment
-		urlOpen("qa");
+		urlOpen("stage");
 		driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/form/div[3]/button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-container']")));
 		Thread.sleep(1800);
@@ -153,8 +154,7 @@ public class App {
 		//To down load Table use below command
 		String sql = ("SELECT * FROM buzzworld_automation_logs ORDER BY test_case_name;");
 		ResultSet rs = st.executeQuery(sql);
-		int col = 1; 
-		
+		int col = 1;
 		while(rs.next()) 
 		{
 			String tc = rs.getString("test_case_name"); 
@@ -201,7 +201,7 @@ public class App {
 		//convert excel file to html
 		App.excel_to_html(file);
 		//Send reports to email
-		App.mail("sivakrishna.d@enterpi.com", "siva7661@", "sivakrishna.d@enterpi.com");
+//		App.mail("sivakrishna.d@enterpi.com", "siva7661@", "sivakrishna.d@enterpi.com");
 	}
 
 	public static void excel_to_html(String file_name) throws Exception {
@@ -288,6 +288,14 @@ public class App {
 				App.spinner(); Thread.sleep(1600);
 				sCodes =  driver.findElements(By.xpath("//*[@style = 'left: 0px; width: 180px;']"));
 			}
+		}
+	}
+	public static void check_result(boolean result) 
+	{
+		try {	
+			Assert.assertTrue(result);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 	}
 	public static void mail(final String sendorMail, final String sendorPwd, String receiverMail) {

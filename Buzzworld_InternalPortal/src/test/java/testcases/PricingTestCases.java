@@ -15,18 +15,18 @@ public class PricingTestCases extends App {
 		String env = "";
 		if (driver.getCurrentUrl().contains("staging")) {
 			env = "Stage Instance";
-		} else if(driver.getCurrentUrl().contains("web")) {
+		} else if (driver.getCurrentUrl().contains("web")) {
 			env = "QA Instance";
-		}else {
+		} else {
 			env = "Dev Instance";
 		}
-		//Checking the Vendor's having the Data or not in grid list view
-		price.verifyVendorisEmptyOrNot(env, 1); 
+		// Checking the Vendor's having the Data or not in grid list view
+		price.verifyVendorisEmptyOrNot(env, 1);
 		//
-		price.verifyVendorisEmptyOrNot(env, 2); 
+		price.verifyVendorisEmptyOrNot(env, 2);
 		//
 		price.deletrSPALogs(env);
-		//After Importing files check the Quote Price
+		// After Importing files check the Quote Price
 		price.import_files_to_SPA_verify_qp(env);
 		price.verifyAddProduct("BACO55", "120.12", "BA05", env);
 		//
