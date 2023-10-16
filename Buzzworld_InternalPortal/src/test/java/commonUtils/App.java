@@ -72,7 +72,7 @@ public class App {
 	public static String url ;
 	public static String mail ;
 	public static String pwd ;
-
+	public static String env = "qa";
 
 	@BeforeTest
 	public static void login() throws Exception
@@ -84,7 +84,7 @@ public class App {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		//Select Environment
-		urlOpen("stage");
+		urlOpen(env);
 		driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/form/div[3]/button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ag-center-cols-container']")));
 		Thread.sleep(1800);

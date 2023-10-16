@@ -686,6 +686,15 @@ public class AllModules extends App
 			Object status2[] = {"REPAIRS_016_VerifyCreateJobFromRepair", "Not executing in QA environment", "", "RepairsPage", "Not Executed..",
 					java.time.LocalDateTime.now().toString(), env};
 			App.values1(status2);
+			Object status3[] = {"REPAIRS_023_Verify_Repair_In_Progress", "Not executing in QA environment", "", "RepairsPage", "Not Executed..",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status3);
+			Object status4[] = {"REPAIRS_024_VerifyCreate_PartsPurchase", "Not executing in QA environment", "", "RepairsPage", "Not Executed..",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status4);
+			Object status5[] = {"REPAIRS_025_Verify_Completed_Button", "Not executing in QA environment", "", "RepairsPage", "Not Executed..",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status5);
 		}
 	}
 	public void clearButtonTopSearch() throws Exception 
