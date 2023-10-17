@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Default_suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="testcases.RepairTestCases" class="method navigator-link" hash-for-method="testCases">testCases</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="testcases.QuoteTestCases" class="method navigator-link" hash-for-method="testCase0">testCase0</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Default_suite -->
@@ -121,24 +121,25 @@
           <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">testcases.RepairTestCases</span>
+              <span class="class-name">testcases.QuoteTestCases</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="testCases">
-                  </a> <!-- testCases -->
-                  <span class="method-name">testCases</span>
+                  <a name="testCase0">
+                  </a> <!-- testCase0 -->
+                  <span class="method-name">testCase0</span>
                   <div class="stack-trace">org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
 from unknown error: web view not found
   (Session info: chrome=106.0.5249.119)
 Build info: version: &apos;4.8.0&apos;, revision: &apos;267030adea&apos;
 System info: os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.15.0-84-generic&apos;, java.version: &apos;17.0.5&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [119a9cdaae983ae46ce460ad7fb8225f, findElement {using=xpath, value=//*[text() = &apos;Check In&apos;]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.PH7J8E}, goog:chromeOptions: {debuggerAddress: localhost:40121}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:40121/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 119a9cdaae983ae46ce460ad7fb8225f
-	at jdk.internal.reflect.GeneratedConstructorAccessor13.newInstance(Unknown Source)
+Command: [2921d1a5d337dabeb61c206fa01d3848, findElement {using=xpath, value=//*[text() = &apos;Quotes&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 106.0.5249.119, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: /tmp/.com.google.Chrome.a7vO7S}, goog:chromeOptions: {debuggerAddress: localhost:41309}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:41309/devtoo..., se:cdpVersion: 106.0.5249.119, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 2921d1a5d337dabeb61c206fa01d3848
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
@@ -153,9 +154,12 @@ Session ID: 119a9cdaae983ae46ce460ad7fb8225f
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
-	at libraries.AllModules.left_menu_tab_list(AllModules.java:1846)
-	at libraries.AllModules.repairsModule(AllModules.java:133)
-	at testcases.RepairTestCases.testCases(RepairTestCases.java:23)
+	at libraries.QuotePages.createQuote(QuotePages.java:26)
+	at libraries.QuotePages.submitForInternalApproval(QuotePages.java:358)
+	at libraries.QuotePages.quoteApprove(QuotePages.java:249)
+	at libraries.QuotePages.submitForCustomerApproval(QuotePages.java:295)
+	at libraries.QuotePages.verifyQuoteWon(QuotePages.java:317)
+	at testcases.QuoteTestCases.testCase0(QuoteTestCases.java:33)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -193,7 +197,7 @@ Session ID: 119a9cdaae983ae46ce460ad7fb8225f
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse-1736071398/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse--135783946/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -202,11 +206,11 @@ Session ID: 119a9cdaae983ae46ce460ad7fb8225f
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;testcases.RepairTestCases&quot;&gt;
+      &lt;class name=&quot;testcases.QuoteTestCases&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;testCases&quot;/&gt;
+          &lt;include name=&quot;testCase0&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- testcases.RepairTestCases --&gt;
+      &lt;/class&gt; &lt;!-- testcases.QuoteTestCases --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -248,14 +252,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'testCases')
-data.setCell(0, 2, 'testcases.RepairTestCases')
-data.setCell(0, 3, 34514);
+data.setCell(0, 1, 'testCase0')
+data.setCell(0, 2, 'testcases.QuoteTestCases')
+data.setCell(0, 3, 182894);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 34 seconds</span>
+              <span class="suite-total-time">Total running time: 3 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -281,7 +285,7 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">testcases.RepairTestCases</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">testcases.QuoteTestCases</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">login</span>
                 <span class="method-start">0 ms</span>
@@ -289,14 +293,14 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">testCases</span>
-                <span class="method-start">11365 ms</span>
+                <span class="method-name">testCase0</span>
+                <span class="method-start">15528 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">logout</span>
-                <span class="method-start">45884 ms</span>
+                <span class="method-start">198437 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

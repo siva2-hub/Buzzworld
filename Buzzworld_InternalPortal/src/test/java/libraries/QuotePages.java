@@ -214,6 +214,37 @@ public class QuotePages extends App
 			App.values1(status);
 		}
 	}
+	public void delete_quote_option(String env) throws Exception
+	{
+		AllModules all = new AllModules(); boolean get_status = false; 
+		all.select_items(1, "1234"); String items = "";
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = 'Add Options']")));
+			driver.findElement(By.xpath("//*[@class = 'quote-option-del-icon']")).findElement(By.xpath("//*[contains(@src, 'delete-icon')]")).isDisplayed();
+			driver.findElement(By.xpath("//*[@class = 'quote-option-del-icon']")).findElement(By.xpath("//*[contains(@src, 'delete-icon')]")).click();
+			Thread.sleep(1400);
+			driver.findElements(By.xpath("//*[text() = 'Yes']")).get(1).click();
+			App.spinner(); Thread.sleep(1400);
+			driver.findElement(By.xpath("//*[text() = 'Quote Items (0)']")).isDisplayed();
+			items = driver.findElement(By.xpath("//*[contains(text(), 'Quote Items')]")).getText();
+			get_status = true;
+		} catch (Exception e) {
+			items = driver.findElement(By.xpath("//*[contains(text(), 'Quote Items')]")).getText();
+			get_status = false;
+		}
+		if (get_status) 
+		{
+			Object status[] = {"QUOTES_040_Verify_Delete_Quote_Option", "Option deleted successfully.!", 
+					items, "QuotesPage", "Passed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		} else {
+			Object status[] = {"QUOTES_040_Verify_Delete_Quote_Option", "Option deleted Failed.!", 
+					items, "QuotesPage", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
+		}
+	}
 	public void quoteApprove() throws Exception 
 	{
 		this.submitForInternalApproval();
