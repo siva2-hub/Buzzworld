@@ -84,13 +84,56 @@ public class AllModules extends App
 			if (actURL.equals(expURL)) {
 				Object status[] = {"Check_URLS_0"+count, "Actual URL is "+actURL, "Expected URL is "+expURL, url[i].toUpperCase(), "Passed",
 						java.time.LocalDateTime.now().toString(), env};
-				qp.values(status);
+				App.values1(status);
 			} else {
 				Object status[] = {"Check_URLS_0"+count, "Actual URL is "+actURL, "Expected URL is "+expURL, url[i].toUpperCase(), "Failed",
 						java.time.LocalDateTime.now().toString(), env};
-				qp.values(status);
+				App.values1(status);
 			}
 			count++;
+		}
+	}
+	public void verify_search_with_plus_icon(String cust_name, String supplier, String stock_code, String env) throws Exception 
+	{
+		//verify repairs search
+		App.click_xpath("//*[text() = 'Repairs']", "click", "");
+		App.spinner(); Thread.sleep(1500);
+		App.clearTopSearch(); App.spinner(); Thread.sleep(1400);
+		App.clearFilter(); Thread.sleep(1300);
+		App.click_xpath("//*[text() = 'All Repairs Requests']", "click", "");
+		App.spinner(); Thread.sleep(1500);
+		App.clearTopSearch(); App.spinner(); Thread.sleep(1400);
+		App.clearFilter(); Thread.sleep(1300);
+		driver.findElement(By.xpath("//*[@placeholder = 'RMA ID / Company Name / Sales Person / Items / Vendor Code']")).sendKeys(stock_code);
+		this.verify_conditions("001_Verify_exact_search_with_plus_Repair_top_search", stock_code, 3, env);
+		//verify pricing search
+		driver.navigate().to(driver.getCurrentUrl().replace("repair-request", "pricing"));
+		App.spinner(); Thread.sleep(1500);
+		App.click_xpath("//*[text() = '"+supplier+"']", "click", "");
+		App.spinner(); Thread.sleep(1500);
+		App.click_xpath("//*[@placeholder = 'Stock Code / Description']", "send_keys", stock_code);
+		App.spinner(); Thread.sleep(1500);
+		this.verify_conditions("002_Verify_exact_search_with_plus_Pricing_top_search", stock_code, 0, env);
+	}
+	public void verify_conditions(String tc_name, String exp_text, int g_count, String env) throws Exception {
+		String act_text = "";
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() = '"+exp_text+"']")));
+			App.spinner(); Thread.sleep(2500);
+			act_text = App.getGridData(g_count); 
+			if (act_text.equals(exp_text)) {
+				Object status[] = {tc_name, "Actual text is "+act_text, "Expected text is "+exp_text, "Search Stock + Code", "Passed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			} else {
+				Object status[] = {tc_name, "Actual text is "+act_text, "Expected text is "+exp_text, "Search Stock + Code", "Failed",
+						java.time.LocalDateTime.now().toString(), env};
+				App.values1(status);
+			}
+		} catch (Exception e) {
+			Object status[] = {tc_name, exp_text+" is not displayed at search", "", "Search Stock + Code", "Failed",
+					java.time.LocalDateTime.now().toString(), env};
+			App.values1(status);
 		}
 	}
 	public void repairsModule(String stCode, String env) throws Exception
@@ -952,7 +995,7 @@ public class AllModules extends App
 		if (total_value>10000) {
 			App.displayPopUp("QUOTES_005_VerifySubmitForInternalApproval");	
 		} else {
-			
+
 		}
 		edits = driver.findElement(By.xpath("//*[@id='repair-info-id']")).findElements(By.className("pi-label-edit-icon"));
 		Thread.sleep(2400);
@@ -988,12 +1031,12 @@ public class AllModules extends App
 			actText = driver.findElement(By.xpath("//*[@class='quote-num-and-status']")).getText();
 			expText = "PENDING APPROVAL";
 			if (actText.toLowerCase().contains(expText.toLowerCase())) {
-				
+
 				Object status[] = {"QUOTES_005_VerifySubmitForInternalApproval", actText, expText, "QuotesPage",
 						"Passed", java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
 			} else {
-				
+
 				Object status[] = {"QUOTES_005_VerifySubmitForInternalApproval", actText, expText, "QuotesPage",
 						"Failed", java.time.LocalDateTime.now().toString(), env};
 				App.values1(status);
@@ -1974,6 +2017,6 @@ public class AllModules extends App
 			App.values1(status);
 			price.closeIcon();
 		}
-		
+
 	}
 }
