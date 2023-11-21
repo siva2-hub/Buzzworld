@@ -8,7 +8,7 @@ public class OpenBuzzworld
 {
 	public static void main(String[] args) {
 		// we add the chromed river to our project through terminal by using below command
-		//mv path of the chrome driver to path of the our project/drivers(folder)
+		//mv<space>path of the chrome driver<space>path of the our project/drivers(folder)
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
