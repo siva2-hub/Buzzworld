@@ -65,6 +65,8 @@ import org.testng.annotations.BeforeTest;
 import com.google.common.util.concurrent.Runnables;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
+import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 
 public class App {
 	public static WebDriver driver;
@@ -77,11 +79,10 @@ public class App {
 	@BeforeTest
 	public static void login() throws Exception
 	{
-		WebDriverManager.chromedriver().setup();
+		ChromeDriverManager.getInstance().setup();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
-		//options.addArguments("--headless");
-		driver = new ChromeDriver();
+		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		//Select Environment
 		urlOpen(env);
@@ -124,6 +125,7 @@ public class App {
 	public static void scroll_to_vertical(String ele_path) throws Exception
 	{
 		JavascriptExecutor js = (JavascriptExecutor)driver;
+		
 		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath(ele_path)));
 		Thread.sleep(1500);
 	}

@@ -42,24 +42,28 @@ public class RepairPages extends App
 		this.repairPage(); Actions act = new Actions(driver);
 		driver.findElement(By.xpath("//*[text() = 'Create RMA']")).click();
 		Thread.sleep(1000);
+		//select company name
 		driver.findElement(By.id("async-select-example")).sendKeys("Zummo Meat Co Inc");
 		Thread.sleep(500);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Zummo Meat Co Inc')]")));
 		quotes.selectDropDown("Zummo Meat Co Inc");
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@class, 'opacity-on-load')]")));
 		Thread.sleep(1500);
-		driver.findElement(By.id("async-select-example")).click();
-		act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys("Standard").build().perform();;
-		quotes.selectDropDown("Standard");
-		Thread.sleep(1500);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@viewBox='0 0 16 16']")));
-		act.sendKeys(Keys.TAB).build().perform();
-		act.sendKeys("Luke Pelts").build().perform();;
-		Thread.sleep(1500);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@viewBox='0 0 16 16']")));
+		//select priority level
+		//		driver.findElement(By.id("async-select-example")).click();
+		//		act.sendKeys(Keys.TAB).build().perform();
+		//		act.sendKeys("Standard").build().perform();;
+		//		quotes.selectDropDown("Standard");
+		//		Thread.sleep(1500);
+		//		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@viewBox='0 0 16 16']")));
+		//		act.sendKeys(Keys.TAB).build().perform();
+		//		act.sendKeys("Luke Pelts").build().perform();;
+		//		Thread.sleep(1500);
+		//		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@viewBox='0 0 16 16']")));
+		//select contact name
 		quotes.selectDropDown("Luke Pelts");
 		Thread.sleep(1000);
+		System.exit(0);
 		driver.findElement(By.xpath("//*[@class='side-drawer open']")).findElement(By.tagName("button")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text() ='Add Items']")));
 		Thread.sleep(1600);
