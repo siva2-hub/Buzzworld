@@ -49,8 +49,7 @@ public class Open_PageSpeed_Inside
 		XSSFWorkbook wb = new XSSFWorkbook(fi);
 		Sheet ws = wb.getSheet("Sheet1");
 		int row_count= ws.getLastRowNum();
-		System.err.println("Urls count is "+(row_count-2));
-		int rowCounts = 2;
+		System.err.println("Urls count is "+(row_count-2)); int rowCounts = 2;
 		for(int i=0; i<row_count; i++)
 		{
 			Row row = ws.getRow(rowCounts);
