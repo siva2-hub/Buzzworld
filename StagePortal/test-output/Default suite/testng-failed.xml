@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="none" name="Failed suite [Default suite]">
+  <test parallel="none" name="Default test(failed)">
+    <classes>
+      <class name="com.tests.TestCust_TestNG">
+        <methods>
+          <include name="test_Credit_Card_with_Login"/>
+          <include name="test_reject_quote_client"/>
+          <include name="test_approve_quote_client"/>
+          <include name="test_net30"/>
+          <include name="test_user_registration"/>
+        </methods>
+      </class> <!-- com.tests.TestCust_TestNG -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

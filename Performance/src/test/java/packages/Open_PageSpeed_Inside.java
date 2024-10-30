@@ -77,7 +77,7 @@ public class Open_PageSpeed_Inside
 			actions.moveToElement(driver.findElement(By.xpath("//*[text()='computer']"))).perform();
 			actions.click(driver.findElement(By.xpath("//*[text()='computer']"))).perform();
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[1]/div[2]")));
-			Thread.sleep(1000);
+			Thread.sleep(1100);
 			String deskPerf = driver.findElement(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[1]/div[2]")).getText();
 			String deskAccess = driver.findElement(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[2]/div[2]")).getText();
 			String deskBP = driver.findElement(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[3]/div[2]")).getText();
