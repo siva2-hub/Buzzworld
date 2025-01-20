@@ -37,7 +37,7 @@ test('Header Services', async ({ page }) => {
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
     await page.goBack();
     await expect(page.locator("//*[text()='People trust Innovative IDM. Why?']")).toBeVisible();
-    await page.goBack();
+    await page.goto('https://stagingiidm.wpengine.com/');
     await page.getByRole('link', { name: 'Services ' }).hover();
     await page.locator('#menu-item-2094').getByRole('link', { name: 'System Integration' }).click();
     await expect(page.getByText('Automation system integration')).toBeVisible();
