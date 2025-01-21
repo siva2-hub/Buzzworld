@@ -76,25 +76,26 @@ test('Home Page Footer Links', async ({ page }) => {
     // await expect(page.getByRole('heading', { name: 'Safe Space PPE Photo Gallery' })).toBeVisible();
     // await page.goBack();
     // await helper.goBackToHomePage(page)
+    // await page.pause();
     await page.getByRole('link', { name: 'Sunbelt Power' }).hover();
     await page.getByRole('link', { name: 'Sunbelt Power' }).click();
     await expect(page.getByRole('heading', { name: 'Sunbelt Power Controls —' })).toBeVisible();
     await page.locator("//*[text()='Know more']").nth(0).click();
     await page.getByRole('heading', { name: 'MODELS SE-5 AND SE-' }).scrollIntoViewIfNeeded();
     await expect(page.getByRole('heading', { name: 'MODELS SE-5 AND SE-' })).toBeVisible();
-    await page.getByRole('heading', { name: 'STANDARD DUPLEX CONTROL PANEL' }).scrollIntoViewIfNeeded();
-    await expect(page.getByRole('heading', { name: 'STANDARD DUPLEX CONTROL PANEL' })).toBeVisible();
+    await page.getByRole('heading', { name: 'STANDARD SIMPLEX PUMP' }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('heading', { name: 'STANDARD SIMPLEX PUMP' })).toBeVisible();
     await page.goBack();
     await page.locator("//*[text()='Know more']").nth(1).click();
-    await expect(page.getByRole('heading', { name: 'STANDARD TRIPLEX PUMP' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'STANDARD DUPLEX CONTROL' })).toBeVisible();
     await page.goBack();
     await page.locator("//*[text()='Know more']").nth(2).click();
-    await expect(page.locator('h2')).toContainText('Solstice SP-100 Detention Pond Level System');
-    await expect(page.locator('#bt_bb_section678f837386857')).toContainText('SE-5 and SE-25 Pump Controllers contain the following:');
+    await expect(page.locator('#top')).toContainText('MODEL S-35 THREE PHASE COMBINATION');
     await page.goBack();
     await page.locator("//*[text()='Know more']").nth(3).click();
     await expect(page.locator('#breadcrumbs')).toContainText('Home / Products / Sunbelt Power Controls / SB 2000 Pump Controller');
     await helper.goBackToHomePage(page)
+    await page.pause();
     await page.locator("(//*[text()='Shop Now'])[2]").hover()
     await page.locator("(//*[text()='Shop Now'])[2]").click()
     await expect(page.getByRole('heading', { name: 'Search -' })).toBeVisible();
