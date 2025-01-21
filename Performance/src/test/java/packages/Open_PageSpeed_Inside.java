@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -30,7 +31,8 @@ public class Open_PageSpeed_Inside
 	public static WebDriverWait wait;
 	public static void openURL() 
 	{
-		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+		//System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
 		//options.addArguments("--incognito");
