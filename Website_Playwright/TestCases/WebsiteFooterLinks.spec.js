@@ -2,31 +2,98 @@ const { test, expect } = require('@playwright/test');
 const exp = require('constants');
 const { default: PageHelper } = require('./UsedFunction');
 const helper = new PageHelper();
+const webSiteUrl = 'https://stagingiidm.wpengine.com/';
+const webStoreUrl = 'https://staging-store.iidm.com/';
+
 test('Home Page Footer Links', async ({ page }) => {
-    await page.goto('https://stagingiidm.wpengine.com/')
+    await page.goto(webSiteUrl)
     await page.waitForLoadState('load')
     await helper.onHover(page, 'Automation, Controls, Repairs & Service', 1)
     await expect(page.getByText('Accept All', { exact: true })).toBeVisible();
     await page.getByText('Accept All', { exact: true }).click();
-    await page.getByRole('link', { name: 'Products Brief' }).hover()
-    await page.getByRole('link', { name: 'Products Brief' }).click()
-    await expect(page.getByText('Products Overview', { exact: true })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await page.getByRole('link', { name: 'Industrial Control Panels' }).hover();
-    await page.getByRole('link', { name: 'Industrial Control Panels' }).click();
-    await expect(page.getByRole('heading', { name: 'Industrial control panels for' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await page.getByRole('link', { name: 'Personal Protective Equipments' }).hover();
-    await page.getByRole('link', { name: 'Personal Protective Equipments' }).click();
-    await expect(page.getByRole('heading', { name: 'When social distancing is not' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await page.getByRole('link', { name: 'Aluminum Extrusion Assemblies' }).hover();
-    await page.getByRole('link', { name: 'Aluminum Extrusion Assemblies' }).click();
-    await expect(page.getByRole('heading', { name: 'Aluminum Extrusion Assemblies' })).toBeVisible();
-    await helper.goBackToHomePage(page)
+    // await page.getByRole('link', { name: 'Products Brief' }).hover()
+    // await page.getByRole('link', { name: 'Products Brief' }).click()
+    // await expect(page.getByText('Products Overview', { exact: true })).toBeVisible();
+    // await expect(page.url()).toContain(webSiteUrl);
+    // let storeLinks = ['Sensor & components', 'Automation products', 'Identification, marking & verification', 'Vision systems',
+    //     'Machine safety technology', 'Motion & Drives', 'Robotics'];
+    // for (let index = 0; index < storeLinks.length; index++) {
+    //     await page.getByRole('link', { name: storeLinks[index] }).first().click();
+    //     await expect(page.getByRole('heading', { name: 'Search -' })).toBeVisible();
+    //     await expect(page.url()).toContain(webStoreUrl);
+    //     await page.goBack();
+    // }
+    // await page.locator('#productLineCards').getByRole('link', { name: 'Shop Now ' }).click();
+    // await expect(page.getByRole('heading', { name: 'Search -' })).toBeVisible();
+    // await expect(page.url()).toContain(webStoreUrl);
+    // await page.goBack();
+    // await page.getByRole('link', { name: 'Explore More ' }).first().click();
+    // await expect(page.getByRole('heading', { name: 'Industrial control panels for' })).toBeVisible();
+    // await expect(page.getByRole('link', { name: 'Let us know if you have a' })).toBeVisible();
+    // await page.getByRole('link', { name: 'Let us know if you have a' }).click();
+    // await expect(page.getByRole('heading', { name: 'Let us know' })).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Name')).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Company Name')).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Phone number')).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Email')).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Message')).toBeVisible();
+    // await helper.goBackToHomePage(page)
+    // await page.getByRole('link', { name: 'Industrial Control Panels' }).hover();
+    // await page.getByRole('link', { name: 'Industrial Control Panels' }).click();
+    // await expect(page.getByRole('heading', { name: 'Industrial control panels for' })).toBeVisible();
+    // await expect(page.getByRole('link', { name: 'Let us know if you have a' })).toBeVisible();
+    // await page.getByRole('link', { name: 'Let us know if you have a' }).click();
+    // await expect(page.getByRole('heading', { name: 'Let us know' })).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Name')).toBeVisible();
+    // await expect(page.getByPlaceholder('Your Company Name')).toBeVisible();
+    // await helper.goBackToHomePage(page)
+    // await page.getByRole('link', { name: 'Personal Protective Equipments' }).hover();
+    // await page.getByRole('link', { name: 'Personal Protective Equipments' }).click();
+    // await expect(page.getByRole('heading', { name: 'When social distancing is not' })).toBeVisible();
+    // await page.getByRole('heading', { name: 'Safe Space PPE Photo Gallery' }).scrollIntoViewIfNeeded();
+    // await expect(page.getByRole('heading', { name: 'Safe Space PPE Photo Gallery' })).toBeVisible();
+    // await helper.goBackToHomePage(page)
+    // await page.getByRole('link', { name: 'Aluminum Extrusion Assemblies' }).hover();
+    // await page.getByRole('link', { name: 'Aluminum Extrusion Assemblies' }).click();
+    // await expect(page.getByRole('heading', { name: 'Aluminum Extrusion Assemblies' })).toBeVisible();
+    // await page.getByRole('heading', { name: 'Aluminum Extrusion uses' }).scrollIntoViewIfNeeded();
+    // await expect(page.getByRole('heading', { name: 'Aluminum Extrusion uses' })).toBeVisible();
+    // await expect(page.getByRole('heading', { name: 'Safe Space PPE Photo Gallery' })).toBeVisible();
+    // await expect(page.getByRole('heading', { name: 'Aluminum Extrusion uses' })).toBeVisible();
+    // await page.getByRole('link', { name: 'Learn More' }).nth(0).click();
+    // await expect(page.getByRole('heading', { name: 'Machine hardguarding photo' })).toBeVisible();
+    // await page.goBack();
+    // await page.getByRole('link', { name: 'Learn More' }).nth(1).click();
+    // await expect(page.getByRole('heading', { name: 'Safe T Slot Guard Photo' })).toBeVisible();
+    // await page.goBack();
+    // await page.getByRole('link', { name: 'Learn More' }).nth(2).click();
+    // await expect(page.getByRole('heading', { name: 'Machine Frames Photo Gallery' })).toBeVisible();
+    // await page.goBack();
+    // await page.getByRole('link', { name: 'Learn More' }).nth(3).click();
+    // await expect(page.getByRole('heading', { name: 'Work Stations Photo Gallery' })).toBeVisible();
+    // await page.goBack();
+    // await page.getByRole('link', { name: 'Learn More' }).nth(4).click();
+    // await expect(page.getByRole('heading', { name: 'Safe Space PPE Photo Gallery' })).toBeVisible();
+    // await page.goBack();
+    // await helper.goBackToHomePage(page)
     await page.getByRole('link', { name: 'Sunbelt Power' }).hover();
     await page.getByRole('link', { name: 'Sunbelt Power' }).click();
     await expect(page.getByRole('heading', { name: 'Sunbelt Power Controls —' })).toBeVisible();
+    await page.locator("//*[text()='Know more']").nth(0).click();
+    await page.getByRole('heading', { name: 'MODELS SE-5 AND SE-' }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('heading', { name: 'MODELS SE-5 AND SE-' })).toBeVisible();
+    await page.getByRole('heading', { name: 'STANDARD DUPLEX CONTROL PANEL' }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('heading', { name: 'STANDARD DUPLEX CONTROL PANEL' })).toBeVisible();
+    await page.goBack();
+    await page.locator("//*[text()='Know more']").nth(1).click();
+    await expect(page.getByRole('heading', { name: 'STANDARD TRIPLEX PUMP' })).toBeVisible();
+    await page.goBack();
+    await page.locator("//*[text()='Know more']").nth(2).click();
+    await expect(page.locator('h2')).toContainText('Solstice SP-100 Detention Pond Level System');
+    await expect(page.locator('#bt_bb_section678f837386857')).toContainText('SE-5 and SE-25 Pump Controllers contain the following:');
+    await page.goBack();
+    await page.locator("//*[text()='Know more']").nth(3).click();
+    await expect(page.locator('#breadcrumbs')).toContainText('Home / Products / Sunbelt Power Controls / SB 2000 Pump Controller');
     await helper.goBackToHomePage(page)
     await page.locator("(//*[text()='Shop Now'])[2]").hover()
     await page.locator("(//*[text()='Shop Now'])[2]").click()
@@ -68,7 +135,7 @@ test('Home Page Footer Links', async ({ page }) => {
     await page.getByRole('link', { name: 'Motion Control Technology' }).hover();
     await page.getByRole('link', { name: 'Motion Control Technology' }).click();
     await expect(page.getByRole('heading', { name: 'Motion control for speed,' })).toBeVisible();
-    await helper.goBackToHomePage(page)
+    await helper.goBackToHomePage(page);
     await page.getByRole('link', { name: 'PLC Technology' }).hover();
     await page.getByRole('link', { name: 'PLC Technology' }).click();
     await expect(page.getByText('PLCs monitor, control, and')).toBeVisible();
