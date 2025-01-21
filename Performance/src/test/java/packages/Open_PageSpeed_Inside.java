@@ -51,8 +51,7 @@ public class Open_PageSpeed_Inside
 		XSSFWorkbook wb = new XSSFWorkbook(fi);
 		Sheet ws = wb.getSheet("Sheet1");
 		int row_count= ws.getLastRowNum();
-		System.err.println("Urls count is "+(row_count-2));
-		int rowCounts = 2;
+		System.err.println("Urls count is "+(row_count-2)); int rowCounts = 2;
 		for(int i=0; i<row_count; i++)
 		{
 			Row row = ws.getRow(rowCounts);
@@ -80,7 +79,7 @@ public class Open_PageSpeed_Inside
 			actions.moveToElement(driver.findElement(By.xpath("//*[text()='computer']"))).perform();
 			actions.click(driver.findElement(By.xpath("//*[text()='computer']"))).perform();
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[1]/div[2]")));
-			Thread.sleep(1000);
+			Thread.sleep(1100);
 			String deskPerf = driver.findElement(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[1]/div[2]")).getText();
 			String deskAccess = driver.findElement(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[2]/div[2]")).getText();
 			String deskBP = driver.findElement(By.xpath("(//*[contains(@class, 'lh-scores-header')])[2]/a[3]/div[2]")).getText();
