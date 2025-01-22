@@ -27,8 +27,7 @@ test('Home Page Footer Links', async ({ page }) => {
     for (let index = 0; index < storeLinks.length; index++) {
         await page.locator("//*[text()='" + storeLinks[index] + "']").first().click();
         await expect(page.getByRole('heading', { name: 'Search -' })).toBeVisible();
-        await expect(page.url()).toContain(webStoreUrl);
-        await page.goBack();
+        await expect(page.url()).toContain(webStoreUrl); await page.goBack();
     }
     await page.locator('#productLineCards').getByRole('link', { name: 'Shop Now ' }).click();
     await expect(page.getByRole('heading', { name: 'Search -' })).toBeVisible();
@@ -44,8 +43,7 @@ test('Home Page Footer Links', async ({ page }) => {
     await expect(page.getByPlaceholder('Your Phone number')).toBeVisible();
     await expect(page.getByPlaceholder('Your Email')).toBeVisible();
     await expect(page.getByPlaceholder('Your Message')).toBeVisible();
-    await page.goBack();
-    await helper.goBackToHomePage(page);
+    await page.goBack(); await page.goBack();
     await helper.MachineandFacilitySafetySectionLinksAt_PO(page);
     await page.getByRole('link', { name: 'Explore ' }).nth(0).click();
     await page.getByRole('heading', { name: 'Safe Space PPE Photo Gallery' }).scrollIntoViewIfNeeded();

@@ -117,4 +117,25 @@ export default class PageHelper {
             await page.goBack();
         }
     }
+    async categoryFilters(page) {
+        console.log('Light curtains: ' + await page.locator("(//*[@class='mz-filter-group-content more'])[4]/div[1]/div/input").isChecked())
+        console.log('Safety Laser Scanner : ' + await page.locator("(//*[@class='mz-filter-group-content more'])[4]/div[2]/div/input").isChecked())
+        console.log('Safety Relays: ' + await page.locator("(//*[@class='mz-filter-group-content more'])[4]/div[3]/div/input").isChecked())
+        console.log('Safety Switches: ' + await page.locator("(//*[@class='mz-filter-group-content more'])[4]/div[4]/div/input").isChecked())
+        console.log('------------------------')
+    }
+    async headerManifacturerLinks(page) {
+        const vendorLinks = ['ABB', 'Omron', 'Parker', 'SMC', 'Wago', 'Yaskawa'];
+        for (let index = 0; index < vendorLinks.length; index++) {
+            await this.onHover(page, 'Manufacturers', 1)
+            await page.getByRole('link', { name: vendorLinks[index] }).first().click();
+            await expect(page.getByRole('heading', { name: vendorLinks[index] })).toBeVisible();
+            await expect(page.url()).toContain(webStoreUrl);
+            await this.goBackToHomePage(page);
+        }
+        await this.onHover(page, 'Manufacturers', 1)
+        await page.getByRole('link', { name: 'See more manufacturers' }).first().click();
+        await expect(page.locator("//*[text()='Our recommended manufacturers']")).toBeVisible();
+        await expect(page.url()).toContain(webStoreUrl);
+    }
 }

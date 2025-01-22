@@ -3,9 +3,7 @@ import PageHelper from "./UsedFunction";
 const helper = new PageHelper()
 
 test('Website Header Links', async ({ page }) => {
-    await page.goto('https://stagingiidm.wpengine.com/')
-    await page.waitForLoadState('load')
-    await helper.onHover(page, 'Automation, Controls, Repairs & Service', 1)
+    await page.goto('https://stagingiidm.wpengine.com/');
     await expect(page.getByText('Accept All', { exact: true })).toBeVisible();
     await page.getByText('Accept All', { exact: true }).click();
     await helper.onHover(page, 'Products', 1)
@@ -52,17 +50,11 @@ test('Website Header Links', async ({ page }) => {
     await page.getByRole('link', { name: 'See more categories' }).click();
     await expect(page.getByRole('heading', { name: 'All Categories' })).toBeVisible();
     await helper.goBackToHomePage(page)
-    await helper.prodManfsLinks(page, 'Products')
+    await helper.prodManfsLinks(page, 'Products');
     await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Manufacturers', 1)
-    await page.getByRole('link', { name: 'ABB' }).first().click();
-    await expect(page.getByRole('heading', { name: 'ABB' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Manufacturers', 1)
-    await page.getByRole('link', { name: 'Yaskawa' }).first().click();
-    await expect(page.getByRole('heading', { name: 'Yaskawa' })).toBeVisible();
+    //Manufacturer links at header
+    await helper.headerManifacturerLinks(page);
     await helper.goBackToHomePage(page)
     await helper.prodManfsLinks(page, 'Manufacturers')
-    await helper.goBackToHomePage(page)
-    await page.pause()
+    await helper.goBackToHomePage(page);
 })

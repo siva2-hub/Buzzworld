@@ -37,13 +37,13 @@ test('Header Services', async ({ page }) => {
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
     await page.getByRole('link', { name: 'Kitting industrial parts' }).click();
     await expect(page.getByRole('heading', { name: 'Trust your kitting projects' })).toBeVisible();
-    await expect(page.url()).toContain(webSiteUrl)
+    await expect(page.url()).toContain(webSiteUrl);
     await page.locator("//*[text()='Submit your request']").click();
     await expect(page.locator("//*[text()='Request for Repair']")).toBeVisible();
     await expect(page.url()).toContain(webStoreUrl); await page.goBack()
     await page.locator("//*[text()='Explore all posts']").scrollIntoViewIfNeeded();
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
-    await page.goBack();
+    await page.goto(webSiteUrl+'services/contract-manufacturing/')
     await page.getByRole('link', { name: 'LIght Mechanical, Pneumatic,' }).click();
     await expect(page.locator('p').filter({ hasText: /^Pre-Assembled Industrial Components$/ })).toBeVisible();
     await expect(page.url()).toContain(webSiteUrl)
@@ -57,7 +57,7 @@ test('Header Services', async ({ page }) => {
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
     await page.goBack();
     await expect(page.locator("//*[text()='People trust Innovative IDM. Why?']")).toBeVisible();
-    await page.goto('https://stagingiidm.wpengine.com/');
+    await page.goto(webSiteUrl);
     //System Integration at Services header dropdown
     await page.getByRole('link', { name: 'Services ' }).hover();
     await page.locator('#menu-item-2094').getByRole('link', { name: 'System Integration' }).click();
@@ -132,7 +132,7 @@ test('Header Services', async ({ page }) => {
     await expect(page.url()).toContain(webStoreUrl); await page.goBack();
     await page.locator("//*[text()='Explore all posts']").scrollIntoViewIfNeeded();
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
-    await page.goBack();
+    await page.goto(webSiteUrl);
     //What we repair at services dropdown
     await page.getByRole('link', { name: 'Services ' }).hover();
     await page.locator('#menu-item-2423').getByRole('link', { name: 'What We Repair' }).click();
