@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test"
 const webSiteUrl = 'https://stagingiidm.wpengine.com/';
 const webStoreUrl = 'https://staging-store.iidm.com/';
 
-test('Header Services', async ({ page }) => {
+test('Header Services Links', async ({ page }) => {
     await page.goto(webSiteUrl);
     await expect(page.getByText('Accept All', { exact: true })).toBeVisible();
     await page.getByText('Accept All', { exact: true }).click();
