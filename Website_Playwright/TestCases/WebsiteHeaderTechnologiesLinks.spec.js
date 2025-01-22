@@ -5,7 +5,7 @@ const helper = new PageHelper();
 const webSiteUrl = 'https://stagingiidm.wpengine.com/';
 const webStoreUrl = 'https://staging-store.iidm.com/';
 
-test('Header Technologies', async ({ page }) => {
+test('Header Technologies Links', async ({ page }) => {
     await page.goto(webSiteUrl);
     await expect(page.getByText('Accept All', { exact: true })).toBeVisible();
     await page.getByText('Accept All', { exact: true }).click();
