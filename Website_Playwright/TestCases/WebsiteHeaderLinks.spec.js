@@ -1,60 +1,91 @@
 import test, { expect } from "@playwright/test";
-import PageHelper from "./UsedFunction";
-const helper = new PageHelper()
+const webSiteUrl = 'https://stagingiidm.wpengine.com/';
+const webStoreUrl = 'https://staging-store.iidm.com/';
 
 test('Website Header Links', async ({ page }) => {
-    await page.goto('https://stagingiidm.wpengine.com/');
+    await page.goto(webSiteUrl);
     await expect(page.getByText('Accept All', { exact: true })).toBeVisible();
     await page.getByText('Accept All', { exact: true }).click();
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Absolute Encoders' }).click();
-    await expect(page.getByRole('heading', { name: 'Absolute Encoders' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.locator('#mega-menu-item-16069').getByRole('link', { name: 'AC Drives' }).click();
-    await expect(page.getByRole('heading', { name: 'AC Drives' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Actuators' }).click();
-    await expect(page.getByRole('heading', { name: 'Actuators' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Air Dryers & Main Line Filters' }).click();
-    await expect(page.getByRole('heading', { name: 'Air Dryers & Main Line Filters' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Airline Equipment' }).click();
-    await expect(page.getByRole('heading', { name: 'Airline Equipment' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Angle encoders' }).click();
-    await expect(page.getByRole('heading', { name: 'Angle encoders' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Automatic Doors and Platform' }).click();
-    await expect(page.getByRole('heading', { name: 'Automatic Doors and Platform' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Automation technology' }).click();
-    await expect(page.getByRole('heading', { name: 'Automation technology' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Back Panels' }).click();
-    await expect(page.getByRole('heading', { name: 'Back Panels' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'Bearings' }).click();
-    await expect(page.getByRole('heading', { name: 'Bearings' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.onHover(page, 'Products', 1)
-    await page.getByRole('link', { name: 'See more categories' }).click();
-    await expect(page.getByRole('heading', { name: 'All Categories' })).toBeVisible();
-    await helper.goBackToHomePage(page)
-    await helper.prodManfsLinks(page, 'Products');
-    await helper.goBackToHomePage(page)
-    //Manufacturer links at header
-    await helper.headerManifacturerLinks(page);
-    await helper.goBackToHomePage(page)
-    await helper.prodManfsLinks(page, 'Manufacturers')
-    await helper.goBackToHomePage(page);
+    await page.locator("//*[text()='Products']").first().hover();
+    await page.locator("//*[text()='Products']").first().click();
+    await expect(page.getByText('Products Overview', { exact: true })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl);
+    await page.locator("//*[text()='Explore all posts']").scrollIntoViewIfNeeded();
+    await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
+    await page.goBack();
+    await page.getByRole('link', { name: 'Manufacturers ' }).hover();
+    await page.getByRole('link', { name: 'Manufacturers ' }).click();
+    await expect(page.getByRole('heading', { name: 'Our recommended manufacturers' })).toBeVisible();
+    await expect(page.url()).toContain(webStoreUrl); await page.goBack();
+    await page.getByRole('link', { name: 'Services ' }).hover();
+    await page.getByRole('link', { name: 'Services ' }).click();
+    await page.getByRole('link', { name: 'Submit your service request ' }).click();
+    await expect(page.getByRole('heading', { name: 'Request for Repair' })).toBeVisible();
+    await expect(page.url()).toContain(webStoreUrl); await page.goBack();
+    await page.getByRole('link', { name: 'Industrial Electronic Repairs' }).click();
+    await expect(page.getByRole('heading', { name: 'Get quotation for repair' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.getByRole('heading', { name: 'Industrial Field Service' }).getByRole('link').click();
+    await expect(page.getByRole('heading', { name: 'Our industrial field service' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.getByRole('heading', { name: 'Contract Manufacturing' }).click();
+    await expect(page.getByRole('heading', { name: 'People trust Innovative IDM.' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.getByRole('link', { name: 'Systems Integration' }).click();
+    await expect(page.getByRole('heading', { name: 'Our automation system' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.getByRole('link', { name: 'Technologies ' }).hover();
+    await page.getByRole('link', { name: 'Technologies ' }).click();
+    await page.getByRole('link', { name: 'Let us know about your' }).click();
+    await expect(page.getByRole('heading', { name: 'Let us know' })).toBeVisible();
+    await expect(page.getByPlaceholder('Your Phone number')).toBeVisible();
+    await expect(page.getByPlaceholder('Your Email')).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(4) > .bt_bb_link').first().click();
+    await expect(page.getByRole('heading', { name: 'Sensors and Vision' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(2) > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').first().click();
+    await expect(page.getByRole('heading', { name: 'Featured Omron safety products' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(3) > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').first().click();
+    await expect(page.getByRole('heading', { name: 'Motion control technology' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(2) > .bt_bb_row > div > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').first().click();
+    await expect(page.getByRole('heading', { name: 'Efficient control with PLCs' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(2) > .bt_bb_row > div:nth-child(2) > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').click();
+    await expect(page.getByRole('heading', { name: 'Four Scenarios for Cobots' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(2) > .bt_bb_row > div:nth-child(3) > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').click();
+    await expect(page.getByRole('heading', { name: 'Pneumatic solutions for your' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(3) > .bt_bb_row > div > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').first().click();
+    await expect(page.getByRole('heading', { name: 'Featured VFD Products' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.locator('div:nth-child(3) > .bt_bb_row > div:nth-child(2) > .bt_bb_column_content > .bt_bb_column_content_inner > .bt_bb_button > .bt_bb_link').click();
+    await expect(page.getByRole('heading', { name: 'Aluminum Extrusion uses' })).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goto(webSiteUrl);
+    await page.getByRole('link', { name: 'About ' }).hover();
+    await page.getByRole('link', { name: 'About ' }).click();
+    await expect(page.getByRole('heading', { name: 'The Innovative-IDM Story' })).toBeVisible();
+    await page.getByRole('link', { name: 'Let us know about your' }).click();
+    await expect(page.getByRole('heading', { name: 'Let us know' })).toBeVisible();
+    await expect(page.getByPlaceholder('Your Phone number')).toBeVisible();
+    await expect(page.getByPlaceholder('Your Email')).toBeVisible();
+    await expect(page.url()).toContain(webSiteUrl); await page.goBack();
+    await page.getByRole('heading', { name: 'President, CEO, and Co-Founder' }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('heading', { name: 'President, CEO, and Co-Founder' })).toBeVisible();
+    await page.getByRole('heading', { name: 'Chicago Branch Manager and Co-Founder' }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('heading', { name: 'Chicago Branch Manager and Co-Founder' })).toBeVisible();
+    await page.getByRole('heading', { name: 'VP of Operations and Co-Founder' }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole('heading', { name: 'VP of Operations and Co-Founder' })).toBeVisible();
+    await page.goto(webSiteUrl);
+    await page.getByRole('link', { name: 'Submit Repair' }).hover();
+    await page.getByRole('link', { name: 'Submit Repair' }).click();
+    await expect(page.getByRole('heading', { name: 'Request for Repair' })).toBeVisible();
+    await expect(page.url()).toContain(webStoreUrl); await page.goBack();
+    await page.getByRole('link', { name: 'Quote Request' }).hover();
+    await page.getByRole('link', { name: 'Quote Request' }).click();
+    await expect(page.getByRole('heading', { name: 'Request for Quote' })).toBeVisible();
+    await expect(page.url()).toContain(webStoreUrl); await page.goBack();
 })
