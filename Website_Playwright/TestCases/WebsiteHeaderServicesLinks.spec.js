@@ -43,7 +43,7 @@ test('Header Services Links', async ({ page }) => {
     await expect(page.url()).toContain(webStoreUrl); await page.goBack()
     await page.locator("//*[text()='Explore all posts']").scrollIntoViewIfNeeded();
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
-    await page.goto(webSiteUrl+'services/contract-manufacturing/')
+    await page.goto(webSiteUrl + 'services/contract-manufacturing/')
     await page.getByRole('link', { name: 'LIght Mechanical, Pneumatic,' }).click();
     await expect(page.locator('p').filter({ hasText: /^Pre-Assembled Industrial Components$/ })).toBeVisible();
     await expect(page.url()).toContain(webSiteUrl)
@@ -137,7 +137,7 @@ test('Header Services Links', async ({ page }) => {
     await page.getByRole('link', { name: 'Services ' }).hover();
     await page.locator('#menu-item-2423').getByRole('link', { name: 'What We Repair' }).click();
     await expect(page.getByRole('heading', { name: 'AC/DC drives • Power Supplies' })).toBeVisible();
-    await expect(page.url()).toContain(webStoreUrl);
+    await expect(page.url()).toContain(webSiteUrl);
     await page.locator("//*[text()='Submit your repair']").nth(0).click();
     await expect(page.locator("//*[text()='Request for Repair']")).toBeVisible();
     await expect(page.url()).toContain(webStoreUrl); await page.goBack();
