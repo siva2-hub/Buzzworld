@@ -9,7 +9,16 @@ test('Header About Links', async ({ page }) => {
     await page.getByText('Accept All', { exact: true }).click();
     await page.getByRole('link', { name: 'About ' }).hover();
     await page.locator('#menu-item-2524').getByRole('link', { name: 'Careers' }).click();
-    await expect(page.getByRole('link', { name: 'View current openings' })).toBeVisible();
+    const viewCurrentOpenings = page.getByRole('link', { name: 'View current openings' });
+    await expect(viewCurrentOpenings).toBeVisible();
+    const page1Promise = page.waitForEvent('popup');
+    await viewCurrentOpenings.hover(); await viewCurrentOpenings.click();
+    const page1 = await page1Promise;
+    await expect(page1.locator('#jobs-list-container')).toContainText('Not Finding What You\'re Looking For?');
+    await expect(page1.getByRole('paragraph')).toContainText('Share your information and we will contact you if new opportunities fitting your qualifications become available');
+    await expect(page1).toHaveURL('https://recruiting.paylocity.com/recruiting/jobs/All/8facb93f-170f-4862-a611-885c813b9ca3/Innovative-IDM-LLC');
+    await page.waitForTimeout(1500);
+    await page1.close();
     await expect(page.url()).toContain(webSiteUrl)
     await page.locator("//*[text()='Explore all posts']").scrollIntoViewIfNeeded();
     await expect(page.locator("//*[text()='Explore all posts']")).toBeVisible();
