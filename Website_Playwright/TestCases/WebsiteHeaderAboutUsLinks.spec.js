@@ -9,7 +9,8 @@ test('Header About Links', async ({ page }) => {
     await page.getByText('Accept All', { exact: true }).click();
     await page.getByRole('link', { name: 'About ' }).hover();
     await page.locator('#menu-item-2524').getByRole('link', { name: 'Careers' }).click();
-    const viewCurrentOpenings = page.getByRole('link', { name: 'View current openings' });
+    const sectione1 = page.locator("(//section)[1]");
+    const viewCurrentOpenings = sectione1.getByRole('link', { name: 'View current openings' });
     await expect(viewCurrentOpenings).toBeVisible();
     const page1Promise = page.waitForEvent('popup');
     await viewCurrentOpenings.hover(); await viewCurrentOpenings.click();
