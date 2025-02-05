@@ -1,9 +1,11 @@
 import test, { expect } from "@playwright/test";
+import { consoleErrors, printConsoleErrors } from "./ConsoleErrors";
 
 const webSiteUrl = 'https://stagingiidm.wpengine.com/';
 const webStoreUrl = 'https://staging-store.iidm.com/';
 
 test('Header About Links', async ({ page }) => {
+    let errors = await consoleErrors(page);
     await page.goto(webSiteUrl);
     await expect(page.getByText('Accept All', { exact: true })).toBeVisible();
     await page.getByText('Accept All', { exact: true }).click();
@@ -56,4 +58,5 @@ test('Header About Links', async ({ page }) => {
     await expect(page.getByPlaceholder('Your Phone number')).toBeVisible();
     await expect(page.getByPlaceholder('Your Email')).toBeVisible();
     await expect(page.getByPlaceholder('Your Message')).toBeVisible();
+    await printConsoleErrors(errors);
 })
