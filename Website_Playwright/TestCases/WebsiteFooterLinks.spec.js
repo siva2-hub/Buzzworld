@@ -1,11 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const exp = require('constants');
 const { default: PageHelper } = require('./UsedFunction');
+const { consoleErrors, printConsoleErrors } = require('./ConsoleErrors');
 const helper = new PageHelper();
 const webSiteUrl = 'https://stagingiidm.wpengine.com/';
 const webStoreUrl = 'https://staging-store.iidm.com/';
 
 test('Home Page Footer Links', async ({ page }) => {
+    let errors = await consoleErrors(page);
     await page.goto(webSiteUrl)
     await page.waitForLoadState('load')
     await helper.onHover(page, 'Automation, Controls, Repairs & Service', 1)
@@ -212,5 +214,6 @@ test('Home Page Footer Links', async ({ page }) => {
     await page.getByRole('link', { name: 'Contact Information' }).click();
     await expect(page.getByText('Home / Contact Information')).toBeVisible();
     await helper.goBackToHomePage(page)
-    await page.waitForTimeout(2000)
+    await page.waitForTimeout(2000);
+    await printConsoleErrors(errors);
 })
